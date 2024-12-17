@@ -52,7 +52,8 @@ const Differentiators = () => {
   return (
     <>
       <div className='text-center px-8 md:px-44 sm:px-8'>
-        <Title title={title} />
+        <Title title={title} subtitle={subtitle} />
+        
       </div>
 
       {isLoading ? (
@@ -131,7 +132,7 @@ const Differentiators = () => {
                     className='w-10 h-10 object-contain' 
                   />
                 </div>
-                <h6 className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: differentiator.differentiators_title }} />
+                <h6 className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: differentiator.differentiators_differentiator_title }} />
               </div>
             ))}
           </div>
