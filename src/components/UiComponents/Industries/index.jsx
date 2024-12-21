@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import apiClient from "../../../api"; 
+import apiClient from "../../../api";
 import Title from "../../Title";
 
 const Industries = () => {
@@ -19,16 +19,24 @@ const Industries = () => {
   const nextRef = useRef(null);
 
   useEffect(() => {
-    const fetchIndustriesData = async () => {
+    const fetchTitleAndIndustries = async () => {
       try {
-        const response = await apiClient.get("home/industries/");
-        const industriesData = response.data;
+        const titleResponse = await apiClient.get("home/industry/");
+        const titleData = titleResponse.data;
 
-        if (industriesData.length > 0) {
-          setTitle(industriesData[0].title || "Industries");
-          setIndustries(industriesData);
+        if (titleData && titleData.length > 0) {
+          setTitle(titleData[0].title);
         } else {
           setTitle("<p>No Industries Available</p>");
+        }
+
+        const industriesResponse = await apiClient.get("home/industry-entries/");
+        const industriesData = industriesResponse.data;
+
+        if (industriesData.length > 0) {
+          setIndustries(industriesData);
+        } else {
+          setIndustries([]);
         }
       } catch (err) {
         setError("Failed to load industries data. Please try again.");
@@ -37,7 +45,7 @@ const Industries = () => {
       }
     };
 
-    fetchIndustriesData();
+    fetchTitleAndIndustries();
   }, []);
 
   useEffect(() => {
@@ -90,48 +98,42 @@ const Industries = () => {
             }}
             onSlideChange={() => console.log("slide change")}
           >
-            {industries.map((industry) =>
-              industry.entries && industry.entries.length > 0 ? (
-                industry.entries.map((entry, index) => (
-                  <SwiperSlide key={`${industry.id}-${index}`}>
-                    <Link to={entry.link}>
-                      <div className="relative flex flex-col items-center justify-center px-4 bg-white text-center h-[550px] sm:h-[550px] lg:h-[590px] overflow-hidden">
-                        <div className="absolute top-5 px-6 sm:px-6 lg:px-0">
-                          <div className="flex items-center mb-2">
-                            <h3 className="text-left text-2xl font-semibold text-black mr-4">
-                              {entry.title}
-                            </h3>
-                            <div className="flex-1 h-[4px] bg-[#00008E] rounded"></div>
-                          </div>
-
-                          <p className="text-left text-black">
-                            {entry.description}
-                          </p>
-                        </div>
-                        <div className="absolute bottom-0 flex flex-col items-center justify-center w-[370px] sm:w-[370px] md:w-[370px] lg:w-full">
-                          <div className="relative flex flex-col items-center justify-center w-full">
-                            <img
-                              src={entry.image}
-                              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                              alt={entry.title}
-                            />
-                          </div>
-                          <div className="absolute -top-4 -right-3 sm:-top-4 sm:-right-3 md:-top-2 md:-right-2 lg:-top-2 lg:-right-2 bg-gray-50 shadow-lg shadow-gray-500 py-2 px-3">
-                            <p className="lg:text-lg md:text-lg sm:text-sm">
-                              {entry.no}.
-                            </p>
-                          </div>
-                        </div>
+            {industries.map((entry, index) => (
+              <SwiperSlide key={`${entry.id}-${index}`}>
+                <Link to={entry.path_name}>
+                  <div className="relative flex flex-col items-center justify-center px-4 bg-white text-center h-[550px] sm:h-[550px] lg:h-[660px] overflow-hidden">
+                    <div className="absolute top-5 px-6 sm:px-6 lg:px-0">
+                      <div className="flex items-center mb-2 sm:mb-2 md:mb-4">
+                        <div 
+                          dangerouslySetInnerHTML={{ __html: entry.title }}
+                          className="text-left text-2xl font-semibold text-black mr-4"
+                        />
+                        <div className="flex-1 h-[4px] bg-[#00008E] rounded"></div>
                       </div>
-                    </Link>
-                  </SwiperSlide>
-                ))
-              ) : (
-                <div key={industry.id} className="text-center text-gray-500">
-                  No entries available
-                </div>
-              )
-            )}
+
+                      <div 
+                        dangerouslySetInnerHTML={{ __html: entry.description }}
+                        className="text-left text-black"
+                      />
+                    </div>
+                    <div className="absolute bottom-0 flex flex-col items-center justify-center w-[370px] sm:w-[370px] md:w-[370px] lg:w-full">
+                      <div className="relative top-0 flex flex-col items-center justify-center w-full">
+                        <img
+                          src={entry.image}
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
+                          alt={entry.title}
+                        />
+                      </div>
+                      <div className="absolute top-4 -right-3 sm:-top-4 sm:-right-3 md:-top-2 md:-right-2 lg:-top-2 lg:-right-2 bg-gray-50 shadow-lg shadow-gray-700 w-14 h-11 flex justify-center items-center">
+                        <p className="lg:text-lg md:text-lg sm:text-sm">
+                          {entry.entry_number}{"."}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
           </Swiper>
 
           <div className="flex justify-center mt-4 space-x-4 pt-8">

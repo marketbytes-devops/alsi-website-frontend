@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from "react";
-import Title from "../../../../components/Title";
 import apiClient from "../../../../api";
 
 const ChooseUs = () => {
   const [chooseUsData, setChooseUsData] = useState(null);
 
   useEffect(() => {
-    apiClient.get("/home/chooses/")
+    apiClient.get("home/chooses/")
       .then((response) => {
         if (response.data.length > 0) {
           setChooseUsData(response.data[0]); 
@@ -35,11 +34,11 @@ const ChooseUs = () => {
       <div className="w-full md:w-[60%] pt-2 sm:pt-2 md:pt-0 lg:pt-0">
         <div className="flex flex-wrap justify-center sm:justify-center md:justify-start lg:justify-start md:px-28 sm:px-0 mt-12 sm:mt-12 lg:mt-0 md:lg-0">
           <div className="text-center sm:text-center md:text-right lg:text-right xl:text-right">
-          <h2
+          <div
             className="mb-4" 
             dangerouslySetInnerHTML={{ __html: chooseUsData.title }} 
           />
-          <p 
+          <div
             className="pl-8 sm:pl-8 md:pl-36 lg:pl-36 xl:pl-36 pr-8 sm:pr-8 md:pr-0 lg:pr-0 xl:pr-0" 
             dangerouslySetInnerHTML={{ __html: chooseUsData.description }} 
           />

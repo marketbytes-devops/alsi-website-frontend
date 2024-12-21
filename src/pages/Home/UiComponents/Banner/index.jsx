@@ -25,7 +25,6 @@ const Banner = () => {
     return <p>Loading...</p>;
   }
 
-  // Helper function to remove HTML tags from a string
   const removeHtmlTags = (str) => {
     return str.replace(/<[^>]*>/g, "");
   };
@@ -34,16 +33,16 @@ const Banner = () => {
     <>
       <div className="hidden md:flex flex-col-reverse md:flex-row items-center md:items-start relative md:top-36 h-screen">
         <div className="z-40 md:w-[60%] w-full flex flex-col items-center md:items-start text-center md:text-left px-4 pt-4 md:px-20 md:pt-8">
-          <h1
+          <div
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: bannerData.title }}
             style={{ lineHeight: "95px" }}
           />
-          <h6
+          <div
             className="mb-6"
             dangerouslySetInnerHTML={{ __html: bannerData.subtitle }}
           />
-          <p
+          <div
             className="mb-6 w-[65%]"
             dangerouslySetInnerHTML={{ __html: bannerData.description }}
           />

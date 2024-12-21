@@ -11,55 +11,79 @@ import Title from '../../../../components/Title';
 const Differentiators = () => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const [differentiators, setDifferentiators] = useState([]);
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [differentiators, setDifferentiators] = useState([]);
+  const [isLoading, setIsLoading] = useState({ title: true, entries: true });
+  const [error, setError] = useState({ title: null, entries: null });
 
   useEffect(() => {
-    const fetchDifferentiators = async () => {
+    const fetchTitleAndSubtitle = async () => {
       try {
-        const response = await apiClient.get("home/differentiators/");
+        const response = await apiClient.get("home/differentiator/");
         const data = response.data;
-
         if (data.length > 0) {
           setTitle(data[0].title);
           setSubtitle(data[0].subtitle);
-          setDifferentiators(data[0].entries || []);
         } else {
           setTitle("No Differentiators Available");
         }
       } catch (err) {
-        setError("Failed to load differentiators. Please try again.");
+        setError(prev => ({ ...prev, title: "Failed to load title and subtitle. Please try again." }));
       } finally {
-        setIsLoading(false);
+        setIsLoading(prev => ({ ...prev, title: false }));
       }
     };
 
-    fetchDifferentiators();
+    fetchTitleAndSubtitle();
   }, []);
 
   useEffect(() => {
-    const swiper = document.querySelector(".swiper").swiper;
-    swiper.params.navigation.prevEl = prevRef.current;
-    swiper.params.navigation.nextEl = nextRef.current;
-    swiper.navigation.destroy();
-    swiper.navigation.init();
-    swiper.navigation.update();
+    const fetchDifferentiatorEntries = async () => {
+      try {
+        const response = await apiClient.get("home/differentiator-entries/");
+        setDifferentiators(response.data || []);
+      } catch (err) {
+        setError(prev => ({ ...prev, entries: "Failed to load differentiator entries. Please try again." }));
+      } finally {
+        setIsLoading(prev => ({ ...prev, entries: false }));
+      }
+    };
+
+    fetchDifferentiatorEntries();
   }, []);
+
+  useEffect(() => {
+    const swiper = document.querySelector(".swiper")?.swiper;
+    if (swiper) {
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.params.navigation.nextEl = nextRef.current;
+      swiper.navigation.destroy();
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }
+  }, [differentiators]);
+
+  const removeHtmlTags = (str) => {
+    return str.replace(/<[^>]*>/g, "");
+  };
 
   return (
     <>
       <div className='text-center px-8 md:px-44 sm:px-8'>
-        <Title title={title} subtitle={subtitle} />
-        
+        {isLoading.title ? (
+          <div>Loading title...</div>
+        ) : error.title ? (
+          <div className="text-red-500">{error.title}</div>
+        ) : (
+          <Title title={title} subtitle={subtitle} />
+        )}
       </div>
 
-      {isLoading ? (
-        <div className="text-center">Loading...</div>
-      ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
+      {isLoading.entries ? (
+        <div className="text-center">Loading entries...</div>
+      ) : error.entries ? (
+        <div className="text-center text-red-500">{error.entries}</div>
       ) : differentiators.length === 0 ? (
         <div className="text-center">No differentiators available</div>
       ) : (
@@ -86,19 +110,19 @@ const Differentiators = () => {
               }}
               className='my-6'
             >
-              {differentiators.map((differentiator) => (
-                <SwiperSlide key={differentiator.id} className='flex flex-col items-center'>
+              {differentiators.map((entry) => (
+                <SwiperSlide key={entry.id} className='flex flex-col items-center'>
                   <div 
                     className='rounded-full p-16 mt-4' 
                     style={{background: "radial-gradient(at left, #1d346e, #027eb4)"}}
                   >
                     <img 
-                      src={differentiator.image} 
-                      alt={differentiator.title} 
+                      src={entry.image} 
+                      alt={removeHtmlTags(entry.differentiator_title)} 
                       className='w-10 h-10 object-contain' 
                     />
                   </div>
-                  <h6 className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: differentiator.differentiators_title }} />
+                  <div className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
                 </SwiperSlide>
               ))}
               <div className="flex justify-center mt-4 space-x-4 pt-8">
@@ -117,9 +141,9 @@ const Differentiators = () => {
           </div>
 
           <div className='hidden sm:flex flex-col items-center sm:flex-row sm:flex-wrap sm:justify-center my-6'>
-            {differentiators.map((differentiator) => (
+            {differentiators.map((entry) => (
               <div 
-                key={differentiator.id} 
+                key={entry.id} 
                 className='flex flex-col items-center justify-center px-20 mt-8'
               >
                 <div 
@@ -127,12 +151,12 @@ const Differentiators = () => {
                   style={{background: "radial-gradient(at left, #1d346e, #027eb4)"}}
                 >
                   <img 
-                    src={differentiator.image} 
-                    alt={differentiator.title} 
+                    src={entry.image} 
+                    alt={removeHtmlTags(entry.differentiator_title)} 
                     className='w-10 h-10 object-contain' 
                   />
                 </div>
-                <h6 className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: differentiator.differentiators_differentiator_title }} />
+                <div className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
               </div>
             ))}
           </div>

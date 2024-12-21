@@ -10,7 +10,7 @@ const Footer = () => {
 
   const fetchRegions = async () => {
     try {
-      const response = await apiClient.get("home/footer/");
+      const response = await apiClient.get("layout/footer/");
       console.log("API Response:", response.data);
 
       if (Array.isArray(response.data)) {
@@ -35,8 +35,13 @@ const Footer = () => {
   }
 
   if (error) {
-    return <p className="text-red-500">{error}</p>;
+    return <p className="text-red-500 text-center">{error}</p>;
   }
+
+
+  const removeHtmlTags = (str) => {
+    return str.replace(/<[^>]*>/g, "");
+  };
 
   return (
     <footer className="bg-white text-zinc-800">
@@ -47,19 +52,19 @@ const Footer = () => {
         {footerData.regions.length > 0 ? (
           footerData.regions.map((region) => (
             <div key={region.id} className="flex-1 min-w-[200px] text-center font-normal">
-              <h2 className="text-lg font-bold mb-2">{region.location}</h2>
-              {region.company && <p className="mb-1">{region.company}</p>}
+              <div dangerouslySetInnerHTML={{ __html: region.location }} className="text-lg font-bold mb-2"/>
+              {region.company && <div dangerouslySetInnerHTML={{ __html: region.company }} className="mb-1.5"/>}
               {region.address?.split("\n").map((line, idx) => (
-                <p key={idx} className="mb-1">{line}</p>
+                <div key={idx} className="mb-1.5 w-60 mx-auto leading-8" dangerouslySetInnerHTML={{ __html: line}}/>
               ))}
               {region.contact?.split("\n").map((phone, idx) => (
-                <p key={idx} className="mb-1">
-                  <a href={`tel:${phone.replace(/\s+/g, '')}`}>{phone}</a>
+                <p key={idx} className="mb-1.5">
+                  <a href={`tel:${removeHtmlTags(phone.replace(/\s+/g, ''))}`} dangerouslySetInnerHTML={{__html: phone}}/>
                 </p>
               ))}
               {region.email && (
-                <p className="mb-1">
-                  <a href={`mailto:${region.email}`}>{region.email}</a>
+                <p className="mb-1.5 mt-3 sm:mt-3 md:mt-2 lg:mt-2 xl:mt-2">
+                  <a href={`mailto:${removeHtmlTags(region.email)}`} dangerouslySetInnerHTML={{__html: region.email}}/>
                 </p>
               )}
             </div>

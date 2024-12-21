@@ -47,12 +47,12 @@ const Banner = ({ image, title, date, time, currentUrl, showSocialMedia }) => {
         }}
       ></div>
       <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">
-        <h1 className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold">{title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: title}} className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"/>
       </div>
       <div className="absolute bottom-0 left-0 p-4 text-white">
         <p>
-          <span>{date}</span>
-          <span> {time}</span>
+          <span dangerouslySetInnerHTML={{__html: date}}/>
+          <span dangerouslySetInnerHTML={{__html: time}}/>
         </p>
       </div>
       {showSocialMedia && (

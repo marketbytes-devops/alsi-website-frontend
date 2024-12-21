@@ -9,15 +9,14 @@ const Network = () => {
 
   useEffect(() => {
     apiClient
-      .get("network/banner/")
+      .get("network/our-network-banner/")
       .then((response) => {
         if (response.data.length > 0) {
           const banner = response.data[0];
-          // Map API response fields to required component fields
+
           setBannerData({
             ...banner,
-            firstList: banner.first_list,
-            secondList: banner.second_list,
+            lists: banner.lists,
           });
         }
       })
@@ -40,20 +39,20 @@ const Network = () => {
       </div>
       <div>
         <div className="md:mx-28 lg:mx-28 mx-4 sm:mx-4 py-8 text-gray-800">
-          <h6 className="text-[15px] font-extrabold mb-4">
-            {bannerData.highlights}
-          </h6>
-          <p className="mb-4  text-[17.5px] font-light">
-            {bannerData.description}
-          </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li className="text-[17.5px] font-normal">
-              {bannerData.firstList}
-            </li>
-            <li className="text-[17.5px] font-normal">
-              {bannerData.secondList}
-            </li>
-          </ul>
+          <div
+            dangerouslySetInnerHTML={{ __html: bannerData.highlights }}
+            className="text-[15px] font-extrabold mb-4"
+          />
+          <div
+            dangerouslySetInnerHTML={{ __html: bannerData.description }}
+            className="mb-4 text-[17.5px] font-light"
+          />
+          <div className="space-y-2">
+              <div
+                dangerouslySetInnerHTML={{ __html: bannerData.lists }}
+                className="pl-8 text-[17.5px] font-normal"
+              />
+          </div>
           <p className="mt-6 text-[17.5px] font-light">
             {bannerData.conclusion}
           </p>

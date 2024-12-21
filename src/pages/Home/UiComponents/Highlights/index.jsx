@@ -17,16 +17,24 @@ const Highlights = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchHighlights = async () => {
+    const fetchTitleAndHighlights = async () => {
       try {
-        const response = await apiClient.get("home/highlights/"); 
-        const highlightsData = response.data;
+        const titleResponse = await apiClient.get("home/highlight/"); 
+        const titleData = titleResponse.data;
+
+        if (titleData && titleData.length > 0) {
+          setTitle(titleData[0].title);
+        } else {
+          setTitle("No Highlights Available");
+        }
+
+        const highlightsResponse = await apiClient.get("home/highlight-entries/"); 
+        const highlightsData = highlightsResponse.data;
 
         if (highlightsData.length > 0) {
-          setTitle(highlightsData[0].title);
-          setHighlights(highlightsData[0].entries || []); 
+          setHighlights(highlightsData);
         } else {
-          setTitle("<p>No Highlights Available</p>");
+          setHighlights([]);
         }
       } catch (err) {
         setError("Failed to load highlights. Please try again.");
@@ -35,7 +43,7 @@ const Highlights = () => {
       }
     };
 
-    fetchHighlights();
+    fetchTitleAndHighlights();
   }, []);
 
   useEffect(() => {
@@ -60,10 +68,10 @@ const Highlights = () => {
         <>
           <div className="md:flex hidden sm:hidden">
             <div className="relative left-36 top-36 p-4">
-              <h2 className="text-white">{title}</h2>
+              <div dangerouslySetInnerHTML={{ __html: title }} className="text-white text-4xl font-bold" />
             </div>
             <div className="flex justify-left flex-wrap py-20">
-            <div className="card w-[350px] h-[350px]"></div>
+              <div className="card w-[350px] h-[350px]"></div>
               {highlights.map((highlight) => (
                 <div
                   key={highlight.id}
@@ -82,7 +90,7 @@ const Highlights = () => {
                     >
                       <FontAwesomeIcon icon={faCheck} size="lg" className="text-white" />
                     </div>
-                    <h6 className="text-white text-lg font-extrabold mt-4">{highlight.title}</h6>
+                    <div className="text-white text-lg font-extrabold mt-4" dangerouslySetInnerHTML={{ __html: highlight.highlight_title }}/>
                   </div>
                 </div>
               ))}
@@ -91,7 +99,7 @@ const Highlights = () => {
 
           <div className="block sm:block md:hidden py-6">
             <div className="text-center pb-6">
-              <h2 className="text-white text-4xl font-bold">{title}</h2>
+              <div dangerouslySetInnerHTML={{ __html: title }} className="text-white text-4xl font-bold" />
             </div>
             <Swiper
               modules={[Navigation, A11y, Autoplay]}
@@ -128,7 +136,7 @@ const Highlights = () => {
                     >
                       <FontAwesomeIcon icon={faCheck} size="lg" className="text-white" />
                     </div>
-                    <h6 className="text-white text-lg font-bold mt-4">{highlight.title}</h6>
+                    <div dangerouslySetInnerHTML={{ __html: highlight.highlight_title }} className="text-white text-lg font-bold mt-4"/>
                   </div>
                 </SwiperSlide>
               ))}

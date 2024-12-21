@@ -40,7 +40,7 @@ const Network = () => {
           );
           setNetworkData(formattedData);
         } else {
-          setTitle("<p>No Network Available</p>");
+          setTitle("No Network Available");
         }
       } catch (error) {
         console.error("Failed to fetch networks data:", error);
@@ -61,7 +61,7 @@ const Network = () => {
         left: selectedCountry.position.left
       });
     } else {
-      setTooltipPosition({ top: "0%", left: "0%" });
+      setTooltipPosition({ top: "35%", left: "40%" });
     }
   };
 
