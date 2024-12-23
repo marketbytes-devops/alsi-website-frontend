@@ -5,7 +5,7 @@ export const useSocialLinks = () => {
   const [socialLinks, setSocialLinks] = useState({});
 
   useEffect(() => {
-    apiClient.get('/social/social-media/')
+    apiClient.get('/social-media/social-media-entries/')
       .then(response => {
         setSocialLinks(response.data[0]); 
       })

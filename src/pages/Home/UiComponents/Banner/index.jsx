@@ -33,16 +33,16 @@ const Banner = () => {
     <>
       <div className="hidden md:flex flex-col-reverse md:flex-row items-center md:items-start relative md:top-36 h-screen">
         <div className="z-40 md:w-[60%] w-full flex flex-col items-center md:items-start text-center md:text-left px-4 pt-4 md:px-20 md:pt-8">
-          <div
+          <h1
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: bannerData.title }}
             style={{ lineHeight: "95px" }}
           />
-          <div
+          <h6
             className="mb-6"
             dangerouslySetInnerHTML={{ __html: bannerData.subtitle }}
           />
-          <div
+          <p
             className="mb-6 w-[65%]"
             dangerouslySetInnerHTML={{ __html: bannerData.description }}
           />
@@ -77,15 +77,15 @@ const Banner = () => {
           />
         </div>
         <div className="z-40 w-full md:w-[60%] flex flex-col items-center md:items-start text-center md:text-left px-4 md:px-[4%]">
-          <div
+          <h1
             className="mb-3 text-center md:text-left"
             dangerouslySetInnerHTML={{ __html: bannerData.title }}
           />
-          <div
+          <h6
             className="mb-6 text-center md:text-left"
             dangerouslySetInnerHTML={{ __html: bannerData.subtitle }}
           />
-          <div
+          <p
             className="mb-6 text-center md:text-left"
             dangerouslySetInnerHTML={{ __html: bannerData.description }}
           />
