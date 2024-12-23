@@ -35,7 +35,7 @@ const ChooseUs = () => {
         <div className="flex flex-wrap justify-center sm:justify-center md:justify-start lg:justify-start md:px-28 sm:px-0 mt-12 sm:mt-12 lg:mt-0 md:lg-0">
           <div className="text-center sm:text-center md:text-right lg:text-right xl:text-right">
           <div
-            className="mb-4" 
+            className="mb-4 text-[#212529]" 
             dangerouslySetInnerHTML={{ __html: chooseUsData.title }} 
           />
           <div

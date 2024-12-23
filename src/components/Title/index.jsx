@@ -1,6 +1,6 @@
 import React from "react";
 
-const Title = ({ title, subtitle, color = "black" }) => {
+const Title = ({ title, subtitle, color = "#212529" }) => {
   return (
     <>
       <h2

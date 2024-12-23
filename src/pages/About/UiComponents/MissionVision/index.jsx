@@ -1,44 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import apiClient from "../../../../api";
-import Title from '../../../../components/Title';
+import Title from "../../../../components/Title";
 
 const MissionVision = () => {
   const [title, setTitle] = useState("Mission Vision Purpose");
   const [entries, setEntries] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoadingTitle, setIsLoadingTitle] = useState(true);
+  const [isLoadingEntries, setIsLoadingEntries] = useState(true);
+  const [errorTitle, setErrorTitle] = useState(null);
+  const [errorEntries, setErrorEntries] = useState(null);
 
   useEffect(() => {
-    const fetchMissionVision = async () => {
+    const fetchTitle = async () => {
       try {
-        const response = await apiClient.get("/about/mission-vision/");
+        const response = await apiClient.get("/about/mission/");
         const data = response.data;
 
-        if (data && data.length > 0 && data[0].entries) {
-          setTitle(data[0].title);  
-          setEntries(data[0].entries);  
+        if (data && data.length > 0 && data[0].title) {
+          setTitle(data[0].title); 
         } else {
-          setError("No mission, vision, or purpose available");
+          setErrorTitle("Title not available");
         }
       } catch (err) {
-        setError("Failed to load mission, vision, and purpose. Please try again.");
+        setErrorTitle("Failed to load title. Please try again.");
       } finally {
-        setIsLoading(false);
+        setIsLoadingTitle(false);
       }
     };
 
-    fetchMissionVision();
+    const fetchEntries = async () => {
+      try {
+        const response = await apiClient.get("/about/mission-entries/");
+        const data = response.data;
+
+        if (data && data.length > 0) {
+          setEntries(data);
+        } else {
+          setErrorEntries("No mission, vision, or purpose entries available");
+        }
+      } catch (err) {
+        setErrorEntries("Failed to load entries. Please try again.");
+      } finally {
+        setIsLoadingEntries(false);
+      }
+    };
+
+    fetchTitle();
+    fetchEntries();
   }, []);
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingTitle || isLoadingEntries ? (
         <div className="text-center text-white">Loading...</div>
-      ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
+      ) : errorTitle ? (
+        <div className="text-center text-red-500">{errorTitle}</div>
+      ) : errorEntries ? (
+        <div className="text-center text-red-500">{errorEntries}</div>
       ) : (
         <>
-          <Title title={title} />
+        <div className="pb-4">
+        <Title title={title} />
+        </div>
           <div className="flex flex-col md:flex-row md:justify-center md:space-x-6 space-y-6 md:space-y-0">
             {entries.map((entry) => (
               <div
@@ -49,13 +72,21 @@ const MissionVision = () => {
                   minHeight: "auto",
                 }}
               >
-                <img
-                  src={entry.image}
-                  alt={`${entry.title} image`}
-                  className="mt-4 h-16 w-16 object-cover"
+                {entry.image && (
+                  <img
+                    src={entry.image}
+                    alt={`${entry.title} image`}
+                    className="mt-4 h-16 w-16 object-cover"
+                  />
+                )}
+                <h2
+                  className="text-xl font-bold mt-4"
+                  dangerouslySetInnerHTML={{ __html: entry.title }}
                 />
-                <h2 className="text-xl font-bold mt-4">{entry.title}</h2>
-                <p className="mt-4">{entry.description}</p>
+                <p
+                  className="mt-4"
+                  dangerouslySetInnerHTML={{ __html: entry.description }}
+                />
               </div>
             ))}
           </div>

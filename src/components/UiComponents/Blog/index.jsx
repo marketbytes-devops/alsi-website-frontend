@@ -17,7 +17,7 @@ function truncateText(text, limit) {
 }
 
 const Blog = () => {
-  const [title, setTitle] = useState("Market Updates");
+  const [title_highlights, setTitle] = useState("Market Updates");
   const [posts, setPosts] = useState([]);
   const [blogUrl, setBlogUrl] = useState("/market_updates");
   const [loadingTitle, setLoadingTitle] = useState(true);
@@ -34,7 +34,7 @@ const Blog = () => {
         const response = await apiClient.get("market/blog-banner/");
         const banners = response.data;
         if (banners.length > 0) {
-          setTitle(banners[0].title);
+          setTitle(banners[0].title_highlights);
           setBlogUrl(banners[0].blog_url || "/market_updates");
         } else {
           setTitle("No Posts Available");
@@ -69,13 +69,12 @@ const Blog = () => {
     </div>
   );
 
-  // Assume that we want to show the latest 4 posts
   const latestPosts = posts.slice(0, 4);
 
   return (
     <div className="py-8" style={{ background: "linear-gradient(90deg, #193377, #0086bf)" }}>
       <div className="text-center mb-4">
-        <Title title={title} color="white" />
+        <Title title={title_highlights} color="white" />
       </div>
 
       <div className="px-4 py-6 mx-4 md:mx-32">
@@ -113,13 +112,13 @@ const Blog = () => {
                   ) : (
                     <div className="text-center text-gray-500">No image available</div>
                   )}
-                  <p className="text-lg font-bold p-2" dangerouslySetInnerHTML={{
+                  <p className="text-lg text-[#212529] font-bold p-2" dangerouslySetInnerHTML={{
                     __html: truncateText(post.blog_title, 95),
                   }}/>
-                  <p className="text-gray-700 font-medium text-sm mb-4 px-2" dangerouslySetInnerHTML={{
+                  <p className="text-[#212529] font-medium text-sm mb-4 px-2" dangerouslySetInnerHTML={{
                     __html: truncateText(post.description, 115),
                   }}/>
-                  <Link to={`/blog/${post.blog_slug}`} className="read-more-btn px-2">
+                  <Link to={`/blog/${post.blog_slug}`} className="text-[#212529] read-more-btn px-2">
                     Read More
                   </Link>
                 </div>
@@ -150,13 +149,13 @@ const Blog = () => {
                 <div className="text-center text-gray-500">No image available</div>
               )}
               <div className="p-3">
-                <p className="text-lg font-bold mb-2" dangerouslySetInnerHTML={{
+                <p className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
                     __html: truncateText(post.blog_title, 95),
                   }}/>
-                <p className="text-gray-700 font-medium text-sm sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8" dangerouslySetInnerHTML={{
+                <p className="text-[#212529] font-medium text-sm sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8" dangerouslySetInnerHTML={{
                     __html: truncateText(post.description, 115),
                   }}/>
-                <Link to={`/blog/${post.blog_slug}`} className="read-more-btn">
+                <Link to={`/market_updates/${post.blog_slug}/`} className="read-more-btn">
                   Read More
                 </Link>
               </div>

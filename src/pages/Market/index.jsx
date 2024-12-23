@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
-import blogBanner from "../../assets/images/Market/market.webp";
 import apiClient from "../../api";
 import Banner from "../../components/UiComponents/Banner";
 
@@ -11,11 +10,12 @@ const Market = () => {
   const [postsData, setPostsData] = useState([]); 
   const [title, setTitle] = useState("");
   const [blogBanner, setBlogBanner] = useState(null);
+  const [entriesData, setEntriesData] = useState([]); 
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await apiClient.get("blog/posts/"); 
+        const response = await apiClient.get("market/blog-banner/"); 
         setPostsData(response.data);
         setTitle(response.data[0]?.title || ""); 
         setBlogBanner(response.data[0].image || null);
@@ -24,6 +24,18 @@ const Market = () => {
       }
     };
     fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    const fetchEntries = async () => {
+      try {
+        const response = await apiClient.get("market/blog-entries/"); 
+        setEntriesData(response.data.reverse()); 
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchEntries();
   }, []);
 
   const indexOfLastPost = currentPage * postsPerPage;
@@ -47,20 +59,9 @@ const Market = () => {
     }
   };
 
-  const handleReadMore = (id, title, image) => {
-    navigate(`/market_updates/${id}`);
-  };  
-
-  function truncateDescription(text) {
-    if (typeof text !== 'string') {
-      return '';
-    }
-    const words = text.split(/\s+/);
-    if (words.length <= 16) {
-      return text;
-    }
-    return words.slice(0, 16).join(' ') + '...';
-  }
+  const handleReadMore = (blogSlug) => {
+    navigate(`/market_updates/${blogSlug}/`);
+  };
 
   const getPaginationButtons = () => {
     const buttons = [];
@@ -90,37 +91,49 @@ const Market = () => {
     return buttons;
   };
 
+  function truncateText(text, limit) {
+    if (typeof text !== "string") {
+      return "";
+    }
+    return text.length > limit ? text.slice(0, limit) + "..." : text;
+  }
+
   return (
     <>
       <div className="overflow-hidden">
         <Banner image={blogBanner} title={title} />
       </div>
       <div className="px-4 py-8 mx-6 mt-4 sm:mx-6 sm:mt-6 md:mx-20 md:mt-16 lg:mx-20 lg:mt-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="space-y-8">
           {currentPosts.map((post) => (
             <div
               key={post.id}
-              className="bg-white rounded-lg shadow-lg shadow-gray-300 hover:shadow-gray-400 hover:shadow-lg transition duration-300 overflow-hidden"
+              className="flex items-center justify-start space-x-8"
             >
-              {post.entries && post.entries.length > 0 ? (
-                post.entries.map((entry) => (
-                  <div key={entry.id}>
+              {entriesData && entriesData.length > 0 ? (
+                entriesData.map((entry) => (
+                  <div key={entry.id} className="w-80 h-auto bg-white hover:bg-gray-100 rounded-lg shadow-lg shadow-gray-300 hover:shadow-gray-400 hover:shadow-lg transition duration-300 overflow-hidden">
                     <img
                       src={entry.image}
-                      alt={entry.title}
+                      alt={entry.blog_title}
                       className="w-full rounded-[15px] h-48 object-cover p-2"
                     />
                     <div className="p-4">
-                    <h3 className="text-lg font-bold mb-2">{entry.title}</h3>
-                      <p className="text-gray-700 font-medium text-sm mb-4">
-                        {truncateDescription(entry.description)}
-                      </p>
-                      <button
-                          className="read-more-btn"
-                          onClick={() => handleReadMore(post.id, entry.title, entry.image)}  
-                        >
-                          Read More
-                      </button>
+                      <h3 className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
+                        __html: truncateText(entry.blog_title, 95),
+                      }}/>
+                      <div
+                        className="text-[#212529] font-medium text-sm mb-4"
+                        dangerouslySetInnerHTML={{
+                          __html: truncateText(entry.description, 115),
+                        }}
+                      />
+                    <button
+                      className="read-more-btn"
+                      onClick={() => handleReadMore(entry.blog_slug)}
+                    >
+                      Read More
+                    </button>
                     </div>
                   </div>
                 ))

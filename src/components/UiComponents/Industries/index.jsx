@@ -106,14 +106,14 @@ const Industries = () => {
                       <div className="flex items-center mb-2 sm:mb-2 md:mb-4">
                         <div 
                           dangerouslySetInnerHTML={{ __html: entry.title }}
-                          className="text-left text-2xl font-semibold text-black mr-4"
+                          className="text-left text-2xl font-semibold text-[#212529] mr-4"
                         />
                         <div className="flex-1 h-[4px] bg-[#00008E] rounded"></div>
                       </div>
 
                       <div 
                         dangerouslySetInnerHTML={{ __html: entry.description }}
-                        className="text-left text-black"
+                        className="text-left text-[#212529]"
                       />
                     </div>
                     <div className="absolute bottom-0 flex flex-col items-center justify-center w-[370px] sm:w-[370px] md:w-[370px] lg:w-full">

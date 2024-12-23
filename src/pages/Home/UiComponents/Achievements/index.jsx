@@ -88,7 +88,7 @@ const Achievements = () => {
               <div className="text-center mt-4">
                 {achievement.description ? (
                   <div
-                    className="text-xl font-extrabold"
+                    className="text-xl text-[#212529] font-extrabold"
                     dangerouslySetInnerHTML={{ __html: achievement.description }}
                   />
                 ) : (

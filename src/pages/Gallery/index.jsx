@@ -7,7 +7,7 @@ const Gallery = () => {
   const [bannerData, setBannerData] = useState(null);
 
   useEffect(() => {
-    apiClient.get("gallery/banner/")
+    apiClient.get("gallery/gallery-banner/")
       .then((response) => {
         if (response.data.length > 0) {
           setBannerData(response.data[0]); 

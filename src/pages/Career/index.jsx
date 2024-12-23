@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import careerBanner from "../../assets/images/Careers/careers-banner.webp"
 import CareerForm from '../../components/UiComponents/Form/CareerForm'
 import Banner from '../../components/UiComponents/Banner'
 import apiClient from '../../api'
@@ -8,7 +7,7 @@ const Career = () => {
   const [bannerData, setBannerData] = useState(null);
 
   useEffect(() => {
-    apiClient.get("careers/banner/")
+    apiClient.get("careers/careers-banner/")
       .then((response) => {
         if (response.data.length > 0) {
           setBannerData(response.data[0]); 

@@ -91,9 +91,9 @@ const Milestones = () => {
 
   return (
     <div className="overflow-hidden">
-      <div className="container mx-auto text-center h-full">
+      <div className="container text-[#212529] mx-auto text-center h-full">
         <h1 className="text-4xl font-extrabold">Celebrating 15 Years!</h1>
-        <p className="text-2xl font-light">Journey Through Milestones</p>
+        <p className="text-3xl font-light mt-2">Journey Through Milestones</p>
       </div>
       <div className="relative w-full mx-auto">
         <Marquee
@@ -171,14 +171,14 @@ const Milestones = () => {
                       <>
                         <h2
                           className={`text-2xl font-bold ${
-                            isEven ? "text-black" : "text-white"
+                            isEven ? "text-[#212529]" : "text-white"
                           }`}
                         >
                           {milestone.year}
                         </h2>
                         <h3
                           className={`text-sm font-medium ${
-                            isEven ? "text-black" : "text-white"
+                            isEven ? "text-[#212529]" : "text-white"
                           }`}
                         >
                           {milestone.title}

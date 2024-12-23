@@ -5,37 +5,60 @@ import Title from '../../../../components/Title';
 const Certification = () => {
   const [title, setTitle] = useState("Membership and Certifications");
   const [certifications, setCertifications] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoadingTitle, setIsLoadingTitle] = useState(true);
+  const [isLoadingCertifications, setIsLoadingCertifications] = useState(true);
+  const [errorTitle, setErrorTitle] = useState(null);
+  const [errorCertifications, setErrorCertifications] = useState(null);
 
   useEffect(() => {
-    const fetchCertifications = async () => {
+    const fetchTitle = async () => {
       try {
-        const response = await apiClient.get("/about/certifications/");
+        const response = await apiClient.get("/about/member/");
+        console.log('Title Response:', response.data); 
         const data = response.data;
-
-        if (data && data.length > 0 && data[0].entries) {
-          setTitle(data[0].title); 
-          setCertifications(data[0].entries); 
+        
+        if (data && data[0] && data[0].title) {
+          setTitle(data[0].title);
         } else {
-          setError("No certifications available");
+          setErrorTitle("Title not available");
         }
       } catch (err) {
-        setError("Failed to load certifications. Please try again.");
+        setErrorTitle("Failed to load title. Please try again.");
       } finally {
-        setIsLoading(false);
+        setIsLoadingTitle(false);
       }
     };
 
+    const fetchCertifications = async () => {
+      try {
+        const response = await apiClient.get("/about/member-entries/");
+        console.log('Certifications Response:', response.data); 
+        const data = response.data;
+
+        if (data && data.length > 0) {
+          setCertifications(data);
+        } else {
+          setErrorCertifications("No certifications available");
+        }
+      } catch (err) {
+        setErrorCertifications("Failed to load certifications. Please try again.");
+      } finally {
+        setIsLoadingCertifications(false);
+      }
+    };
+
+    fetchTitle();
     fetchCertifications();
   }, []);
 
   return (
     <>
-      {isLoading ? (
+      {isLoadingTitle || isLoadingCertifications ? (
         <div className="text-center text-white">Loading...</div>
-      ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
+      ) : errorTitle ? (
+        <div className="text-center text-red-500">{errorTitle}</div>
+      ) : errorCertifications ? (
+        <div className="text-center text-red-500">{errorCertifications}</div>
       ) : (
         <>
           <Title title={title} />

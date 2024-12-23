@@ -32,7 +32,7 @@ const Banner = () => {
   return (
     <>
       <div className="hidden md:flex flex-col-reverse md:flex-row items-center md:items-start relative md:top-36 h-screen">
-        <div className="z-40 md:w-[60%] w-full flex flex-col items-center md:items-start text-center md:text-left px-4 pt-4 md:px-20 md:pt-8">
+        <div className="z-40 text-[#212529] md:w-[60%] w-full flex flex-col items-center md:items-start text-center md:text-left px-4 pt-4 md:px-20 md:pt-8">
           <h1
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: bannerData.title }}
@@ -49,7 +49,7 @@ const Banner = () => {
           <div className="flex items-center justify-center md:justify-start">
             <Link
               to={removeHtmlTags(bannerData.link_url)}
-              className="text-black text-sm font-medium mr-3 flex items-center"
+              className="text-[#212529] text-sm font-medium mr-3 flex items-center"
             >
               {removeHtmlTags(bannerData.link_name)}
               <FontAwesomeIcon
@@ -92,7 +92,7 @@ const Banner = () => {
           <div className="flex justify-center md:justify-start">
             <Link
               to={removeHtmlTags(bannerData.link_url)}
-              className="text-black text-sm font-medium flex items-center"
+              className="text-[#212529] text-sm font-medium flex items-center"
             >
               {removeHtmlTags(bannerData.link_name)}
               <FontAwesomeIcon

@@ -38,7 +38,7 @@ const Network = () => {
         <Banner image={bannerData.image} title={bannerData.title} />
       </div>
       <div>
-        <div className="md:mx-28 lg:mx-28 mx-4 sm:mx-4 py-8 text-gray-800">
+        <div className="md:mx-28 lg:mx-28 mx-4 sm:mx-4 py-8 text-[#212529]">
           <div
             dangerouslySetInnerHTML={{ __html: bannerData.highlights }}
             className="text-[15px] font-extrabold mb-4"

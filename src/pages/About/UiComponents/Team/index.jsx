@@ -1,72 +1,99 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import teamBg from "../../../../assets/images/About/about-team.webp";
 import apiClient from "../../../../api";
-import Title from '../../../../components/Title';
+import Title from "../../../../components/Title";
 
 const Team = () => {
   const [title, setTitle] = useState("Our Team");
   const [teamEntries, setTeamEntries] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoadingTitle, setIsLoadingTitle] = useState(true);
+  const [isLoadingTeam, setIsLoadingTeam] = useState(true);
+  const [errorTitle, setErrorTitle] = useState(null);
+  const [errorTeam, setErrorTeam] = useState(null);
 
   useEffect(() => {
-    const fetchTeamMembers = async () => {
+    const fetchTitle = async () => {
       try {
         const response = await apiClient.get("/about/our-team/");
         const data = response.data;
 
-        if (data && data.length > 0 && data[0].entries) {
-          setTitle(data[0].title); 
-          setTeamEntries(data[0].entries); 
+        if (data && data.title) {
+          setTitle(data.title);
         } else {
-          setTitle("No Team Members Available");
+          setTitle("Our Team");
         }
       } catch (err) {
-        setError("Failed to load team members. Please try again.");
+        setErrorTitle("Failed to load title. Please try again.");
       } finally {
-        setIsLoading(false);
+        setIsLoadingTitle(false);
       }
     };
 
+    const fetchTeamMembers = async () => {
+      try {
+        const response = await apiClient.get("/about/our-team-entries/");
+        const data = response.data;
+
+        if (data && data.length > 0) {
+          setTeamEntries(data);
+        }
+      } catch (err) {
+        setErrorTeam("Failed to load team members. Please try again.");
+      } finally {
+        setIsLoadingTeam(false);
+      }
+    };
+
+    fetchTitle();
     fetchTeamMembers();
   }, []);
 
   return (
-    <div 
-      className="container mx-auto px-4 sm:px-4 md:px-12 lg:px-12 py-8" 
+    <div
+      className="container mx-auto px-4 sm:px-4 md:px-12 lg:px-12 py-8"
       style={{
-        background: `url(${teamBg})`, 
-        backgroundRepeat: "no-repeat", 
-        backgroundPosition: "center", 
-        backgroundSize: "cover"
+        background: `url(${teamBg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
       }}
     >
       <div className="text-center pb-4">
-        <Title title={title} color='white' />
+        {isLoadingTitle ? (
+          <div className="text-center text-white">Loading title...</div>
+        ) : errorTitle ? (
+          <div className="text-center text-red-500">{errorTitle}</div>
+        ) : (
+          <Title title={title} color="white" />
+        )}
       </div>
 
-      {isLoading ? (
-        <div className="text-center text-white">Loading...</div>
-      ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
+      {isLoadingTeam ? (
+        <div className="text-center text-white">Loading team members...</div>
+      ) : errorTeam ? (
+        <div className="text-center text-red-500">{errorTeam}</div>
       ) : teamEntries.length === 0 ? (
         <div className="text-center text-white">No team members available</div>
       ) : (
         <div className="flex flex-wrap -mx-4">
-          {teamEntries.map((entry, index) => (
-            <div key={entry.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6">
-              <div 
-                className="bg-white text-black hover:text-white shadow-lg p-4 text-center transition-all duration-300 hover:bg-gradient-to-b hover:from-[#2b4588] hover:to-[#009adb]"
-              >
+          {teamEntries.map((entry) => (
+            <div
+              key={entry.id}
+              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6"
+            >
+              <div className="bg-white text-[#212529] hover:text-white shadow-lg p-4 text-center transition-all duration-300 hover:bg-gradient-to-b hover:from-[#2b4588] hover:to-[#009adb]">
                 {/* {entry.image && (
-                  <img 
-                    src={entry.image} 
-                    alt={entry.name} 
-                    className="w-full h-auto object-cover mb-4" 
+                  <img
+                    src={entry.image}
+                    alt={entry.name}
+                    className="w-full h-auto object-cover mb-4"
                   />
                 )} */}
-                <h2 className="text-lg font-bold mb-2">{entry.name}</h2>
-                <p>{entry.position}</p>
+                <h2
+                  className="text-lg font-bold mb-2"
+                  dangerouslySetInnerHTML={{ __html: entry.name }}
+                />
+                <p dangerouslySetInnerHTML={{ __html: entry.position }} />
               </div>
             </div>
           ))}

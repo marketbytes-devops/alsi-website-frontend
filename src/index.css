@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body, hmtl {
+body {
   margin: 0;
   padding: 0;
 }
@@ -174,8 +174,6 @@ button:active{
 .input:focus {
   outline: none;
 }
-
-/* color - #212529 */
 
 ul {
   list-style: disc;

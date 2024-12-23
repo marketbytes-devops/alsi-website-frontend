@@ -1,14 +1,27 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
-import { postsData } from "../../../data/blogPost";
 import Banner from "../../../components/UiComponents/Banner";
 
 const MainMarket = () => {
   const { id } = useParams();
-  const post = postsData.find((p) => p.id === id);
+  const [post, setPost] = useState(null);
+  const [error, setError] = useState(null);
 
   const recentPostsRef = useRef(null);
   const blogContainerRef = useRef(null);
+
+  useEffect(() => {
+    axios
+      .get(`market/blog-entries/${id}`)
+      .then((response) => {
+        setPost(response.data);
+      })
+      .catch((err) => {
+        setError("Failed to load post data. Please try again.");
+        console.error(err);
+      });
+  }, [id]);
 
   useEffect(() => {
     const recentPostsObserver = new IntersectionObserver(
@@ -25,18 +38,26 @@ const MainMarket = () => {
       }
     );
 
-    recentPostsObserver.observe(recentPostsRef.current);
+    if (recentPostsRef.current) {
+      recentPostsObserver.observe(recentPostsRef.current);
+    }
 
     return () => {
-      recentPostsObserver.disconnect();
+      if (recentPostsRef.current) {
+        recentPostsObserver.disconnect();
+      }
     };
   }, []);
 
-  if (!post) {
-    return <div>Post not found. Please check the link.</div>;
+  if (error) {
+    return <div>{error}</div>;
   }
 
-  const currentBlogUrl = window.location.href; 
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
+  const currentBlogUrl = window.location.href;
 
   return (
     <div className="container mx-auto">
@@ -45,21 +66,23 @@ const MainMarket = () => {
         title={post.title}
         date={post.date || "No date available"}
         time={post.time || "No time available"}
-        currentUrl={currentBlogUrl} 
+        currentUrl={currentBlogUrl}
         showSocialMedia={true}
       />
       <div
         className="mx-3 sm:mx-3 md:mx-28 lg:mx-28 xl:mx-32 mt-2 sm:mt-2 md:mt-8 lg:mt-8 xl:mt-10"
         style={{ backgroundColor: "#efefef", padding: "30px" }}
       >
-        <h2 className="text-sm font-extrabold text-center">
-          {post.additionalContent.intro}
-        </h2>
+        {post?.additionalContent?.intro && (
+          <h2 className="text-sm font-extrabold text-center">
+            {post.additionalContent.intro}
+          </h2>
+        )}
       </div>
       <div className="flex flex-col md:flex-row mx-3 sm:mx-3 md:mx-28 lg:mx-28 xl:mx-32 mt-4 sm:mt-4 md:mt-8 lg:mt-8 xl:mt-10">
         <div className="md:w-1/2 pr-6" ref={blogContainerRef}>
           <div>
-            {post.additionalContent.details.map((detail, index) => (
+            {post?.additionalContent?.details?.map((detail, index) => (
               <div key={index}>
                 {detail.image && (
                   <img
@@ -104,7 +127,7 @@ const MainMarket = () => {
           <div className="sticky top-20 bg-gray-200 p-6 h-auto overflow-hidden">
             <h2 className="text-xl font-semibold text-primary">Recent Posts</h2>
             <div ref={recentPostsRef} className="overflow-y-auto h-full">
-              {post.recentPosts.map((recentPost, index) => (
+              {post?.recentPosts?.map((recentPost, index) => (
                 <div key={index} className="mt-4 bg-white p-4 space-y-4 rounded-lg shadow-md">
                   <img src={recentPost.image} alt={recentPost.title} />
                   <h3 className="text-lg font-bold text-secondary">{recentPost.title}</h3>

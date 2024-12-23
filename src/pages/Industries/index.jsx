@@ -10,7 +10,7 @@ const Industries = () => {
   const [bannerData, setBannerData] = useState(null);
 
   useEffect(() => {
-    apiClient.get("industry/banner/")
+    apiClient.get("industry/industry-banner/")
       .then((response) => {
         if (response.data.length > 0) {
           setBannerData(response.data[0]); 

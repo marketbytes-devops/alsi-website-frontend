@@ -123,7 +123,7 @@ const CareerForm = () => {
               ></textarea>
             </div>
             <div className="mb-4">
-              <label htmlFor="file" className="cursor-pointer flex items-center text-black pr-4 rounded bg-gray-100 border border-gray-300 w-full">
+              <label htmlFor="file" className="cursor-pointer flex items-center text-[#212529] pr-4 rounded bg-gray-100 border border-gray-300 w-full">
                 <span className="bg-gray-500 text-white py-2 px-4 rounded-sm">Choose File</span>
                 <span className="ml-4 truncate">{fileName}</span>
               </label>

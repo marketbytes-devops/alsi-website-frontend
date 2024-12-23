@@ -9,18 +9,8 @@ const MainIndustries = () => {
   useEffect(() => {
     const fetchIndustriesData = async () => {
       try {
-        const response = await apiClient.get('industry/industry-main/');
-        const formattedData = response.data.flatMap((industry) =>
-          industry.entries.map((entry, index) => ({
-            id: industry.id,
-            link: `/industries/${industry.id}`,
-            imageUrl: entry.image || '',
-            title: entry.title || '',
-            description: entry.description || '',
-            reverse: index % 2 === 1, 
-          }))
-        );
-        setIndustriesData(formattedData);
+        const response = await apiClient.get('industry/industry-entries/');
+        setIndustriesData(response.data); 
       } catch (error) {
         console.error('Failed to fetch industry data:', error);
       }
@@ -32,19 +22,14 @@ const MainIndustries = () => {
   return (
     <div>
       {industriesData.map((industry, index) => {
-        return industry.reverse ? (
-          <SecondLayout
-            key={index}
-            imageUrl={industry.imageUrl}
-            title={industry.title}
-            description={industry.description}
-          />
-        ) : (
-          <FirstLayout
-            key={index}
-            imageUrl={industry.imageUrl}
-            title={industry.title}
-            description={industry.description}
+        const LayoutComponent = index % 2 === 1 ? SecondLayout : FirstLayout;
+        
+        return (
+          <LayoutComponent
+            key={industry.id}  
+            imageUrl={industry.image || ''}
+            title={industry.title.replace(/<\/?p>/g, '')} 
+            description={industry.description.replace(/<\/?p>/g, '')} 
           />
         );
       })}

@@ -8,7 +8,7 @@ const Contact = () => {
   const [bannerData, setBannerData] = useState(null);
 
   useEffect(() => {
-    apiClient.get("contact/banner/")
+    apiClient.get("contact/contact-banner/")
       .then((response) => {
         if (response.data.length > 0) {
           setBannerData(response.data[0]); 

@@ -156,7 +156,7 @@ const Differentiators = () => {
                     className='w-10 h-10 object-contain' 
                   />
                 </div>
-                <div className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
+                <div className='mt-4 text-[16px] text-[#212529] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
               </div>
             ))}
           </div>
