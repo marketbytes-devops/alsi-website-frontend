@@ -29,7 +29,7 @@ const CareerForm = () => {
     formPayload.append("file", formData.file);
 
     try {
-      const response = await apiClient.post('careers/careers/', formPayload);
+      const response = await apiClient.post('careers/careers-form/', formPayload);
       console.log('Form submitted successfully:', response.data);
       resetForm();
     } catch (error) {

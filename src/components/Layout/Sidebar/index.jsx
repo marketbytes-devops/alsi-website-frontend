@@ -68,7 +68,7 @@ const Sidebar = ({ closeSidebar }) => {
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
-      transition={{ type: "spring", stiffness: 350, damping: 20 }}
+      transition={{ type: "spring", stiffness: 300, damping: 40 }}
     >
       <button
         className="absolute top-6 right-8 text-2xl"
