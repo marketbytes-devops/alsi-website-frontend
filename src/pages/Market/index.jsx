@@ -59,9 +59,32 @@ const Market = () => {
     }
   };
 
-  const handleReadMore = (blogSlug) => {
-    navigate(`/market_updates/${blogSlug}/`);
-  };
+  const handleReadMore = (blogSlug, blogImage, blogTitle, currentDate, currentTime, highlightBlog, blogContent, description) => {
+    if (!blogSlug) {
+      return;
+    }
+  
+    const selectedIndex = entriesData.findIndex(entry => entry.blog_slug === blogSlug);
+  
+    const recentPosts = [
+      entriesData[selectedIndex - 1],
+      entriesData[selectedIndex - 2],
+      entriesData[selectedIndex + 1]
+    ].filter(Boolean);
+  
+    navigate(`/market_updates/${blogSlug}/`, {
+      state: {
+        image: blogImage,
+        description: description || "No Description Available",
+        blogTitle: blogTitle || "No Title Available",
+        currentDate: currentDate || "No Date Available",
+        currentTime: currentTime || "No Time Available",
+        highlightBlog: highlightBlog || "No Highlights Available",
+        blogContent: blogContent || "No Content Available",
+        recentPosts: recentPosts, 
+      },
+    });
+  };  
 
   const getPaginationButtons = () => {
     const buttons = [];
@@ -106,10 +129,7 @@ const Market = () => {
       <div className="px-4 py-8 mx-6 mt-4 sm:mx-6 sm:mt-6 md:mx-20 md:mt-16 lg:mx-20 lg:mt-16">
         <div className="space-y-8">
           {currentPosts.map((post) => (
-            <div
-              key={post.id}
-              className="flex items-center justify-start space-x-8"
-            >
+            <div key={post.id} className="flex items-center justify-start space-x-8">
               {entriesData && entriesData.length > 0 ? (
                 entriesData.map((entry) => (
                   <div key={entry.id} className="w-80 h-auto bg-white hover:bg-gray-100 rounded-lg shadow-lg shadow-gray-300 hover:shadow-gray-400 hover:shadow-lg transition duration-300 overflow-hidden">
@@ -120,17 +140,17 @@ const Market = () => {
                     />
                     <div className="p-4">
                       <h3 className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
-                        __html: truncateText(entry.blog_title, 95),
+                        __html: truncateText(entry.blog_title, 92),
                       }}/>
                       <div
                         className="text-[#212529] font-medium text-sm mb-4"
                         dangerouslySetInnerHTML={{
-                          __html: truncateText(entry.description, 115),
+                          __html: truncateText(entry.description, 112),
                         }}
                       />
                     <button
                       className="read-more-btn"
-                      onClick={() => handleReadMore(entry.blog_slug)}
+                      onClick={() => handleReadMore(entry.blog_slug, entry.image, entry.main_title, entry.date, entry.time, entry.intro, entry.additional_content, entry.description)}
                     >
                       Read More
                     </button>

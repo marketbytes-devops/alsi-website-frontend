@@ -101,7 +101,7 @@ const Blog = () => {
           >
             {latestPosts.map((post) => (
               <SwiperSlide key={post.blog_slug}>
-                <div className="bg-white rounded-md overflow-hidden">
+                <div className="bg-white p-2 rounded-md overflow-hidden">
                   {post.image ? (
                     <img
                       src={post.image}
@@ -113,10 +113,10 @@ const Blog = () => {
                     <div className="text-center text-gray-500">No image available</div>
                   )}
                   <p className="text-lg text-[#212529] font-bold p-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.blog_title, 95),
+                    __html: truncateText(post.blog_title, 105),
                   }}/>
                   <p className="text-[#212529] font-medium text-sm mb-4 px-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.description, 115),
+                    __html: truncateText(post.description, 120),
                   }}/>
                   <Link to={`/blog/${post.blog_slug}`} className="text-[#212529] read-more-btn px-2">
                     Read More
@@ -150,10 +150,10 @@ const Blog = () => {
               )}
               <div className="p-3">
                 <p className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.blog_title, 95),
+                    __html: truncateText(post.blog_title, 90),
                   }}/>
                 <p className="text-[#212529] font-medium text-sm sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.description, 115),
+                    __html: truncateText(post.description, 105),
                   }}/>
                 <Link to={`/market_updates/${post.blog_slug}/`} className="read-more-btn">
                   Read More

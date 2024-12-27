@@ -8,7 +8,7 @@ import link from "../../assets/images/SocialMediaIcons/link.webp";
 import more from "../../assets/images/SocialMediaIcons/more.webp";
 import { useSocialLinks } from "../../hooks/useSocialLinks";
 
-const Banner = ({ image, title, date, time, currentUrl, showSocialMedia }) => {
+const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMedia, showMainTitle, showDateTime }) => {
   const socialLinks = useSocialLinks();
   
   const socialMedia = [
@@ -49,14 +49,27 @@ const Banner = ({ image, title, date, time, currentUrl, showSocialMedia }) => {
       <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">
         <div dangerouslySetInnerHTML={{ __html: title}} className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"/>
       </div>
-      <div className="absolute bottom-0 left-0 p-4 text-white">
-        <p>
-          <span dangerouslySetInnerHTML={{__html: date}}/>
-          <span dangerouslySetInnerHTML={{__html: time}}/>
-        </p>
-      </div>
+      {
+        showMainTitle && (
+          <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">
+          <div dangerouslySetInnerHTML={{ __html: mainTitle}} className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"/>
+          </div>
+        )
+      }
+      {
+        showDateTime && (
+          <div className="absolute bottom-3 left-20 p-4 text-white">
+          <p className="flex items-center justify-start">
+            <span dangerouslySetInnerHTML={{__html: date}}/>
+            <div className="pl-[4px]">
+            <span dangerouslySetInnerHTML={{__html: time}}/>
+            </div>
+          </p>
+        </div>
+        )
+      }
       {showSocialMedia && (
-        <div className="absolute bottom-0 right-0 p-4 flex space-x-4">
+        <div className="absolute bottom-3 right-20 p-4 flex space-x-4">
           {socialMedia.map(({ icon, url, onClick, external }, index) => (
             <a
               key={index}
@@ -83,10 +96,12 @@ const Banner = ({ image, title, date, time, currentUrl, showSocialMedia }) => {
 Banner.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string.isRequired,
+  mainTitle: PropTypes.string.isRequired,
   date: PropTypes.string,
   time: PropTypes.string,
   currentUrl: PropTypes.string.isRequired,
   showSocialMedia: PropTypes.bool,
+  showMainTitle: PropTypes.bool,
 };
 
 export default Banner;

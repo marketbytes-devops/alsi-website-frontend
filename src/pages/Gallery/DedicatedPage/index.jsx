@@ -1,4 +1,3 @@
-// DedicatedGalleryPage.jsx
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Banner from "../../../components/UiComponents/Banner";
@@ -19,7 +18,7 @@ const GalleryDedicatedPage = () => {
         if (!eventName) {
           throw new Error("Event name is missing");
         }
-        const response = await apiClient.get(`gallery/gallery/${eventName}/`);
+        const response = await apiClient.get(`gallery/gallery-entries/${eventName}/`);
         setGalleryItems(response.data);
       } catch (error) {
         console.error("Error fetching gallery item:", error);
@@ -30,7 +29,7 @@ const GalleryDedicatedPage = () => {
     };
 
     fetchGalleryItems();
-  }, [eventName]);
+}, [eventName]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,7 +49,7 @@ const GalleryDedicatedPage = () => {
 
   return (
     <div>
-      <Banner image={galleryItems?.banner_img} title={galleryItems?.title} />
+      <Banner image={galleryItems?.image} title={galleryItems?.main_title} />
       <div className="w-[98%] sm:w-[80%] mx-auto mb-5">
         <div className="flex justify-center gap-5">
           <button
@@ -77,42 +76,50 @@ const GalleryDedicatedPage = () => {
 
         {activeTab === "images" && (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-5">
-            {galleryItems?.images.map((image) => (
-              <div
-                key={image.id}
-                className="flex justify-center items-center"
-                onClick={() => handleImageClick(image)}
-              >
-                <img
-                  src={image.image}
-                  alt="Gallery"
-                  className="w-full h-36 object-cover rounded-md shadow-md cursor-pointer"
-                  loading="lazy"
-                />
-              </div>
-            ))}
+            {galleryItems?.images.length > 0 ? (
+              galleryItems?.images.map((image) => (
+                <div
+                  key={image.id}
+                  className="flex justify-center items-center"
+                  onClick={() => handleImageClick(image)}
+                >
+                  <img
+                    src={image.image}
+                    alt="Gallery"
+                    className="w-full h-36 object-cover rounded-md shadow-md cursor-pointer"
+                    loading="lazy"
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No images available</p>
+            )}
           </div>
         )}
 
         {activeTab === "videos" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
-            {galleryItems?.videos.map((video) => (
-              <div key={video.id} className="flex justify-center">
-                <a
-                  href={video.video_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex justify-center"
-                >
-                  <img
-                    src={video.thumbnail}
-                    alt="Video thumbnail"
-                    className="w-full h-36 object-cover rounded-md shadow-md cursor-pointer"
-                    loading="lazy"
-                  />
-                </a>
-              </div>
-            ))}
+            {galleryItems?.videos.length > 0 ? (
+              galleryItems?.videos.map((video) => (
+                <div key={video.id} className="flex justify-center">
+                  <a
+                    href={video.video_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex justify-center"
+                  >
+                    <img
+                      src={video.thumbnail}
+                      alt="Video thumbnail"
+                      className="w-full h-36 object-cover rounded-md shadow-md cursor-pointer"
+                      loading="lazy"
+                    />
+                  </a>
+                </div>
+              ))
+            ) : (
+              <p>No videos available</p>
+            )}
           </div>
         )}
 

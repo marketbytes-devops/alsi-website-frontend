@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import apiClient from "../../../api";
 
 const GalleryMain = () => {
@@ -10,7 +10,7 @@ const GalleryMain = () => {
   useEffect(() => {
     const fetchGalleryData = async () => {
       try {
-        const response = await apiClient.get("gallery/gallery/");
+        const response = await apiClient.get("gallery/gallery-entries/");
         setGalleryItems(response.data);
       } catch (error) {
         console.error("Error fetching gallery data:", error);
@@ -38,23 +38,26 @@ const GalleryMain = () => {
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 p-4 mb-4">
       {galleryItems
-        .filter((item) => item.path) 
+        .filter((item) => item.slug)  
         .map((item) => (
-          <Link to={`/gallery/${item.path}`} key={item.id}>
-          <div className="flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transform hover:scale-[1.03] transition-transform duration-300">
-            <img
-              src={item.banner_img}
-              alt={item.title}
-              className="w-full h-48 sm:h-56 object-cover"
-              loading="lazy"
-            />
-            <div className="p-4 text-center">
-              <h2 className="text-lg font-bold">{item.title}</h2>
-              <p className="text-zinc-500">({item.year})</p>
+          <Link to={`/gallery/${item.slug}`} key={item.id}>
+            <div className="flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transform hover:scale-[1.03] transition-transform duration-300">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-48 sm:h-56 object-cover"
+                loading="lazy"
+              />
+              <div className="p-4 text-center">
+                <h2
+                  className="text-lg font-bold"
+                  dangerouslySetInnerHTML={{ __html: item.title }} 
+                />
+                <p className="text-zinc-500">({item.year})</p>
+              </div>
             </div>
-          </div>
-        </Link>
-      ))}
+          </Link>
+        ))}
     </div>
   );
 };
