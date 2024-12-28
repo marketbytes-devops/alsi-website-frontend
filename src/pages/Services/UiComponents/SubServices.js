@@ -1,4 +1,3 @@
-// SubService.jsx
 import React from "react";
 import serviceImg from "../../../assets/images/Services/live-stock-clearance.webp";
 

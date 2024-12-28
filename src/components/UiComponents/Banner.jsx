@@ -51,7 +51,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
       </div>
       {
         showMainTitle && (
-          <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">
+          <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-10 xl:px-10">
           <div dangerouslySetInnerHTML={{ __html: mainTitle}} className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"/>
           </div>
         )

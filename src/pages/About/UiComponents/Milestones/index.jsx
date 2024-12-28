@@ -142,9 +142,9 @@ const Milestones = () => {
                             isEven ? timelineParnetWhite : timelineParnetBlue
                           })`,
                       position: "absolute",
-                      top: isEven ? "75px" : "-37.1px",
-                      left: isEven ? "-39.5px" : "34px",
-                      width: isEven ? "280px" : "190px",
+                      top: isEven ? "75px" : "-37px",
+                      left: isEven ? "-39.5px" : "36.5px",
+                      width: isEven ? "280px" : "150px",
                       height: isEven ? "70.6%" : "2%",
                       zIndex: 1
                     }}
