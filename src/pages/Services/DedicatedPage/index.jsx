@@ -1,47 +1,51 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import Services from '../../../components/UiComponents/Services';
-import { bannerImages, serviceContent } from '../../../data/servicesData';
-import SubService from '../UiComponents/SubServices';
-import Banner from '../../../components/UiComponents/Banner';
+import React, { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import Banner from "../../../components/UiComponents/Banner";
+import Services from "../../../components/UiComponents/Services";
+import Form from "../../../components/UiComponents/Form";
+import SubService from "../SubService";
+import Industries from "../../../components/UiComponents/Industries";
 
 const DedicatedPage = () => {
-  const { name } = useParams();
+  const { state } = useLocation();
+  const {
+    banner_image,
+    service_title = "No Title Available",
+    content_paragraphs = "No Content Available",
+  } = state || {};
 
-  if (!name) {
-    return <p>Service name is not defined.</p>;
-  }
+  const currentServiceUrl = window.location.href;
 
-  const toTitleCase = (str) => {
-    return str
-      .toLowerCase()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  };
-
-  const serviceTitle = toTitleCase(name.replace(/_/g, ' '));
-
-  const bannerImage = bannerImages[name] || 'defaultBanner';
-  const contentParagraphs = serviceContent[name]?.map((paragraph, index) => (
-    <p key={index}>{paragraph}</p>
-  )) || <p>Content for {serviceTitle} service.</p>;
+  useEffect(() => {
+    console.log("Service state received:", state);
+  }, [state]);
 
   return (
     <>
       <div className="flex flex-grow">
-        <Banner image={bannerImage} title={serviceTitle} />
+        <Banner
+          image={banner_image}
+          mainTitle={service_title}
+          currentUrl={currentServiceUrl}
+          showMainTitle={true}
+        />
       </div>
-      <div>
-        <p className="px-4 sm:px-4 md:px-28 lg:px-28 xl:px-32 space-y-4 my-12">
-          {contentParagraphs}
-        </p>
+      <div className="px-4 sm:px-4 md:px-28 lg:px-28 xl:px-28 space-y-4 my-12">
+        {content_paragraphs && (
+          <div dangerouslySetInnerHTML={{ __html: content_paragraphs }} />
+        )}
       </div>
-      <div className="">
+      <div className="w-full">
         <SubService />
       </div>
       <div className="">
-      <Services initialTitle="Other Services" excludeService={name} />
+        <Services initialTitle="Other Services" excludeService={name} />
+      </div>
+      <div className="space-y-4 my-12">
+        <Industries />
+      </div>
+      <div className="my-12">
+        <Form />
       </div>
     </>
   );

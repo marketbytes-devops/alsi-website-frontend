@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams, useLocation, Link } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { useLocation, Link } from "react-router-dom";
 import Banner from "../../../components/UiComponents/Banner";
 import Form from "../../../components/UiComponents/Form";
 
 const MainMarket = () => {
-  // const { blogSlug } = useParams();
-  const [error, setError] = useState(null);
   const { state } = useLocation(); 
   const {
     image,
@@ -19,11 +17,8 @@ const MainMarket = () => {
   } = state || {}; 
 
   useEffect(() => {
+    console.log("State received:", state);
   }, [state]);
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   const currentBlogUrl = window.location.href;
 

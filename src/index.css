@@ -195,3 +195,7 @@ ul {
 .ql-size-huge{
   font-size: 30px;
 }
+
+.primary-text {
+  color: #212529;
+}

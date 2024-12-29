@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { servicesData } from '../../data/servicesData';
 import Services from '../../components/UiComponents/Services';
 import Form from '../../components/UiComponents/Form';
 import Banner from '../../components/UiComponents/Banner';
@@ -34,7 +33,7 @@ const Industries = () => {
         <MainIndustries/>
       </div>
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
-        <Services servicesData={servicesData} />
+        <Services  />
       </div>
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <Form />

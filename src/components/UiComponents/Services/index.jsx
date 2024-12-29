@@ -42,8 +42,11 @@ const Services = ({ initialTitle, excludeService }) => {
           id: service.id,
           link: `/services/${service.link_url}`,
           image: service.image || "",
+          banner_image: service.banner_image || "",
           title: service.title || "",
+          service_title: service.service_title, 
           subtitle: service.subtitle || "",
+          content_paragraphs: service.content_paragraphs || "",
           link_url: service.link_url, 
         }));
         const filteredData = formattedData.filter(
@@ -103,7 +106,15 @@ const Services = ({ initialTitle, excludeService }) => {
           {servicesData.length > 0 ? (
             servicesData.map((service, index) => (
               <SwiperSlide key={index}>
-                <Link to={service.link}>
+                <Link
+                  to={service.link}
+                  state={{
+                    image: service.image,
+                    banner_image: service.banner_image,
+                    service_title: service.service_title,
+                    content_paragraphs: service.content_paragraphs,
+                  }}
+                >
                   <div className="relative p-6 bg-white text-center h-[300px] sm:h-[300px] md:h-[350px] lg:h-[350px] xl:h-[350px] hover:scale-[1.05] transition-transform duration-500 shadow-xl shadow-gray-300">
                     <div className="text-6xl flex items-center justify-center mb-4 py-8 relative top-0">
                       <img src={service.image} className="w-16 h-16" alt={service.title} />

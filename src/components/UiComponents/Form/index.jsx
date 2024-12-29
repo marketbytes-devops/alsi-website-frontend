@@ -22,7 +22,7 @@ const Form = () => {
     }
 
     try {
-      const response = await apiClient.post('contact/contact-us/', formData);
+      const response = await apiClient.post('contact/contact-form/', formData);
       console.log('Form submitted successfully:', response.data);
       resetForm();
     } catch (error) {
