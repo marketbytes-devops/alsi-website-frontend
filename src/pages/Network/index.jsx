@@ -34,10 +34,10 @@ const Network = () => {
 
   return (
     <div>
-      <div className="overflow-hidden mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
+      <div className="overflow-hidden mb-6 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <Banner image={bannerData.image} title={bannerData.title} />
       </div>
-      <div>
+      <div className="mb-6">
         <div className="md:mx-28 lg:mx-28 mx-4 sm:mx-4 py-8 text-[#212529]">
           <div
             dangerouslySetInnerHTML={{ __html: bannerData.highlights }}
@@ -58,7 +58,7 @@ const Network = () => {
           </p>
         </div>
       </div>
-      <div>
+      <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <OurNetwork />
       </div>
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">

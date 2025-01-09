@@ -14,6 +14,7 @@ import Careers from "./pages/Career";
 import GalleryDedicatedPage from "./pages/Gallery/DedicatedPage";
 import MainMarket from "./pages/Market/UiComponents/MainMarket";
 import SpecializedSetup from "./pages/Services/UiComponents/SpecializedSetup";
+import SpecializedDedicatedPage from "./pages/Services/UiComponents/SpecializedDedicatedPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
         children: [
           { path: ":name", element: <DedicatedPage /> },
           { path: "specialized_services", element: <SpecializedSetup /> },
+          { path: "specialized_services/:link_url", element: <SpecializedDedicatedPage /> }
         ],
       },
       { path: "/our_network", element: <OurNetwork /> },

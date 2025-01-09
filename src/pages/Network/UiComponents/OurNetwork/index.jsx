@@ -182,12 +182,6 @@ const OurNetwork = () => {
               </g>
             </svg>
           </div>
-          <div
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded shadow-lg"
-            style={{ opacity: 0.9 }}
-          >
-            Click here to explore {hoveredCountry}
-          </div>
         </div>
 
         <div className="w-full lg:w-1/2 text-left mt-8 lg:mt-0 space-y-6 px-8">

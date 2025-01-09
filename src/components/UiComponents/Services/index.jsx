@@ -81,7 +81,7 @@ const Services = ({ initialTitle, excludeService }) => {
   return (
     <>
       <div className="text-center mb-4 sm:mb-4 md:mb-8">
-        <Title title={title || "Our Services"} />
+        <Title title={title} />
       </div>
       <div className="relative lg:px-36 md:px-36 sm:px-4">
         <Swiper
@@ -144,7 +144,7 @@ const Services = ({ initialTitle, excludeService }) => {
             <p>No services available</p>
           )}
         </Swiper>
-        <div className="flex justify-center mt-4 space-x-4 pt-8">
+        <div className="flex justify-center pt-8 space-x-4">
           <button
             ref={prevRef}
             className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"

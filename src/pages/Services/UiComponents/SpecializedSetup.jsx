@@ -63,8 +63,10 @@ const SpecializedSetup = () => {
             <LayoutComponent
               key={specialized.id}
               imageUrl={specialized.image || ""}
-              title={<div dangerouslySetInnerHTML={{ __html: specialized.title }} />}
+              title={specialized.title.replace(/<\/?p>/g, "")}
               description={specialized.description.replace(/<\/?p>/g, "")}
+              showLink={true}
+              link_url={specialized.link_url}
             />
             </div>
           );

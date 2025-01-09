@@ -1,7 +1,10 @@
 import React from "react";
 import LRBg from "../../assets/images/Industries/lr-bg.webp";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-const FirstLayout = ({ imageUrl, title, description }) => {
+const FirstLayout = ({ imageUrl, title, description, showLink, link_url }) => {
   return (
     <div className="flex flex-col mb-10 md:flex-row">
       <div className="w-full md:w-1/2">
@@ -30,6 +33,13 @@ const FirstLayout = ({ imageUrl, title, description }) => {
             className="text-lg leading-relaxed"
             dangerouslySetInnerHTML={{ __html: description }}
           />
+          {showLink && (
+            <div className="flex items-center justify-start pt-4">
+            <Link to={link_url} className="flex items-center">
+              Read More <FontAwesomeIcon icon={faArrowRight} size="md" className="text-[#2044a2] bg-white hover:bg-[#2044a2] hover:text-[white] px-[11px] py-[10px] ml-4 rounded-full transition-all duration-300" />
+            </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
