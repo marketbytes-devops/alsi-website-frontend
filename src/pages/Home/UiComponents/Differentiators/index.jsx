@@ -140,15 +140,15 @@ const Differentiators = () => {
             </Swiper>
           </div>
 
-          <div className='hidden sm:flex flex-col items-center sm:flex-row sm:flex-wrap sm:justify-center my-6'>
+          <div className='hidden sm:grid grid-cols-1 text-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 my-6 mx-24'>
             {differentiators.map((entry) => (
               <div 
                 key={entry.id} 
-                className='flex flex-col items-center justify-center px-20 mt-8'
+                className='flex flex-col items-center justify-center'
               >
                 <div 
                   className='rounded-full p-8' 
-                  style={{background: "radial-gradient(at left, #1d346e, #027eb4)"}}
+                  style={{ background: "radial-gradient(at left, #1d346e, #027eb4)" }}
                 >
                   <img 
                     src={entry.image} 

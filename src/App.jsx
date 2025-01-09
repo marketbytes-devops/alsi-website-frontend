@@ -13,6 +13,7 @@ import ContactUs from "./pages/Contact";
 import Careers from "./pages/Career";
 import GalleryDedicatedPage from "./pages/Gallery/DedicatedPage";
 import MainMarket from "./pages/Market/UiComponents/MainMarket";
+import SpecializedSetup from "./pages/Services/UiComponents/SpecializedSetup";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,10 @@ const router = createBrowserRouter([
       { path: "/about_us", element: <About /> },
       {
         path: "/services",
-        children: [{ path: ":name", element: <DedicatedPage /> }],
+        children: [
+          { path: ":name", element: <DedicatedPage /> },
+          { path: "specialized_services", element: <SpecializedSetup /> },
+        ],
       },
       { path: "/our_network", element: <OurNetwork /> },
       { path: "/industries", element: <Industries /> },

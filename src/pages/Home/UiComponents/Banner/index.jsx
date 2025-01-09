@@ -32,7 +32,7 @@ const Banner = () => {
   return (
     <>
       <div className="hidden md:flex flex-col-reverse md:flex-row items-center md:items-start relative md:top-36 h-screen">
-        <div className="z-40 text-[#212529] md:w-[60%] w-full flex flex-col items-center md:items-start text-center md:text-left px-4 pt-4 md:px-20 md:pt-8">
+        <div className="z-30 text-[#212529] md:w-[60%] w-full flex flex-col items-center md:items-start text-center md:text-left px-4 pt-4 md:px-20 md:pt-8">
           <h1
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: bannerData.title }}

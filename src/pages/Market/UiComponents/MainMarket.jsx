@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Banner from "../../../components/UiComponents/Banner";
 import Form from "../../../components/UiComponents/Form";
 
@@ -24,6 +24,25 @@ const MainMarket = () => {
 
   const blogContainerRef = useRef(null);
 
+  const navigate = useNavigate();
+
+  const handleReadMore = (recentPost) => {
+    navigate(`/market_updates/${recentPost.blog_slug}/`, {
+      state: {
+        image: recentPost.image,
+        description: recentPost.description,
+        blogTitle: recentPost.main_title,
+        currentDate: recentPost.date,
+        currentTime: recentPost.time,
+        highlightBlog: recentPost.intro || "No Highlights Available",
+        blogContent: recentPost.additional_content || "No Content Available",
+        recentPosts: recentPosts
+      }
+    });
+  };
+
+  const cleanBlogContent = blogContent.replace(/<h6>\s*<br>\s*<\/h6>/g, "");
+
   return (
     <>
     <div className="container mb-6 sm:mb-6 md:mb-10 lg:mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
@@ -44,21 +63,21 @@ const MainMarket = () => {
         style={{ backgroundColor: "#efefef", padding: "30px" }}
       >
         {highlightBlog && (
-          <div dangerouslySetInnerHTML={{ __html: highlightBlog }} />
+          <div dangerouslySetInnerHTML={{ __html: highlightBlog }} className="font-extrabold"/>
         )}
       </div>
-      <div className="flex flex-col md:flex-row mx-3 sm:mx-3 md:mx-28 lg:mx-28 xl:mx-32 mt-4 sm:mt-4 md:mt-8 lg:mt-8 xl:mt-10" ref={blogContainerRef}>
+      <div className="flex flex-col md:flex-row mx-3 sm:mx-3 md:mx-28 lg:mx-28 xl:mx-32 mt-4 sm:mt-4 md:mt-6 lg:mt-6 xl:mt-6" ref={blogContainerRef}>
         <div className="md:w-1/2 pr-6 space-y-6">
           {description && (
             <div dangerouslySetInnerHTML={{ __html: description }} />
           )}
-          {blogContent && (
-            <div dangerouslySetInnerHTML={{ __html: blogContent }} />
-          )}
+            {cleanBlogContent && (
+              <div dangerouslySetInnerHTML={{ __html: cleanBlogContent }} className="space-y-1 custom-link-color" />
+            )}
         </div>
         <div className="md:w-1/2 mt-6 md:mt-0">
           <div className="sticky top-28 bg-[#EFEFEF] pt-6 px-4 h-auto overflow-hidden">
-            <h2 className="text-xl font-semibold text-[#212529] px-4">Recent Posts</h2>
+            <h2 className="text-lg font-bold text-[#212529] px-4">Recent Posts</h2>
             <div className="overflow-y-auto h-full">
               {recentPosts.length > 0 ? (
                 recentPosts.map((recentPost, index) => (
@@ -70,24 +89,12 @@ const MainMarket = () => {
                     <div className="text-lg font-bold text-[#212529] mb-2 mt-2
                     " dangerouslySetInnerHTML={{__html: recentPost.blog_title}}/>
                     <p className="text-muted-foreground pb-4" dangerouslySetInnerHTML={{__html: recentPost.description}}/>
-                    <Link 
-                      to={{
-                        pathname: `/market_updates/${recentPost.blog_slug}/`,
-                        state: {
-                          image: recentPost.image,
-                          description: recentPost.description,
-                          blogTitle: recentPost.blog_title,
-                          currentDate: recentPost.date,
-                          currentTime: recentPost.time,
-                          highlightBlog: recentPost.intro || "No Highlights Available",
-                          blogContent: recentPost.additional_content || "No Content Available",
-                          recentPosts: recentPosts
-                        }
-                      }}
+                    <button
+                      onClick={() => handleReadMore(recentPost)}
                       className="text-[13px] text-[#1a2e73] hover:text-blue-800 font-semibold"
                     >
                       Read More
-                    </Link>
+                    </button>
                   </div>
                 ))
               ) : (

@@ -77,10 +77,7 @@ const Team = () => {
       ) : (
         <div className="flex flex-wrap -mx-4">
           {teamEntries.map((entry) => (
-            <div
-              key={entry.id}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-6"
-            >
+            <div key={entry.id} className="w-full sm:w-1/2 md:w-1/3 px-3 mb-6">
               <div className="bg-white text-[#212529] hover:text-white shadow-lg p-4 text-center transition-all duration-300 hover:bg-gradient-to-b hover:from-[#2b4588] hover:to-[#009adb]">
                 {/* {entry.image && (
                   <img

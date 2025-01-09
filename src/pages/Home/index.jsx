@@ -37,7 +37,7 @@ const Home = () => {
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <Industries />
       </div>
-      <div className="mb-10 -mt-12 sm:-mt-12 md:mt-0 lg:mt-0">
+      <div className="mb-10 mt-12 sm:mt-12 md:mt-0 lg:mt-0">
         <Blog />
       </div>
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">

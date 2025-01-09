@@ -15,6 +15,7 @@ const Services = ({ initialTitle, excludeService }) => {
   const [servicesData, setServicesData] = useState([]);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     const fetchTitle = async () => {
@@ -62,15 +63,20 @@ const Services = ({ initialTitle, excludeService }) => {
   }, [excludeService]);
 
   useEffect(() => {
-    const swiper = document.querySelector(".swiper")?.swiper;
-    if (swiper && prevRef.current && nextRef.current) {
-      swiper.params.navigation.prevEl = prevRef.current;
-      swiper.params.navigation.nextEl = nextRef.current;
-      swiper.navigation.destroy();
-      swiper.navigation.init();
-      swiper.navigation.update();
-    }
-  }, [servicesData]);
+    const initializeNavigation = () => {
+      if (swiperRef.current?.swiper && prevRef.current && nextRef.current) {
+        const swiperInstance = swiperRef.current.swiper;
+        swiperInstance.params.navigation.prevEl = prevRef.current;
+        swiperInstance.params.navigation.nextEl = nextRef.current;
+        swiperInstance.navigation.init();
+        swiperInstance.navigation.update();
+      }
+    };
+
+    setTimeout(() => {
+      initializeNavigation();
+    }, 50); 
+  }, [servicesData]);  
 
   return (
     <>
@@ -79,6 +85,8 @@ const Services = ({ initialTitle, excludeService }) => {
       </div>
       <div className="relative lg:px-36 md:px-36 sm:px-4">
         <Swiper
+          ref={swiperRef}
+          key={servicesData.length}
           modules={[Navigation, A11y, Autoplay]}
           spaceBetween={0}
           slidesPerView={3}
@@ -113,6 +121,7 @@ const Services = ({ initialTitle, excludeService }) => {
                     banner_image: service.banner_image,
                     service_title: service.service_title,
                     content_paragraphs: service.content_paragraphs,
+                    link_url: service.link_url,
                   }}
                 >
                   <div className="relative p-6 bg-white text-center h-[300px] sm:h-[300px] md:h-[350px] lg:h-[350px] xl:h-[350px] hover:scale-[1.05] transition-transform duration-500 shadow-xl shadow-gray-300">

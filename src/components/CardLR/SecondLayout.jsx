@@ -11,9 +11,18 @@ const SecondLayout = ({ imageUrl, title, description }) => {
         />
       </div>
       <div className="w-full md:w-1/2 flex items-center justify-center">
-        <div className="text-left mx-4 md:mx-20 my-6 md:my-12" style={{ color: "#212529" }}>
-          <h6 className="font-bold mb-4">{title}</h6>
-          <p className="text-lg leading-relaxed">{description}</p>
+        <div
+          className="text-left mx-4 md:mx-20 my-6 md:my-12"
+          style={{ color: "#212529" }}
+        >
+          <div
+            className="font-bold mb-4"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
+          <div
+            className="text-lg leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ const Story = () => {
         </div>
 
         <div className="w-full flex flex-col items-left my-auto justify-center md:w-1/2 lg:w-1/2 pt-6 md:pt-0">
-          <div className="text-left text-2xl md:text-3xl font-semibold text-white mb-4" dangerouslySetInnerHTML={{__html: storyData.title}} />
+          <div className="text-left text-2xl md:text-3xl font-semibold text-white" dangerouslySetInnerHTML={{__html: storyData.title}} />
           <p className="text-left text-white my-4" dangerouslySetInnerHTML={{__html: storyData.description_first}} />
           <p className="text-left text-white my-4" dangerouslySetInnerHTML={{__html: storyData.description_second}} />
         </div>

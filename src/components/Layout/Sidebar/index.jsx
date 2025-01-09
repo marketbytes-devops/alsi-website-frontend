@@ -5,46 +5,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import SocialLink from "../../SocialLink";
 import Copyright from "../../Copyright";
-
-const link = {
-  items: [
-    { title: "Home", path: "/" },
-    { title: "About Us", path: "/about_us" },
-    {
-      title: "Services",
-      path: "/services",
-      subItems: [
-        { title: "Customs Clearance", path: "/services/customs_clearance" },
-        { title: "Road Freight", path: "/services/road_freight" },
-        { title: "Ocean Freight", path: "/services/ocean_freight" },
-        { title: "Air Freight", path: "/services/air_freight" },
-        { title: "Project Cargo Services", path: "/services/project_cargo_services" },
-        { title: "Warehousing and Distribution", path: "/services/warehouse_distribution" },
-        { title: "Vessel Agency", path: "/services/vessel_agency" },
-        { title: "Specialized Services", path: "/services/specialized_services" },
-      ],
-    },
-    { title: "Our Network", path: "/our_network" },
-    { title: "Industries", path: "/industries" },
-    { title: "Market Updates", path: "/market_updates" },
-    { title: "Gallery", path: "/gallery" },
-    { title: "Contact Us", path: "/contact_us" },
-    { title: "Careers", path: "/careers" },
-  ],
-};
+import apiClient from "../../../api";
 
 const Sidebar = ({ closeSidebar }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(null);
   const location = useLocation();
   const currentPath = location.pathname;
   const [isScrolled, setIsScrolled] = useState(false);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(true);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleDropdownToggle = (index) => {
@@ -56,11 +31,62 @@ const Sidebar = ({ closeSidebar }) => {
     closeSidebar();
   };
 
+  const stripHtml = (html) => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
+  };
+
   useEffect(() => {
-    if (isScrolled && !currentPath.startsWith('/services')) {
-      setTimeout(closeSidebarOnScroll, 50); 
+    if (isScrolled && !currentPath.startsWith("/services")) {
+      setTimeout(closeSidebarOnScroll, 50);
     }
   }, [isScrolled, currentPath]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await apiClient.get("service/services/");
+        const formattedServices = response.data.map((service) => ({
+          title: stripHtml(service.title || ""),
+          path: `/services/${service.link_url}`,
+          image: service.image || "",
+          banner_image: service.banner_image || "",
+          service_title: service.service_title,
+          subtitle: service.subtitle || "",
+          content_paragraphs: service.content_paragraphs || "",
+        }));
+        setServices(formattedServices);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  const link = {
+    items: [
+      { title: "Home", path: "/" },
+      { title: "About Us", path: "/about_us" },
+      {
+        title: "Services",
+        path: "/services/customs_clearance",
+        subItems: services,
+      },
+      { title: "Our Network", path: "/our_network" },
+      { title: "Industries", path: "/industries" },
+      { title: "Market Updates", path: "/market_updates" },
+      { title: "Gallery", path: "/gallery" },
+      { title: "Contact Us", path: "/contact_us" },
+      { title: "Careers", path: "/careers" },
+    ],
+  };
+
+  const isMarketActive = () => {
+    const marketRoutes = ["/market_updates", "/market_updates/"];
+    return marketRoutes.some((route) => location.pathname.startsWith(route));
+  };
 
   return (
     <motion.div
@@ -68,13 +94,17 @@ const Sidebar = ({ closeSidebar }) => {
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
-      transition={{ type: "spring", stiffness: 300, damping: 40 }}
+      transition={{ type: "spring", stiffness: 500, damping: 35 }}
     >
       <button
         className="absolute top-6 right-8 text-2xl"
         onClick={closeSidebar}
       >
-        <FontAwesomeIcon icon={faArrowRight} size="sm" style={{ color: "white" }} />
+        <FontAwesomeIcon
+          icon={faArrowRight}
+          size="sm"
+          style={{ color: "white" }}
+        />
       </button>
       <div className="flex flex-col h-full justify-center px-6 sm:px-12 overflow-y-auto">
         {link.items.map((item, index) =>
@@ -82,8 +112,14 @@ const Sidebar = ({ closeSidebar }) => {
             <div key={item.title} className="w-full overflow-y-auto">
               <button
                 className={`block text-sm text-white w-full text-left items-center justify-between px-3 py-3 hover:font-semibold border-b border-white border-opacity-25 ${
-                  currentPath === item.path ? "font-semibold" : ""
-                } ${isDropdownOpen !== null && isDropdownOpen !== index ? "opacity-50" : "opacity-100"}`}
+                  currentPath === item.path || isMarketActive()
+                    ? "font-semibold"
+                    : ""
+                } ${
+                  isDropdownOpen !== null && isDropdownOpen !== index
+                    ? "opacity-50"
+                    : "opacity-100"
+                }`}
                 onClick={() => handleDropdownToggle(index)}
               >
                 {item.title}
@@ -101,9 +137,16 @@ const Sidebar = ({ closeSidebar }) => {
                   {item.subItems.map((subItem) => (
                     <div key={subItem.title}>
                       <Link
-                        to={`/services/${subItem.title.toLowerCase().replace(/ /g, '_')}`}
-                        className={`block text-sm text-white px-3 py-3 hover:font-semibold border-b border-white border-opacity-25 ${
-                          currentPath === subItem.path ? "font-semibold" : ""
+                        to={subItem.path}
+                        state={{
+                          banner_image: subItem.banner_image,
+                          service_title: subItem.service_title,
+                          content_paragraphs: subItem.content_paragraphs,
+                        }}
+                        className={`block text-sm text-white px-3 py-3 hover:font-bold border-b border-white border-opacity-25 ${
+                          currentPath === item.path || isMarketActive()
+                            ? "font-bold"
+                            : ""
                         }`}
                       >
                         {subItem.title}
@@ -114,7 +157,12 @@ const Sidebar = ({ closeSidebar }) => {
               )}
             </div>
           ) : (
-            <div key={item.title} className={`${isDropdownOpen !== null ? "opacity-50" : "opacity-100"}`}>
+            <div
+              key={item.title}
+              className={`${
+                isDropdownOpen !== null ? "opacity-50" : "opacity-100"
+              }`}
+            >
               <Link
                 to={item.path}
                 className={`block text-sm text-white px-3 py-3 hover:font-bold border-b border-white border-opacity-25 ${
@@ -129,10 +177,7 @@ const Sidebar = ({ closeSidebar }) => {
         <div className="block justify-start absolute bottom-0 mt-10 px-3 py-3">
           <SocialLink />
           <div className="mt-2">
-          <Copyright
-            fontSize="9.5px" 
-            textColor="white"
-          />
+            <Copyright fontSize="9.5px" textColor="white" />
           </div>
         </div>
       </div>

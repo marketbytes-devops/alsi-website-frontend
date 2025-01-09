@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Title from "../../Title";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate hook
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -27,6 +27,7 @@ const Blog = () => {
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchTitle = async () => {
@@ -71,6 +72,45 @@ const Blog = () => {
 
   const latestPosts = posts.slice(0, 4);
 
+
+  const handleReadMore = (post) => {
+    if (!post.blog_slug) {
+      return;
+    }
+  
+    const selectedIndex = posts.findIndex((entry) => entry.blog_slug === post.blog_slug);
+  
+    const recentPosts = [];
+    for (let i = selectedIndex - 2; i <= selectedIndex + 1; i++) {
+      if (i >= 0 && i < posts.length && i !== selectedIndex) {
+        recentPosts.push(posts[i]);
+      }
+    }
+  
+    if (recentPosts.length < 3) {
+      const additionalPosts = posts.filter(
+        (entry, index) => !recentPosts.includes(entry) && index !== selectedIndex
+      );
+  
+      for (let i = 0; recentPosts.length < 3 && i < additionalPosts.length; i++) {
+        recentPosts.push(additionalPosts[i]);
+      }
+    }
+  
+    navigate(`/market_updates/${post.blog_slug}/`, {
+      state: {
+        image: post.image,
+        description: post.description || "No Description Available",
+        blogTitle: post.main_title || "No Title Available",
+        currentDate: post.date || "No Date Available",
+        currentTime: post.time || "No Time Available",
+        highlightBlog: post.intro || "No Highlights Available",
+        blogContent: post.additional_content || "No Content Available",
+        recentPosts: recentPosts.slice(0, 3), 
+      },
+    });
+  };
+
   return (
     <div className="py-8" style={{ background: "linear-gradient(90deg, #193377, #0086bf)" }}>
       <div className="text-center mb-4">
@@ -113,14 +153,17 @@ const Blog = () => {
                     <div className="text-center text-gray-500">No image available</div>
                   )}
                   <p className="text-lg text-[#212529] font-bold p-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.blog_title, 105),
+                    __html: truncateText(post.blog_title, 79),
                   }}/>
                   <p className="text-[#212529] font-medium text-sm mb-4 px-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.description, 120),
+                    __html: truncateText(post.description, 95),
                   }}/>
-                  <Link to={`/blog/${post.blog_slug}`} className="text-[#212529] read-more-btn px-2">
+                  <button
+                    className="text-[#212529] read-more-btn px-2"
+                    onClick={() => handleReadMore(post)} 
+                  >
                     Read More
-                  </Link>
+                  </button>
                 </div>
               </SwiperSlide>
             ))}
@@ -150,14 +193,17 @@ const Blog = () => {
               )}
               <div className="p-3">
                 <p className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.blog_title, 90),
+                    __html: truncateText(post.blog_title, 58),
                   }}/>
                 <p className="text-[#212529] font-medium text-sm sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.description, 105),
+                    __html: truncateText(post.description, 65),
                   }}/>
-                <Link to={`/market_updates/${post.blog_slug}/`} className="read-more-btn">
+                <button
+                  onClick={() => handleReadMore(post)} 
+                  className="read-more-btn"
+                >
                   Read More
-                </Link>
+                </button>
               </div>
             </div>
           ))}

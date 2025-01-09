@@ -8,14 +8,14 @@ import link from "../../assets/images/SocialMediaIcons/link.webp";
 import more from "../../assets/images/SocialMediaIcons/more.webp";
 import { useSocialLinks } from "../../hooks/useSocialLinks";
 
-const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMedia, showMainTitle, showDateTime }) => {
-  const socialLinks = useSocialLinks();
-  
+const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMedia, showMainTitle, showDateTime, backgroundPosition, backgroundSize, objectFit }) => {
+  const socialLinks = useSocialLinks() || {};
+
   const socialMedia = [
-    { icon: facebook, url: socialLinks.facebook, external: true },
-    { icon: instagram, url: socialLinks.instagram, external: true },
-    { icon: linkedin, url: socialLinks.linkedin, external: true },
-    { icon: twitter, url: socialLinks.twitter, external: true },
+    { icon: facebook, url: socialLinks.facebook || "#", external: true },
+    { icon: instagram, url: socialLinks.instagram || "#", external: true },
+    { icon: linkedin, url: socialLinks.linkedin || "#", external: true },
+    { icon: twitter, url: socialLinks.twitter || "#", external: true },
     {
       icon: link,
       onClick: (currentUrl) => {
@@ -36,14 +36,14 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
         }
       },
     },
-  ];
+  ];  
 
   return (
     <div className="relative w-full h-[400px] md:h-[450px] overflow-hidden">
       <div
         className="w-full h-full object-cover bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${image?.startsWith("http") ? image : `http://127.0.0.1:8000${image}`})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${image?.startsWith("http") ? image : `http://127.0.0.1:8000${image}`})`, backgroundPosition:`${backgroundPosition}`, backgroundSize:`${backgroundSize}`, backgroundRepeat:"no-repeat", objectFit:`${objectFit}`
         }}
       ></div>
       <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">
@@ -58,7 +58,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
       }
       {
         showDateTime && (
-          <div className="absolute bottom-3 left-20 p-4 text-white">
+          <div className="absolute bottom-6 sm:bottom-6 md:bottom-3 left-24 sm:left-24 md:left-20 lg:left-20 xl:left-20 p-4 text-white">
           <p className="flex items-center justify-start">
             <span dangerouslySetInnerHTML={{__html: date}}/>
             <div className="pl-[4px]">
@@ -69,7 +69,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
         )
       }
       {showSocialMedia && (
-        <div className="absolute bottom-3 right-20 p-4 flex space-x-4">
+        <div className="absolute bottom-0 sm:bottom-0 md:bottom-3 right-[84px] sm:right-[84px] md:right-20 lg:md:right-20 xl:md:right-20 p-4 flex space-x-4">
           {socialMedia.map(({ icon, url, onClick, external }, index) => (
             <a
               key={index}

@@ -63,7 +63,7 @@ const Industries = () => {
 
   return (
     <>
-      <div className="text-center pb-2 sm:pb-2 md:pb-2 lg:pb-4">
+      <div className="text-center pb-2 sm:pb-4 md:pb-0 lg:pb-0">
         <Title title={title} />
       </div>
 
@@ -101,30 +101,30 @@ const Industries = () => {
             {industries.map((entry, index) => (
               <SwiperSlide key={`${entry.id}-${index}`}>
                 <Link to={entry.path_name}>
-                  <div className="relative px-2 flex flex-col items-center justify-center bg-white text-center h-[550px] sm:h-[550px] lg:h-[660px] overflow-hidden">
+                  <div className="relative px-2 flex flex-col items-center justify-center bg-white text-center h-[620px] sm:h-[620px] md:lg:h-[700px] lg:h-[700px] overflow-hidden">
                     <div className="absolute top-5 px-6 sm:px-6 lg:px-2">
-                      <div className="flex items-center mb-2 sm:mb-2 md:mb-4">
-                        <div 
+                      <div className="flex items-center mb-2 sm:mb-4 md:mb-4">
+                        <div
                           dangerouslySetInnerHTML={{ __html: entry.title }}
-                          className="text-left text-2xl font-semibold text-[#212529] mr-3"
+                          className="text-left text-2xl sm:text-xl md:text-2xl lg:text-3xl font-semibold text-[#212529] mr-3"
                         />
                         <div className="flex-1 h-[4px] bg-[#00008E] w-auto rounded"></div>
                       </div>
 
-                      <div 
+                      <div
                         dangerouslySetInnerHTML={{ __html: entry.description }}
-                        className="text-left text-[#212529]"
+                        className="text-left text-[#212529] sm:text-sm md:text-base lg:text-lg"
                       />
                     </div>
-                    <div className="relative bottom-0 flex flex-col items-center justify-center w-[370px] sm:w-[370px] md:w-full lg:w-full">
-                      <div className="absolute top-0 flex flex-col items-center justify-center w-full">
+                    <div className="relative bottom-0 flex flex-col items-center justify-center w-[350px] sm:w-[350px] md:w-full lg:w-full">
+                      <div className="absolute -top-20 sm:-top-20 lg:top-10 flex flex-col items-center justify-center w-full">
                         <img
                           src={entry.image}
-                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
+                          className="w-full h-[300px] object-fill bg-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
                           alt={entry.title}
                         />
                       </div>
-                      <div className="absolute top-4 -right-3 sm:-top-4 sm:-right-3 md:-top-2 md:-right-2 lg:-top-2 lg:-right-3 bg-gray-50 shadow-sm shadow-gray-700 w-14 h-12 flex justify-center items-center">
+                      <div className="absolute -top-24 -right-3 sm:-top-24 sm:-right-3 md:top-8 md:-right-3 lg:top-8 lg:-right-3 bg-gray-50 shadow-sm shadow-gray-700 w-14 h-12 flex justify-center items-center">
                         <p className="lg:text-lg md:text-lg sm:text-sm">
                           {entry.entry_number}{"."}
                         </p>

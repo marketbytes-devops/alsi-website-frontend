@@ -146,7 +146,7 @@ const Milestones = () => {
                       left: isEven ? "-39.5px" : "36.5px",
                       width: isEven ? "280px" : "150px",
                       height: isEven ? "70.6%" : "2%",
-                      zIndex: 1
+                      zIndex: 1,
                     }}
                   ></div>
                   <div
@@ -162,11 +162,23 @@ const Milestones = () => {
                   </div>
                   <div className="relative bottom-3">
                     {isLast ? (
-                      <img
-                        src={milestone.image}
-                        className="w-48 h-48 object-contain relative bottom-[110px] right-[6.5px]"
-                        alt="ALSI Logo"
-                      />
+                      <>
+                        <img
+                          src={milestone.image}
+                          className="w-40 h-40 object-contain relative bottom-[230px] right-[2px]"
+                          alt="ALSI Logo"
+                        />
+                        <div className="relative bottom-[202.5px] -right-[18px]"
+                          style={{
+                            backgroundImage: `url(${timelineParnetBlue})`,
+                            width: "135px",
+                            height: "20%",
+                            backgroundRepeat:"no-repeat",
+                            objectFit:"contain",
+                            backgroundSize:"contain",
+                          }}
+                        ></div>
+                      </>
                     ) : (
                       <>
                         <h2

@@ -44,7 +44,7 @@ const About = () => {
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0 mx-4 sm:mx-4 md:mx-28 lg:mx-28">
         <MissionVision/>
       </div>
-      <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0 mx-4 sm:mx-4 md:mx-28 lg:mx-28">
+      <div className="mb-20 mt-4 sm:mt-4 md:mt-0 lg:mt-0 mx-4 sm:mx-4 md:mx-28 lg:mx-28">
         <Certification/>
       </div>
       <div className='mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0'>

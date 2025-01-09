@@ -62,15 +62,15 @@ const Certification = () => {
       ) : (
         <>
           <Title title={title} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="mt-0 sm:mt-0 md:mt-8 lg:mt-8 xl:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             {certifications.map((certification) => (
               <div
                 key={certification.id}
-                className='card shadow-lg shadow-gray-400 hover:shadow-gray-400 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-center items-center p-8'
+                className='card shadow-lg shadow-gray-500 hover:shadow-gray-600 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-center items-center p-8'
               >
                 <img
                   src={certification.image}
-                  className='w-auto h-16'
+                  className='w-auto h-14'
                   alt="Certification"
                 />
               </div>

@@ -157,7 +157,7 @@ const Network = () => {
 
       {tooltipVisible && hoveredCountry && (
         <motion.div
-          className="z-30 tooltip bg-white space-y-2 w-[180px] h-auto sm:w-[180px] md:w-[200px] lg:w-[200px] xl:w-[200px]"
+          className="z-30 tooltip bg-white text-[#212529] space-y-2 w-[180px] h-auto sm:w-[180px] md:w-[230px] lg:w-[230px] xl:w-[230px]"
           style={{
             position: "absolute",
             borderRadius: "5px",

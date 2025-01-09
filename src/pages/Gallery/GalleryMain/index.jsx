@@ -24,15 +24,15 @@ const GalleryMain = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-center text-red-500">{error}</div>;
   }
 
   if (!Array.isArray(galleryItems) || galleryItems.length === 0) {
-    return <div>No gallery items available.</div>;
+    return <div className="text-center">No gallery items available.</div>;
   }
 
   return (
@@ -40,8 +40,8 @@ const GalleryMain = () => {
       {galleryItems
         .filter((item) => item.slug)  
         .map((item) => (
-          <Link to={`/gallery/${item.slug}`} key={item.id}>
-            <div className="flex flex-col items-center bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transform hover:scale-[1.03] transition-transform duration-300">
+          <Link to={`/gallery/${item.slug}`} key={item.id} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-[1.03] transition-transform duration-300">
               <img
                 src={item.image}
                 alt={item.title}
@@ -50,10 +50,10 @@ const GalleryMain = () => {
               />
               <div className="p-4 text-center">
                 <h2
-                  className="text-lg font-bold"
+                  className="text-lg font-semibold text-gray-900"
                   dangerouslySetInnerHTML={{ __html: item.title }} 
                 />
-                <p className="text-zinc-500">({item.year})</p>
+                <p className="text-zinc-500">{item.year}</p>
               </div>
             </div>
           </Link>

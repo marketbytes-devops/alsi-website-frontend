@@ -22,8 +22,14 @@ const FirstLayout = ({ imageUrl, title, description }) => {
         }}
       >
         <div className="text-left mx-4 md:mx-20 my-6 md:my-12">
-          <h6 className="font-bold mb-4">{title}</h6>
-          <p className="text-lg leading-relaxed">{description}</p>
+          <div
+            className="font-bold mb-4"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
+          <div
+            className="text-lg leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
       </div>
     </div>
