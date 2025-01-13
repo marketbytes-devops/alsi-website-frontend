@@ -4,18 +4,20 @@ import UAE from "../../../../components/UiComponents/Network/Maps/UAE";
 import Oman from "../../../../components/UiComponents/Network/Maps/Oman";
 import KSA from "../../../../components/UiComponents/Network/Maps/KSA";
 import Qatar from "../../../../components/UiComponents/Network/Maps/Qatar";
+import { Tooltip } from "react-tooltip";
 
 const OurNetwork = () => {
   const [activeCountry, setActiveCountry] = useState("Sulatanate of Oman");
-  const [hoveredCountry, setHoveredCountry] = useState("Sulatanate of Oman");
+  const [activeTooltip, setActiveTooltip] = useState("ksa-tooltip");
   const [countryData, setCountryData] = useState({});
 
   useEffect(() => {
     const data = {
       "United Arab Emirates": {
         location: "United Arab Emirates",
-        company_name : "ALSI Global LLC",
-        address: "Dubai National Insurance Building 5th Floor, Office 502, Diera, Dubai, UAE.",
+        company_name: "ALSI Global LLC",
+        address:
+          "Dubai National Insurance Building 5th Floor, Office 502, Diera, Dubai, UAE.",
         fax: "",
         contact_name: "Justin Varghese",
         position: "Country Manager - UAE",
@@ -28,7 +30,7 @@ const OurNetwork = () => {
       },
       "Sulatanate of Oman": {
         location: "Sulatanate of Oman",
-        company_name : "ALSI Global LLC",
+        company_name: "ALSI Global LLC",
         address: "P.O. Box 608. P.C: 322. W. Sohar, Sultanate Of OMAN.",
         fax: "+968 2675 5550",
         contact_name: "Mohammed Al Badi",
@@ -48,7 +50,8 @@ const OurNetwork = () => {
       },
       "Kingdom of Saudi Arabia": {
         location: "Kingdom of Saudi Arabia",
-        address: "Building No. 3475, Al Tail Street 9080, Dhahrat Laban Dist, PC 12564 Riyadh, Kingdom of Saudi Arabia",
+        address:
+          "Building No. 3475, Al Tail Street 9080, Dhahrat Laban Dist, PC 12564 Riyadh, Kingdom of Saudi Arabia",
         fax: "",
         contact_name: "Mr. Khalid Al Badi",
         position: "Operations Manager - KSA",
@@ -61,23 +64,24 @@ const OurNetwork = () => {
       },
       "State of Qatar": {
         location: "State of Qatar",
-        address: "C12 AL Emadi Business Center 2nd Floor Office 35, P.O. Box: 30611 Doha, Qatar.",
+        address:
+          "C12 AL Emadi Business Center 2nd Floor Office 35, P.O. Box: 30611 Doha, Qatar.",
         fax: "",
         contact_name: "Adityan K J",
         position: "Branch Manager",
         phone: "+974 4047 8563, +974 3362 5333",
         email: "adityan@alsiglobal.com",
-        offices: [
-          { id: 1, office_name: "Doha" },
-        ],
+        offices: [{ id: 1, office_name: "Doha" }],
       },
     };
 
     setCountryData(data);
+    setActiveTooltip("ksa-tooltip");
   }, []);
 
-  const handleCountryClick = (country) => {
+  const handleCountryClick = (country, tooltipId) => {
     setActiveCountry(country);
+    setActiveTooltip(tooltipId); 
   };
 
   const activeCountryData = countryData[activeCountry] || {};
@@ -93,7 +97,11 @@ const OurNetwork = () => {
     offices = [],
   } = activeCountryData;
 
-  const phoneNumbers = Array.isArray(phone) ? phone : phone ? phone.split(",") : [];
+  const phoneNumbers = Array.isArray(phone)
+    ? phone
+    : phone
+    ? phone.split(",")
+    : [];
 
   return (
     <>
@@ -118,7 +126,13 @@ const OurNetwork = () => {
               <g transform="translate(-6088.6 421.048)">
                 <g
                   transform="translate(6859.722 -104.237)"
-                  fill={activeCountry === "United Arab Emirates" ? "#1890F9" : "#125194"}
+                  fill={
+                    activeCountry === "United Arab Emirates"
+                      ? "#1890F9"
+                      : "#125194"
+                  }
+                  data-tooltip-id="uae-tooltip"
+                  data-tooltip-content="Click Here"
                   style={{
                     filter:
                       activeCountry === "United Arab Emirates"
@@ -126,14 +140,18 @@ const OurNetwork = () => {
                         : "none",
                     transition: "filter 0.3s ease, fill 0.3s ease",
                   }}
-                  onClick={() => handleCountryClick("United Arab Emirates")}
-                  onMouseEnter={() => setHoveredCountry("United Arab Emirates")}
-                  onMouseLeave={() => setHoveredCountry(activeCountry)}
+                  onClick={() => handleCountryClick("United Arab Emirates", "uae-tooltip")}
                 >
                   <UAE />
                 </g>
                 <g
-                  fill={activeCountry === "Sulatanate of Oman" ? "#1890F9" : "#125194"}
+                  fill={
+                    activeCountry === "Sulatanate of Oman"
+                      ? "#1890F9"
+                      : "#125194"
+                  }
+                  data-tooltip-id="oman-tooltip"
+                  data-tooltip-content="Click Here"
                   style={{
                     filter:
                       activeCountry === "Sulatanate of Oman"
@@ -141,15 +159,19 @@ const OurNetwork = () => {
                         : "none",
                     transition: "filter 0.3s ease, fill 0.3s ease",
                   }}
-                  onClick={() => handleCountryClick("Sulatanate of Oman")}
-                  onMouseEnter={() => setHoveredCountry("Sulatanate of Oman")}
-                  onMouseLeave={() => setHoveredCountry(activeCountry)}
+                  onClick={() => handleCountryClick("Sulatanate of Oman", "oman-tooltip")}
                 >
                   <Oman />
                 </g>
                 <g
                   transform="translate(6088.6 -421.048)"
-                  fill={activeCountry === "Kingdom of Saudi Arabia" ? "#1890F9" : "#125194"}
+                  fill={
+                    activeCountry === "Kingdom of Saudi Arabia"
+                      ? "#1890F9"
+                      : "#125194"
+                  }
+                  data-tooltip-id="ksa-tooltip"
+                  data-tooltip-content="Click Here"
                   style={{
                     filter:
                       activeCountry === "Kingdom of Saudi Arabia"
@@ -157,15 +179,17 @@ const OurNetwork = () => {
                         : "none",
                     transition: "filter 0.3s ease, fill 0.3s ease",
                   }}
-                  onClick={() => handleCountryClick("Kingdom of Saudi Arabia")}
-                  onMouseEnter={() => setHoveredCountry("Kingdom of Saudi Arabia")}
-                  onMouseLeave={() => setHoveredCountry(activeCountry)}
+                  onClick={() => handleCountryClick("Kingdom of Saudi Arabia", "ksa-tooltip")}
                 >
                   <KSA />
                 </g>
                 <g
                   transform="translate(6818.349 -106.485)"
-                  fill={activeCountry === "State of Qatar" ? "#1890F9" : "#125194"}
+                  fill={
+                    activeCountry === "State of Qatar" ? "#1890F9" : "#125194"
+                  }
+                  data-tooltip-id="qatar-tooltip"
+                  data-tooltip-content="Click Here"
                   style={{
                     filter:
                       activeCountry === "State of Qatar"
@@ -173,9 +197,7 @@ const OurNetwork = () => {
                         : "none",
                     transition: "filter 0.3s ease, fill 0.3s ease",
                   }}
-                  onClick={() => handleCountryClick("State of Qatar")}
-                  onMouseEnter={() => setHoveredCountry("State of Qatar")}
-                  onMouseLeave={() => setHoveredCountry(activeCountry)}
+                  onClick={() => handleCountryClick("State of Qatar", "qatar-tooltip")}
                 >
                   <Qatar />
                 </g>
@@ -196,11 +218,16 @@ const OurNetwork = () => {
             <p className="text-md">{fax}</p>
           </div>
           <div className="space-y-4">
-            <h3 className="text-[1.75rem] sm:text-[1.875rem] font-bold">Contact:</h3>
+            <h3 className="text-[1.75rem] sm:text-[1.875rem] font-bold">
+              Contact:
+            </h3>
             <p className="text-md">{contact_name}</p>
             <p className="text-md">{position}</p>
             {phoneNumbers.map((number, index) => (
-              <p key={index} className="text-md flex items-center justify-between">
+              <p
+                key={index}
+                className="text-md flex items-center justify-between"
+              >
                 <span>{number}</span>
               </p>
             ))}
@@ -224,6 +251,55 @@ const OurNetwork = () => {
             ))}
         </ul>
       </div>
+
+      <Tooltip
+        id="uae-tooltip"
+        delayShow={300}
+        place="bottom" 
+        style={{
+          backgroundColor: "#fff",
+          color: "#000",
+          borderRadius: "7px",
+          maxWidth: "200px",
+          zIndex: "20",
+        }}
+      />
+      <Tooltip
+        id="oman-tooltip"
+        delayShow={300}
+        place="right" 
+        style={{
+          backgroundColor: "#fff",
+          color: "#000",
+          borderRadius: "7px",
+          maxWidth: "200px",
+          zIndex: "20",
+        }}
+      />
+      <Tooltip
+        id="ksa-tooltip"
+        delayShow={300}
+        place="left" 
+        style={{
+          backgroundColor: "#fff",
+          color: "#000",
+          borderRadius: "7px",
+          maxWidth: "200px",
+          zIndex: "20",
+        }}
+      />
+      <Tooltip
+        id="qatar-tooltip"
+        delayShow={300}
+        place="top" 
+        style={{
+          backgroundColor: "#fff",
+          color: "#000",
+          borderRadius: "7px",
+          maxWidth: "200px",
+          zIndex: "20",
+        }}
+      />
     </>
   );
 };

@@ -32,7 +32,7 @@ const Industries = () => {
       <div className='md:mx-28 lg:mx-28 mx-4 sm:mx-4'>
         <MainIndustries/>
       </div>
-      <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
+      <div className="mb-16 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <Services  />
       </div>
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">

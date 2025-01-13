@@ -214,3 +214,15 @@ ul {
   color: #2044a2 !important;
   text-decoration: underline;
 }
+
+svg g {
+  outline: none;
+}
+
+svg g:focus {
+  outline: none;
+}
+
+svg g:focus-visible {
+  outline: none;
+}

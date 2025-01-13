@@ -120,7 +120,7 @@ const Industries = () => {
                       <div className="absolute -top-20 sm:-top-20 lg:top-10 flex flex-col items-center justify-center w-full">
                         <img
                           src={entry.image}
-                          className="w-full h-[300px] object-fill bg-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
+                          className="w-full h-[380px] md:h-[300px] lg:h-[300px] xl:h-[300px] object-fill bg-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
                           alt={entry.title}
                         />
                       </div>
@@ -136,7 +136,7 @@ const Industries = () => {
             ))}
           </Swiper>
 
-          <div className="flex justify-center mt-4 space-x-4 pt-8">
+          <div className="flex justify-center space-x-4 pt-10">
             <button
               className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
               ref={prevRef}

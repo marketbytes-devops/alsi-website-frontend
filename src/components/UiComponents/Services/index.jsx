@@ -10,30 +10,31 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import apiClient from "../../../api";
 
-const Services = ({ initialTitle, excludeService }) => {
-  const [title, setTitle] = useState(initialTitle || "");
+const Services = ({ excludeService, forceTitle }) => {
+  const [title, setTitle] = useState(forceTitle || "");
   const [servicesData, setServicesData] = useState([]);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    const fetchTitle = async () => {
-      try {
-        const response = await apiClient.get("service/services-banner/");
-        const data = response.data;
-        if (data.length > 0) {
-          setTitle(data[0].title);
-        } else {
-          setTitle("No title available");
+    if (!forceTitle) {
+      const fetchTitle = async () => {
+        try {
+          const response = await apiClient.get("service/services-banner/");
+          const data = response.data;
+          if (data.length > 0) {
+            setTitle(data[0].title);
+          } else {
+            setTitle("Our Services");
+          }
+        } catch (err) {
+          console.error("Failed to load title:", err);
         }
-      } catch (err) {
-        console.error("Failed to load title:", err);
-      }
-    };
-
-    fetchTitle();
-  }, []);
+      };
+      fetchTitle();
+    }
+  }, [forceTitle]);
 
   useEffect(() => {
     const fetchServicesData = async () => {
@@ -166,6 +167,7 @@ const Services = ({ initialTitle, excludeService }) => {
 Services.propTypes = {
   initialTitle: PropTypes.string,
   excludeService: PropTypes.string,
+  forceTitle: PropTypes.string,
 };
 
 export default Services;

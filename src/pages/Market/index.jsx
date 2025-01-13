@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
 import apiClient from "../../api";
 import Banner from "../../components/UiComponents/Banner";
+import Form from "../../components/UiComponents/Form";
 
 const Market = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -175,7 +176,7 @@ const Market = () => {
           ))}
           </div>
         </div>
-        <div className="flex justify-center items-center mt-8 sm:mt-8 md:mt-20 lg:mt-20">
+        <div className="flex justify-center items-center mt-4 sm:mt-4 pt-8 md:my-10 lg:my-10">
           <button
             onClick={handlePrevious}
             className="bg-[#0134b5] text-white px-4 py-2 text-sm font-semibold rounded-sm hover:bg-[#009adb]"
@@ -195,6 +196,9 @@ const Market = () => {
           </button>
         </div>
       </div>
+      <div className="mb-6 sm:mb-6 md:mb-10 lg:mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
+      <Form/>
+    </div>
     </>
   );
 };

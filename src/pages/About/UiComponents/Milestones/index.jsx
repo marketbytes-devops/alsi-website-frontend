@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import Slider from "react-slick";
 import Marquee from "react-fast-marquee";
 import vectorFirst from "../../../../assets/images/About/Vector-1.webp";
 import vectorSecond from "../../../../assets/images/About/Vector-2.webp";
@@ -6,8 +7,14 @@ import alsiLogo from "../../../../assets/images/Home/logo.webp";
 import timelineParnetWhite from "../../../../assets/images/About/timeline-white-partner.webp";
 import timelineParnetBlue from "../../../../assets/images/About/timeline-blue-partner.webp";
 import pin from "../../../../assets/images/About/pin.webp";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Milestones = () => {
+  const sliderRef = useRef(null);
+
   const milestoneArray = [
     {
       year: "2008",
@@ -89,8 +96,38 @@ const Milestones = () => {
     },
   ];
 
+  const NextArrow = ({ onClick }) => (
+    <button
+      className="relative bottom-0 left-[55%] bg-[#2044a2] text-white px-4 py-[11px] rounded-full hover:bg-white hover:text-[#2044a2] transition-all duration-300"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faArrowRight}/>
+    </button>
+  );
+
+  const PrevArrow = ({ onClick }) => (
+    <button
+      className="absolute bottom-0 left-[35%] bg-[#2044a2] text-white px-4 py-[11px] rounded-full hover:bg-white hover:text-[#2044a2] transition-all duration-300"
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={faArrowLeft}/>
+    </button>
+  );
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+
   return (
-    <div className="overflow-hidden">
+    <>
+    <div className="overflow-hidden hidden lg:block md:block xl:block">
       <div className="container text-[#212529] mx-auto text-center h-full">
         <h1 className="text-4xl font-extrabold">Celebrating 15 Years!</h1>
         <p className="text-3xl font-light mt-2">Journey Through Milestones</p>
@@ -205,6 +242,62 @@ const Milestones = () => {
         </Marquee>
       </div>
     </div>
+
+    <div className="block sm:block md:hidden lg:hidden xl:hidden mobile-slider-container">
+      <Slider ref={sliderRef} {...settings}>
+        {milestoneArray.map((milestone, index) => {
+          const isLast = index === milestoneArray.length - 1;
+          const isEven = index % 2 === 0;
+
+          return (
+            <div key={index} className="relative text-center px-4">
+              <div
+                className="flex flex-col justify-center items-center h-[200px] w-[200px] mx-auto bg-no-repeat bg-contain"
+                style={{
+                  backgroundImage: isLast
+                    ? "none"
+                    : `url(${isEven ? vectorFirst : vectorSecond})`,
+                }}
+              >
+                {isLast ? (
+                  <img
+                    src={milestone.image}
+                    alt="ALSI Logo"
+                    className="relative top-20 w-60 h-60 object-contain"
+                  />
+                ) : (
+                  <>
+                    <h2
+                      className={`relative bottom-4 text-xl font-bold ${
+                        isEven ? "text-[#212529]" : "text-white"
+                      }`}
+                    >
+                      {milestone.year}
+                    </h2>
+                    <h3
+                      className={`relative bottom-2 text-sm font-medium ${
+                        isEven ? "text-[#212529]" : "text-white"
+                      }`}
+                    >
+                      {milestone.title}
+                    </h3>
+                  </>
+                )}
+              </div>
+
+              {!isLast && (
+                <ul className="mt-4 mb-4 mx-8 list-disc text-center space-y-2 text-md">
+                  {milestone.achievements.map((achievement, idx) => (
+                    <li key={idx}>{achievement}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          );
+        })}
+      </Slider>
+    </div>
+    </>
   );
 };
 

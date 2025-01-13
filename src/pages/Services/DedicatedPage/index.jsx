@@ -27,7 +27,7 @@ const DedicatedPage = () => {
         try {
           const response = await apiClient.get(`service/services/${link_url}/`);
           const fetchedSubcategories = response.data.subcategories || [];
-          
+
           const updatedSubcategories = fetchedSubcategories.map((category) => {
             if (category.enable_fill_empty_cards) {
               const cardCount = category.cards?.length || 0;
@@ -35,13 +35,21 @@ const DedicatedPage = () => {
               if (remaining > 0 && remaining < 8) {
                 for (let i = 0; i < remaining; i++) {
                   category.cards.push({
-                    id: `empty-${category.id}-${i}`, 
+                    id: `empty-${category.id}-${i}`,
                     title: "",
-                    image: "", 
+                    image: "",
                   });
                 }
               }
             }
+
+            category.cards = category.cards.sort((a, b) => {
+              if (a.title && b.title) {
+                return a.title.length - b.title.length;
+              }
+              return 0;
+            });
+
             return category;
           });
 
@@ -73,7 +81,7 @@ const DedicatedPage = () => {
         />
       </div>
 
-      <div className="px-4 sm:px-4 md:px-28 lg:px-28 xl:px-28 space-y-4 my-12">
+      <div className="px-4 sm:px-4 md:px-28 lg:px-28 xl:px-28 space-y-4 my-4 sm:my-4 md:my-12 lg:my-12 xl:my-12"> 
         {content_paragraphs && (
           <div dangerouslySetInnerHTML={{ __html: content_paragraphs }} />
         )}
@@ -96,16 +104,16 @@ const DedicatedPage = () => {
                   dangerouslySetInnerHTML={{ __html: category.title }}
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-28">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-8 sm:gap-y-8 md:gap-y-28 lg:gap-y-28 xl:gap-y-28">
                 {category.cards.map((card) => (
                   <div
-                      key={card.id}
-                      className={`${
-                        card.title
-                          ? "bg-gray-100 text-[#212529] rounded-md shadow-md hover:shadow-lg overflow-hidden hover:scale-[1.02] duration-300 transition-all p-4"
-                          : "invisible"
-                      }`}
-                    >
+                    key={card.id}
+                    className={`${
+                      card.title
+                        ? "bg-gray-100 text-[#212529] rounded-md shadow-md hover:shadow-lg overflow-hidden hover:scale-[1.02] duration-300 transition-all p-4"
+                        : "invisible"
+                    }`}
+                  >
                     {card.image && (
                       <img
                         src={card.image}
@@ -132,7 +140,7 @@ const DedicatedPage = () => {
       </div>
 
       <div className="mt-10">
-        <Services initialTitle="Other Services" />
+        <Services forceTitle="Other Services" excludeService={link_url} />
       </div>
 
       <div className="space-y-4 my-12">

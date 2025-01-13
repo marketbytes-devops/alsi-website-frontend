@@ -157,7 +157,7 @@ const Network = () => {
 
       {tooltipVisible && hoveredCountry && (
         <motion.div
-          className="z-30 tooltip bg-white text-[#212529] space-y-2 w-[180px] h-auto sm:w-[180px] md:w-[230px] lg:w-[230px] xl:w-[230px]"
+          className="z-30 tooltip bg-white text-[#212529] space-y-2 w-[180px] h-auto sm:w-[180px] md:w-[200px] lg:w-[200px] xl:w-[200px]"
           style={{
             position: "absolute",
             borderRadius: "5px",
@@ -178,9 +178,9 @@ const Network = () => {
             {removeHtmlTags(hoveredCountry)} 
           </div>
           <p className="text-left text-[12px] font-[600]">
-            {networkData.find(data => removeHtmlTags(data.name) === hoveredCountry)?.address && (
-              <span dangerouslySetInnerHTML={{ __html: networkData.find(data => removeHtmlTags(data.name) === hoveredCountry)?.address }} />
-            )}
+            {networkData.find(data => removeHtmlTags(data.name) === hoveredCountry)?.address ? 
+              removeHtmlTags(networkData.find(data => removeHtmlTags(data.name) === hoveredCountry)?.address) : null
+            }
           </p>
           <div className="flex justify-left items-center">
             <Link to={networkData.find(data => removeHtmlTags(data.name) === hoveredCountry)?.url}>
