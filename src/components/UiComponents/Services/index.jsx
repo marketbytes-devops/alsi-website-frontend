@@ -127,7 +127,7 @@ const Services = ({ excludeService, forceTitle }) => {
                 >
                   <div className="relative p-6 bg-white text-center h-[300px] sm:h-[300px] md:h-[350px] lg:h-[350px] xl:h-[350px] hover:scale-[1.05] transition-transform duration-500 shadow-xl shadow-gray-300">
                     <div className="text-6xl flex items-center justify-center mb-4 py-8 relative top-0">
-                      <img src={service.image} className="w-16 h-16" alt={service.title} />
+                      <img src={service.image} className="w-16 h-16 object-contain" alt={service.title} />
                     </div>
                     <div
                       className="text-2xl font-bold text-[#193579] relative top-0"
