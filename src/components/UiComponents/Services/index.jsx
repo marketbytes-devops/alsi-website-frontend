@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Navigation, A11y, Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css"; 
 import Title from "../../Title";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,9 +12,7 @@ import apiClient from "../../../api";
 const Services = ({ excludeService, forceTitle }) => {
   const [title, setTitle] = useState(forceTitle || "");
   const [servicesData, setServicesData] = useState([]);
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-  const swiperRef = useRef(null);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     if (!forceTitle) {
@@ -63,21 +60,28 @@ const Services = ({ excludeService, forceTitle }) => {
     fetchServicesData();
   }, [excludeService]);
 
-  useEffect(() => {
-    const initializeNavigation = () => {
-      if (swiperRef.current?.swiper && prevRef.current && nextRef.current) {
-        const swiperInstance = swiperRef.current.swiper;
-        swiperInstance.params.navigation.prevEl = prevRef.current;
-        swiperInstance.params.navigation.nextEl = nextRef.current;
-        swiperInstance.navigation.init();
-        swiperInstance.navigation.update();
-      }
-    };
-
-    setTimeout(() => {
-      initializeNavigation();
-    }, 50); 
-  }, [servicesData]);  
+  const sliderSettings = {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    infinite: true,
+    speed: 300,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  }; 
 
   return (
     <>
@@ -85,36 +89,13 @@ const Services = ({ excludeService, forceTitle }) => {
         <Title title={title} />
       </div>
       <div className="relative lg:px-36 md:px-36 sm:px-4">
-        <Swiper
-          ref={swiperRef}
-          key={servicesData.length}
-          modules={[Navigation, A11y, Autoplay]}
-          spaceBetween={0}
-          slidesPerView={3}
-          breakpoints={{
-            0: { slidesPerView: 1 },
-            600: { slidesPerView: 3 },
-            1024: { slidesPerView: 3 },
-          }}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          pagination={false}
-          autoplay={{ delay: 3000 }}
-          onSwiper={(swiper) => {
-            setTimeout(() => {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-              swiper.navigation.destroy();
-              swiper.navigation.init();
-              swiper.navigation.update();
-            });
-          }}
+        <Slider
+          ref={sliderRef}
+          {...sliderSettings}
         >
           {servicesData.length > 0 ? (
             servicesData.map((service, index) => (
-              <SwiperSlide key={index}>
+              <div key={index}>
                 <Link
                   to={service.link}
                   state={{
@@ -139,22 +120,22 @@ const Services = ({ excludeService, forceTitle }) => {
                     />
                   </div>
                 </Link>
-              </SwiperSlide>
+              </div>
             ))
           ) : (
             <p>No services available</p>
           )}
-        </Swiper>
+        </Slider>
         <div className="flex justify-center pt-8 space-x-4">
           <button
-            ref={prevRef}
             className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
+            onClick={() => sliderRef.current.slickPrev()}
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <button
-            ref={nextRef}
             className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
+            onClick={() => sliderRef.current.slickNext()}
           >
             <FontAwesomeIcon icon={faArrowRight} />
           </button>

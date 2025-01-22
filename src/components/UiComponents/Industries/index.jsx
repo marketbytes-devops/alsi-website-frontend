@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Navigation, A11y, Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
+import Slider from "react-slick"; 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -15,8 +14,7 @@ const Industries = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const fetchTitleAndIndustries = async () => {
@@ -48,18 +46,27 @@ const Industries = () => {
     fetchTitleAndIndustries();
   }, []);
 
-  useEffect(() => {
-    if (industries.length > 0) {
-      const swiper = document.querySelector(".swiper")?.swiper;
-      if (swiper) {
-        swiper.params.navigation.prevEl = prevRef.current;
-        swiper.params.navigation.nextEl = nextRef.current;
-        swiper.navigation.destroy();
-        swiper.navigation.init();
-        swiper.navigation.update();
+  const slickSettings = {
+    arrows: true, 
+    infinite: true,
+    speed: 300,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        }
       }
-    }
-  }, [industries]);
+    ],
+  };
 
   return (
     <>
@@ -75,31 +82,9 @@ const Industries = () => {
         <div className="text-center">No industries available</div>
       ) : (
         <div className="relative lg:px-[130px] md:px-[130px] sm:px-4">
-          <Swiper
-            modules={[Navigation, A11y, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={4}
-            breakpoints={{
-              0: { slidesPerView: 1 },
-              600: { slidesPerView: 3 },
-              1024: { slidesPerView: 4 },
-            }}
-            navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
-            pagination={false}
-            autoplay={{ delay: 3000 }}
-            onSwiper={(swiper) => {
-              setTimeout(() => {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-                swiper.navigation.destroy();
-                swiper.navigation.init();
-                swiper.navigation.update();
-              });
-            }}
-            onSlideChange={() => console.log("slide change")}
-          >
+          <Slider ref={sliderRef} {...slickSettings}>
             {industries.map((entry, index) => (
-              <SwiperSlide key={`${entry.id}-${index}`}>
+              <div key={`${entry.id}-${index}`}>
                 <Link to={entry.path_name}>
                   <div className="relative px-2 flex flex-col items-center justify-center bg-white text-center h-[620px] sm:h-[620px] md:lg:h-[700px] lg:h-[700px] overflow-hidden">
                     <div className="absolute top-5 px-6 sm:px-6 lg:px-2">
@@ -132,20 +117,20 @@ const Industries = () => {
                     </div>
                   </div>
                 </Link>
-              </SwiperSlide>
+              </div>
             ))}
-          </Swiper>
+          </Slider>
 
           <div className="flex justify-center space-x-4 pt-10">
             <button
               className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
-              ref={prevRef}
+              onClick={() => sliderRef.current.slickPrev()}  
             >
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <button
               className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
-              ref={nextRef}
+              onClick={() => sliderRef.current.slickNext()}  
             >
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
