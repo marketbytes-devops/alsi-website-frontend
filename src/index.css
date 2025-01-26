@@ -226,3 +226,11 @@ svg g:focus {
 svg g:focus-visible {
   outline: none;
 }
+
+.slick-slider {
+  overflow: hidden; 
+}
+
+.slick-slider {
+  width: 100%;
+}

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import Slider from "react-slick"; 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import apiClient from "../../../api";
 import Title from "../../Title";
+import Slider from "react-slick"; 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Industries = () => {
   const [title, setTitle] = useState("");

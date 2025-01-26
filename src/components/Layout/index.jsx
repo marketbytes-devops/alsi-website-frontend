@@ -40,7 +40,7 @@ const Layout = () => {
       )}
 
       <motion.main
-        className="min-h-screen flex flex-col justify-between"
+        className="min-h-auto flex flex-col justify-between"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

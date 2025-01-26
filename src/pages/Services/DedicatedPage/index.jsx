@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import Banner from "../../../components/UiComponents/Banner";
 import Services from "../../../components/UiComponents/Services";
 import Form from "../../../components/UiComponents/Form";
@@ -11,15 +12,50 @@ import "./styles.css";
 const DedicatedPage = () => {
   const { name: link_url } = useParams();
   const { state } = useLocation();
+  const [serviceDetails, setServiceDetails] = useState({
+    banner_image: '',
+    service_title: "No Title Available",
+    content_paragraphs: "No Content Available",
+  });
   const [subcategories, setSubcategories] = useState([]);
 
+  const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+
   const {
-    banner_image,
-    service_title = "No Title Available",
-    content_paragraphs = "No Content Available",
+
   } = state || {};
 
   const currentServiceUrl = window.location.href;
+
+  useEffect(() => {
+    const fetchServiceDetails = async () => {
+      try {
+        if (link_url) {
+          const response = await apiClient.get(`service/services/${link_url}/`);
+          const serviceData = response.data;
+
+          setServiceDetails({
+            banner_image: serviceData.banner_image || '',
+            service_title: serviceData.service_title || "No Title Available",
+            content_paragraphs: serviceData.content_paragraphs || "No Content Available",
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch service details:", error);
+      }
+    };
+
+    if (!state || !state.service_title) {
+      fetchServiceDetails();
+    } else {
+      setServiceDetails({
+        banner_image: state.banner_image || '',
+        service_title: state.service_title || "No Title Available",
+        content_paragraphs: state.content_paragraphs || "No Content Available",
+      });
+    }
+  }, [link_url, state]);
 
   useEffect(() => {
     const fetchSubcategories = async () => {
@@ -29,7 +65,7 @@ const DedicatedPage = () => {
           const fetchedSubcategories = response.data.subcategories || [];
 
           const updatedSubcategories = fetchedSubcategories.map((category) => {
-            if (category.enable_fill_empty_cards) {
+            if (isDesktop && category.enable_fill_empty_cards) {
               const cardCount = category.cards?.length || 0;
               const remaining = 8 - (cardCount % 8);
               if (remaining > 0 && remaining < 8) {
@@ -61,7 +97,7 @@ const DedicatedPage = () => {
     };
 
     fetchSubcategories();
-  }, [link_url]);
+  }, [link_url, isDesktop]);
 
   const totalCards = subcategories.reduce(
     (sum, category) => sum + (category.cards?.length || 0),
@@ -70,20 +106,27 @@ const DedicatedPage = () => {
 
   const backgroundRepeatCount = Math.ceil(totalCards / 8);
 
+  const adjustTextColor = (color) => {
+    const whiteColors = ["white", "#fff", "#ffffff"];
+    return isMobile && whiteColors.includes(color?.toLowerCase())
+      ? "#000"
+      : color;
+  };
+
   return (
     <>
       <div className="flex flex-grow">
         <Banner
-          image={banner_image}
-          mainTitle={service_title}
+          image={serviceDetails.banner_image}
+          mainTitle={serviceDetails.service_title}
           currentUrl={currentServiceUrl}
           showMainTitle={true}
         />
       </div>
 
-      <div className="px-4 sm:px-4 md:px-28 lg:px-28 xl:px-28 space-y-4 my-4 sm:my-4 md:my-12 lg:my-12 xl:my-12"> 
-        {content_paragraphs && (
-          <div dangerouslySetInnerHTML={{ __html: content_paragraphs }} />
+      <div className="px-4 sm:px-4 md:px-28 lg:px-28 xl:px-28 space-y-4 my-4 sm:my-4 md:my-12 lg:my-12 xl:my-12">
+        {serviceDetails.content_paragraphs && (
+          <div dangerouslySetInnerHTML={{ __html: serviceDetails.content_paragraphs }} />
         )}
       </div>
 
@@ -100,7 +143,7 @@ const DedicatedPage = () => {
               <div className="my-8">
                 <div
                   className="text-4xl font-extrabold"
-                  style={{ color: category.text_color || "#212529" }}
+                  style={{ color: adjustTextColor(category.text_color || "#212529") }}
                   dangerouslySetInnerHTML={{ __html: category.title }}
                 />
               </div>
@@ -108,11 +151,10 @@ const DedicatedPage = () => {
                 {category.cards.map((card) => (
                   <div
                     key={card.id}
-                    className={`${
-                      card.title
-                        ? "bg-gray-100 text-[#212529] rounded-md shadow-md hover:shadow-lg overflow-hidden hover:scale-[1.02] duration-300 transition-all p-4"
-                        : "invisible"
-                    }`}
+                    className={`${card.title
+                      ? "bg-gray-100 text-[#212529] rounded-md shadow-md hover:shadow-lg overflow-hidden hover:scale-[1.02] duration-300 transition-all p-4"
+                      : "invisible"
+                      }`}
                   >
                     {card.image && (
                       <img

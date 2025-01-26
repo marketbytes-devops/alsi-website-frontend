@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import apiClient from "../../../api";
 import Banner from "../../../components/UiComponents/Banner";
 import BackgroundRepeat from "../../../components/BackgroundRepeat";
@@ -11,44 +12,45 @@ const SpecializedDedicatedPage = () => {
 
   const cleanLinkUrl = link_url.replace(/^\uFEFF/, "");
 
+  const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+
   useEffect(() => {
     const fetchSpecializedService = async () => {
       try {
         const response = await apiClient.get(
           `service/specialized-entries/${cleanLinkUrl}`
         );
-        setSpecializedService(response.data);
+        const serviceData = response.data;
+        setSpecializedService(serviceData);
 
-        const subcategoriesResponse = await apiClient.get(
-          `service/specialized-categories/?service=${response.data.id}`
-        );
-        const fetchedSubcategories = subcategoriesResponse.data;
-
-        const updatedSubcategories = fetchedSubcategories.map((category) => {
-          if (category.enable_fill_empty_cards) {
-            const cardCount = category.cards?.length || 0;
-            const remaining = 8 - (cardCount % 8);
-            if (remaining > 0 && remaining < 8) {
-              for (let i = 0; i < remaining; i++) {
-                category.cards.push({
-                  id: `empty-${category.id}-${i}`,
-                  title: "",
-                  image: "",
-                });
+        if (serviceData.subcategories && serviceData.subcategories.length > 0) {
+          const processedSubcategories = serviceData.subcategories.map((category) => {
+            if (isDesktop && category.enable_fill_empty_cards) {
+              const cardCount = category.cards?.length || 0;
+              const remaining = 8 - (cardCount % 8);
+              if (remaining > 0 && remaining < 8) {
+                for (let i = 0; i < remaining; i++) {
+                  category.cards.push({
+                    id: `empty-${category.id}-${i}`,
+                    title: "",
+                    image: "",
+                  });
+                }
               }
             }
-          }
-          return category;
-        });
+            return category;
+          });
 
-        setSubcategories(updatedSubcategories);
+          setSubcategories(processedSubcategories);
+        }
       } catch (error) {
         console.error("Error fetching specialized service:", error);
       }
     };
 
     fetchSpecializedService();
-  }, [cleanLinkUrl]);
+  }, [cleanLinkUrl, isDesktop]);
 
   const totalCards = subcategories.reduce(
     (sum, category) => sum + (category.cards?.length || 0),
@@ -56,6 +58,13 @@ const SpecializedDedicatedPage = () => {
   );
 
   const backgroundRepeatCount = Math.ceil(totalCards / 8);
+
+  const adjustTextColor = (color) => {
+    const whiteColors = ["white", "#fff", "#ffffff"];
+    return isMobile && whiteColors.includes(color?.toLowerCase())
+      ? "#000"
+      : color;
+  };
 
   return (
     <div>
@@ -89,11 +98,11 @@ const SpecializedDedicatedPage = () => {
               <div className="my-8">
                 <div
                   className="text-4xl font-extrabold"
-                  style={{ color: category.text_color || "#212529" }}
+                  style={{ color: adjustTextColor(category.text_color || "#212529") }}
                   dangerouslySetInnerHTML={{ __html: category.title }}
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-28">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-8 sm:gap-y-8 md:gap-y-28 lg:gap-y-28 xl:gap-y-28">
                 {category.cards.map((card) => (
                   <div
                     key={card.id}
@@ -125,7 +134,7 @@ const SpecializedDedicatedPage = () => {
           ))}
         </div>
       ) : (
-        <div>No subcategories available</div>
+        <div className="-mb-8"></div>
       )}
     </div>
   );

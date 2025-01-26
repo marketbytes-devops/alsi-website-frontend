@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import apiClient from "../../../../api";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 
 const Highlights = () => {
   const [title, setTitle] = useState("");

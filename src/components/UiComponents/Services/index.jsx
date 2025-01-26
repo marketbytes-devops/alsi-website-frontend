@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css"; 
 import Title from "../../Title";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import apiClient from "../../../api";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css"; 
 
 const Services = ({ excludeService, forceTitle }) => {
   const [title, setTitle] = useState(forceTitle || "");
