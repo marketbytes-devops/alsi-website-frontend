@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import apiClient from "../../../api"; 
 import Banner from "../../../components/UiComponents/Banner";
 import Form from "../../../components/UiComponents/Form";
 
 const MainMarket = () => {
+  const { blogSlug } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   const blogContainerRef = useRef(null);
@@ -63,7 +64,7 @@ const MainMarket = () => {
     };
 
     fetchBlogDetails();
-  }, [state]);
+  }, [blogSlug, state]);
 
   const handleReadMore = (recentPost) => {
     navigate(`/market_updates/${recentPost.blog_slug}/`, {
