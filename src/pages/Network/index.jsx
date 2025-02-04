@@ -48,14 +48,12 @@ const Network = () => {
             className="mb-4 text-[17.5px] font-light"
           />
           <div className="space-y-2">
-              <div
-                dangerouslySetInnerHTML={{ __html: bannerData.lists }}
-                className="pl-8 text-[17.5px] font-normal"
-              />
+            <div
+              dangerouslySetInnerHTML={{ __html: bannerData.lists }}
+              className="pl-8 text-[17.5px] font-normal"
+            />
           </div>
-          <p className="mt-6 text-[17.5px] font-light">
-            {bannerData.conclusion}
-          </p>
+          <div className="mt-6 text-[17.5px] font-light" dangerouslySetInnerHTML={{ __html: bannerData.conclusion }} />
         </div>
       </div>
       <div className="mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
