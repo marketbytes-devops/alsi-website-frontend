@@ -105,11 +105,11 @@ const Industries = () => {
                       <div className="absolute -top-20 sm:-top-20 lg:top-10 flex flex-col items-center justify-center w-full">
                         <img
                           src={entry.image}
-                          className="w-full h-[380px] md:h-[300px] lg:h-[300px] xl:h-[300px] object-fill bg-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
+                          className="w-full mt-4 md:mt-0 px-6 md:px-0 h-[380px] md:h-[300px] lg:h-[300px] xl:h-[300px] object-cover bg-cover grayscale hover:grayscale-0 transition-all duration-500 rounded-md"
                           alt={entry.title}
                         />
                       </div>
-                      <div className="absolute -top-24 -right-3 sm:-top-24 sm:-right-3 md:top-8 md:-right-3 lg:top-8 lg:-right-3 bg-gray-50 shadow-sm shadow-gray-700 w-14 h-12 flex justify-center items-center">
+                      <div className="absolute -top-20 right-3 sm:-top-24 sm:-right-5 md:top-8 md:-right-3 lg:top-8 lg:-right-3 bg-gray-50 shadow-sm shadow-gray-700 w-14 h-12 flex justify-center items-center">
                         <p className="lg:text-lg md:text-lg sm:text-sm">
                           {entry.entry_number}{"."}
                         </p>
