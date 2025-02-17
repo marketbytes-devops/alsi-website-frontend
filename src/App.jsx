@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
 import ErrorPage from "./pages/ErrorPage";
@@ -15,6 +15,7 @@ import GalleryDedicatedPage from "./pages/Gallery/DedicatedPage";
 import MainMarket from "./pages/Market/UiComponents/MainMarket";
 import SpecializedSetup from "./pages/Services/UiComponents/SpecializedSetup";
 import SpecializedDedicatedPage from "./pages/Services/UiComponents/SpecializedDedicatedPage";
+import LottieLoader from "./components/LottieLoader";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
         children: [
           { path: ":name", element: <DedicatedPage /> },
           { path: "specialized_services", element: <SpecializedSetup /> },
-          { path: "specialized_services/:link_url", element: <SpecializedDedicatedPage /> }
+          { path: "specialized_services/:link_url", element: <SpecializedDedicatedPage /> },
         ],
       },
       { path: "/our_network", element: <OurNetwork /> },
@@ -54,7 +55,25 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <>
+      {loading ? (
+        <LottieLoader />
+      ) : (
+        <RouterProvider router={router} />
+      )}
+    </>
+  );
 };
 
 export default App;

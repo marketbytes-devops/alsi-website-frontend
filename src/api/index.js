@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/",
+  baseURL: "http://194.164.149.249:8000/api/",
 });
 
 apiClient.interceptors.request.use(
@@ -24,7 +24,7 @@ apiClient.interceptors.response.use(
       const refreshToken = localStorage.getItem("refreshToken");
       try {
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/token/refresh/",
+          "http://194.164.149.249:8000/api/token/refresh/",
           { refresh: refreshToken }
         );
         localStorage.setItem("accessToken", response.data.access);
