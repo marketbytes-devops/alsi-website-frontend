@@ -12,7 +12,7 @@ const ReCaptcha = ({ onChange }) => {
   return (
     <div className="mb-4">
       <ReCAPTCHA
-        sitekey={'6Lfqnx8pAAAAANMmnL8PNHoCjMgscRLWJGes1d9Q'}
+        sitekey={'6Lcljt4qAAAAAL1FigiOeKdBww3HD3bK_tyLfSqv'}
         onChange={handleVerify}
       />
     </div>

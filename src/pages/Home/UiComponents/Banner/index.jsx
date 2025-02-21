@@ -3,6 +3,7 @@ import apiClient from "../../../../api";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const Banner = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -22,7 +23,7 @@ const Banner = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <LottieLoader/>
   }
 
   const removeHtmlTags = (str) => {

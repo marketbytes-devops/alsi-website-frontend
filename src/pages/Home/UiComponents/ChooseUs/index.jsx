@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import apiClient from "../../../../api";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const ChooseUs = () => {
   const [chooseUsData, setChooseUsData] = useState(null);
@@ -17,7 +18,7 @@ const ChooseUs = () => {
   }, []);
   
   if (!chooseUsData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

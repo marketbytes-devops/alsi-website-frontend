@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CareerForm from '../../components/UiComponents/Form/CareerForm'
 import Banner from '../../components/UiComponents/Banner'
 import apiClient from '../../api'
+import LottieLoader from '../../components/LottieLoader'
 
 const Career = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -19,7 +20,7 @@ const Career = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

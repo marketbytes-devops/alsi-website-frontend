@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import apiClient from "../../api";
 import GalleryMain from "./GalleryMain";
 import Banner from "../../components/UiComponents/Banner";
+import LottieLoader from "../../components/LottieLoader";
 
 const Gallery = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -19,7 +20,7 @@ const Gallery = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

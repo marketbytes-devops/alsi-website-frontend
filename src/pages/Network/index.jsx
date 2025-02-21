@@ -3,6 +3,7 @@ import OurNetwork from "./UiComponents/OurNetwork";
 import Banner from "../../components/UiComponents/Banner";
 import apiClient from "../../api";
 import Services from "../../components/UiComponents/Services";
+import LottieLoader from "../../components/LottieLoader";
 
 const Network = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -29,7 +30,7 @@ const Network = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import apiClient from "../../../../api";
 import Title from "../../../../components/Title";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const MissionVision = () => {
   const [title, setTitle] = useState("Mission Vision Purpose");
@@ -52,7 +53,7 @@ const MissionVision = () => {
   return (
     <>
       {isLoadingTitle || isLoadingEntries ? (
-        <div className="text-center text-white">Loading...</div>
+        <div className="text-center text-white"><LottieLoader/></div>
       ) : errorTitle ? (
         <div className="text-center text-red-500">{errorTitle}</div>
       ) : errorEntries ? (

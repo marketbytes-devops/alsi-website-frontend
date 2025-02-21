@@ -7,6 +7,7 @@ import apiClient from "../../../../api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const Highlights = () => {
   const [title, setTitle] = useState("");
@@ -63,7 +64,7 @@ const Highlights = () => {
       style={{ background: "rgb(18, 81, 148)", width: "100%", height: "auto" }}
     >
       {isLoading ? (
-        <div className="text-center text-white">Loading...</div>
+        <div className="text-center text-white"><LottieLoader/></div>
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (

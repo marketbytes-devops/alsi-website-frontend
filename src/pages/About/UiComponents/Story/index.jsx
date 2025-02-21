@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import storyBg from "../../../../assets/images/About/about-story.webp";
 import apiClient from "../../../../api";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const Story = () => {
   const [storyData, setStoryData] = useState(null);
@@ -18,7 +19,7 @@ const Story = () => {
   }, []);
 
   if (!storyData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

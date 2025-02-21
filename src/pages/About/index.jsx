@@ -7,6 +7,7 @@ import Certification from './UiComponents/Certification';
 import apiClient from '../../api';
 import Banner from '../../components/UiComponents/Banner';
 import Milestones from './UiComponents/Milestones';
+import LottieLoader from '../../components/LottieLoader';
 
 const About = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -24,7 +25,7 @@ const About = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

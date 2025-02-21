@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import teamBg from "../../../../assets/images/About/about-team.webp";
 import apiClient from "../../../../api";
 import Title from "../../../../components/Title";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const Team = () => {
   const [title, setTitle] = useState("Our Team");
@@ -60,7 +61,7 @@ const Team = () => {
     >
       <div className="text-center pb-4">
         {isLoadingTitle ? (
-          <div className="text-center text-white">Loading title...</div>
+          <div className="text-center text-white"><LottieLoader/></div>
         ) : errorTitle ? (
           <div className="text-center text-red-500">{errorTitle}</div>
         ) : (
@@ -69,7 +70,7 @@ const Team = () => {
       </div>
 
       {isLoadingTeam ? (
-        <div className="text-center text-white">Loading team members...</div>
+        <div className="text-center text-white"><LottieLoader/></div>
       ) : errorTeam ? (
         <div className="text-center text-red-500">{errorTeam}</div>
       ) : teamEntries.length === 0 ? (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardBg from "../../../../assets/images/Home/Achievements-bg.webp";
 import apiClient from "../../../../api";
 import Title from "../../../../components/Title";
+import LottieLoader from "../../../../components/LottieLoader";
 
 const Achievements = () => {
   const [title, setTitle] = useState("");
@@ -56,7 +57,7 @@ const Achievements = () => {
       </div>
 
       {isLoading.entries ? (
-        <div className="text-center">Loading...</div>
+        <div className="text-center"><LottieLoader/></div>
       ) : error.entries ? (
         <div className="text-center text-red-500">{error.entries}</div>
       ) : achievements.length === 0 ? (

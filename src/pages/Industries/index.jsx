@@ -4,6 +4,7 @@ import Form from '../../components/UiComponents/Form';
 import Banner from '../../components/UiComponents/Banner';
 import MainIndustries from './UiComponents/MainIndustries';
 import apiClient from '../../api';
+import LottieLoader from '../../components/LottieLoader';
 
 const Industries = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -21,7 +22,7 @@ const Industries = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

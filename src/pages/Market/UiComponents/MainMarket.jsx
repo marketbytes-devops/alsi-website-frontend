@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import apiClient from "../../../api"; 
 import Banner from "../../../components/UiComponents/Banner";
 import Form from "../../../components/UiComponents/Form";
+import LottieLoader from "../../../components/LottieLoader";
 
 const MainMarket = () => {
   const { blogSlug } = useParams();
@@ -95,7 +96,7 @@ const MainMarket = () => {
 
   if (loading) return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="text-xl font-semibold">Loading...</div>
+      <div className="text-xl font-semibold"><LottieLoader/></div>
     </div>
   );
   

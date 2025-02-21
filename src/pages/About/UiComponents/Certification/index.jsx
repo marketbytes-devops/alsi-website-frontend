@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import apiClient from "../../../../api";
 import Title from '../../../../components/Title';
+import LottieLoader from '../../../../components/LottieLoader';
 
 const Certification = () => {
   const [title, setTitle] = useState("Membership and Certifications");
@@ -54,7 +55,7 @@ const Certification = () => {
   return (
     <>
       {isLoadingTitle || isLoadingCertifications ? (
-        <div className="text-center text-white">Loading...</div>
+        <div className="text-center text-white"><LottieLoader/></div>
       ) : errorTitle ? (
         <div className="text-center text-red-500">{errorTitle}</div>
       ) : errorCertifications ? (

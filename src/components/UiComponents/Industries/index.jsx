@@ -7,6 +7,7 @@ import Title from "../../Title";
 import Slider from "react-slick"; 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LottieLoader from "../../LottieLoader";
 
 const Industries = () => {
   const [title, setTitle] = useState("");
@@ -75,7 +76,7 @@ const Industries = () => {
       </div>
 
       {isLoading ? (
-        <div className="text-center">Loading...</div>
+        <div className="text-center"><LottieLoader/></div>
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : industries.length === 0 ? (

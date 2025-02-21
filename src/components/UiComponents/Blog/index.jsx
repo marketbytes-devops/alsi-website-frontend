@@ -8,6 +8,7 @@ import { Navigation, A11y, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import apiClient from "../../../api";
+import LottieLoader from "../../LottieLoader";
 
 function truncateText(text, limit) {
   if (typeof text !== "string") {
@@ -62,7 +63,7 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  if (loadingTitle || loadingPosts) return <div className="text-center">Loading...</div>;
+  if (loadingTitle || loadingPosts) return <div className="text-center"><LottieLoader/></div>;
   if (errorTitle || errorPosts) return (
     <div className="text-center text-red-500">
       {errorTitle && <div>{errorTitle}</div>}

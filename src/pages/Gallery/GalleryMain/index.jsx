@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import apiClient from "../../../api";
+import LottieLoader from "../../../components/LottieLoader";
 
 const GalleryMain = () => {
   const [galleryItems, setGalleryItems] = useState([]);
@@ -24,7 +25,7 @@ const GalleryMain = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center">Loading...</div>;
+    return <div className="text-center"><LottieLoader/></div>;
   }
 
   if (error) {

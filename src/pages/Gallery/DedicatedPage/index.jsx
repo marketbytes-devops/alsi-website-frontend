@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Banner from "../../../components/UiComponents/Banner";
 import apiClient from "../../../api";
+import LottieLoader from "../../../components/LottieLoader";
 
 const GalleryDedicatedPage = () => {
   const { name: eventName } = useParams();
@@ -35,7 +36,7 @@ const GalleryDedicatedPage = () => {
   }, [eventName]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><LottieLoader/></div>;
   }
 
   if (error) {

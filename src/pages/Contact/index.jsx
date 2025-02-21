@@ -3,6 +3,7 @@ import contactBanner from "../../assets/images/Contact/contact-banner.webp";
 import ContactUsForm from "../../components/UiComponents/Form/ContactUsForm";
 import Banner from "../../components/UiComponents/Banner";
 import apiClient from "../../api";
+import LottieLoader from "../../components/LottieLoader";
 
 const Contact = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -24,7 +25,7 @@ const Contact = () => {
   }, []);
 
   if (!bannerData) {
-    return <p>Loading...</p>;
+    return <p><LottieLoader/></p>;
   }
 
   return (

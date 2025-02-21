@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import apiClient from "../../../../api"; 
 import Title from '../../../../components/Title';
+import LottieLoader from '../../../../components/LottieLoader';
 
 const Differentiators = () => {
   const prevRef = useRef(null);
@@ -72,7 +73,7 @@ const Differentiators = () => {
     <>
       <div className='text-center px-8 md:px-44 sm:px-8'>
         {isLoading.title ? (
-          <div>Loading title...</div>
+          <div><LottieLoader/></div>
         ) : error.title ? (
           <div className="text-red-500">{error.title}</div>
         ) : (
@@ -81,7 +82,7 @@ const Differentiators = () => {
       </div>
 
       {isLoading.entries ? (
-        <div className="text-center">Loading entries...</div>
+        <div className="text-center"><LottieLoader/></div>
       ) : error.entries ? (
         <div className="text-center text-red-500">{error.entries}</div>
       ) : differentiators.length === 0 ? (
