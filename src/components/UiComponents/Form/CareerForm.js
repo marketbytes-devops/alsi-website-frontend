@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react"; 
 import ReCaptcha from "../../ReCaptcha";
 import apiClient from "../../../api";
 
 const CareerForm = () => {
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null); 
   const [fileName, setFileName] = useState("No File Chosen");
   const [formData, setFormData] = useState({
     name: "",
@@ -13,11 +14,13 @@ const CareerForm = () => {
     file: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); 
+  const recaptchaRef = useRef(null); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!recaptchaVerified) {
+    if (!recaptchaVerified || !recaptchaToken) {
       alert("Please verify that you are not a robot.");
       return;
     }
@@ -28,12 +31,10 @@ const CareerForm = () => {
     formPayload.append("phone", formData.phone);
     formPayload.append("message", formData.message);
     formPayload.append("file", formData.file);
+    formPayload.append("captcha", recaptchaToken); 
 
     try {
-      const response = await apiClient.post(
-        "careers/careers-form/",
-        formPayload
-      );
+      const response = await apiClient.post("careers/careers-form/", formPayload);
       console.log("Form submitted successfully:", response.data);
       setFormData({
         name: "",
@@ -44,9 +45,18 @@ const CareerForm = () => {
       });
       setFileName("No File Chosen");
       setRecaptchaVerified(false);
+      setRecaptchaToken(null);
+      if (recaptchaRef.current) recaptchaRef.current.reset();
+      setErrorMessage("");
       setIsModalOpen(true);
     } catch (error) {
       console.error("Error submitting form:", error);
+      const errorMsg = error.response?.data?.captcha
+        ? "reCAPTCHA validation failed. Please try again."
+        : error.response?.data?.file
+        ? "File issue: " + error.response.data.file
+        : "An error occurred. Please try again.";
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -186,8 +196,17 @@ const CareerForm = () => {
               />
             </div>
             <div className="flex items-center justify-left mb-4">
-              <ReCaptcha onChange={setRecaptchaVerified} />
+              <ReCaptcha
+                ref={recaptchaRef} 
+                onChange={(verified, token) => {
+                  setRecaptchaVerified(verified);
+                  setRecaptchaToken(token); 
+                }}
+              />
             </div>
+            {errorMessage && (
+              <div className="mb-4 text-red-500">{errorMessage}</div>
+            )}
             <button
               type="submit"
               className="w-full bg-[#182d70] text-white text-md font-bold py-3 rounded-md hover:bg-[#0d6efd] transition duration-300"

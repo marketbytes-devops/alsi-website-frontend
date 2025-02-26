@@ -43,7 +43,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
       <div
         className="w-full h-full object-cover bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${image?.startsWith("http") ? image : `http://seocompanyinkerala.in${image}`})`, backgroundPosition:`${backgroundPosition}`, backgroundSize:`${backgroundSize}`, backgroundRepeat:"no-repeat", objectFit:`${objectFit}`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${image?.startsWith("http") ? image : `http://127.0.0.1:8000${image}`})`, backgroundPosition:`${backgroundPosition}`, backgroundSize:`${backgroundSize}`, backgroundRepeat:"no-repeat", objectFit:`${objectFit}`
         }}
       ></div>
       <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">

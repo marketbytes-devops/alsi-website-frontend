@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React, { forwardRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const ReCaptcha = ({ onChange }) => {
-  const [verified, setVerified] = useState(false);
-
+const ReCaptcha = forwardRef(({ onChange }, ref) => {
   const handleVerify = (token) => {
-    setVerified(!!token);
-    onChange(!!token);
+    const verified = !!token;
+    onChange(verified, token);
   };
 
   return (
     <div className="mb-4">
       <ReCAPTCHA
-        sitekey={'6Lcljt4qAAAAAL1FigiOeKdBww3HD3bK_tyLfSqv'}
+        ref={ref}
+        sitekey="6LeWEuIqAAAAAMA3-LcZ-CaSMXVNX3Bu_TRKW3mn"
         onChange={handleVerify}
       />
     </div>
   );
-};
+});
 
 export default ReCaptcha;
