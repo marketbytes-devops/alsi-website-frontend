@@ -19,6 +19,7 @@ export default defineConfig({
   ],
   server: { port: 5179 },
   optimizeDeps: {
+    exclude: ["recaptcha-v3"],
     esbuildOptions: {
       loader: {
         ".js": "jsx",

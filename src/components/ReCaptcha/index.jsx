@@ -11,7 +11,7 @@ const ReCaptcha = forwardRef(({ onChange }, ref) => {
     <div className="mb-4">
       <ReCAPTCHA
         ref={ref}
-        sitekey="6LeWEuIqAAAAAMA3-LcZ-CaSMXVNX3Bu_TRKW3mn"
+        sitekey="6Lf_TOQqAAAAAD3PGDryVnbbvXp8MJBL2XtZqKIQ"
         onChange={handleVerify}
       />
     </div>
