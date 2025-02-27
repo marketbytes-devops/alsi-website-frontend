@@ -239,7 +239,7 @@ const OurNetwork = () => {
         <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-extrabold mb-8">
           Offices in {location || "Select a Country"}
         </h2>
-        <ul className="list-none list-inside flex items-center justify-center w-full overflow-x-auto">
+        <ul className="list-none list-inside flex items-center justify-center w-full overflow-x-auto no-scrollbar">
           {offices &&
             offices.map((office) => (
               <li
