@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import apiClient from "../../../api"; 
+import apiClient from "../../../api";
 import Banner from "../../../components/UiComponents/Banner";
 import Form from "../../../components/UiComponents/Form";
 import LottieLoader from "../../../components/LottieLoader";
@@ -19,27 +20,29 @@ const MainMarket = () => {
     currentTime: "No Time Available",
     highlightBlog: "No Highlights Available",
     blogContent: "No Content Available",
-    recentPosts: []
+    recentPosts: [],
   });
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const currentBlogUrl = window.location.href; 
+
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const currentSlug = blogSlug || window.location.pathname.split('/').pop();
+        const currentSlug = blogSlug || window.location.pathname.split("/").pop();
 
         if (state && state.blogTitle) {
-          const recentPostsResponse = await apiClient.get('market/blog-entries/');
+          const recentPostsResponse = await apiClient.get("market/blog-entries/");
           const sortedPosts = recentPostsResponse.data
             .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .filter(post => post.blog_slug !== currentSlug)
+            .filter((post) => post.blog_slug !== currentSlug)
             .slice(0, 3);
 
           setBlogData({
             ...state,
-            recentPosts: sortedPosts
+            recentPosts: sortedPosts,
           });
           setLoading(false);
           return;
@@ -47,12 +50,12 @@ const MainMarket = () => {
 
         const [blogResponse, recentPostsResponse] = await Promise.all([
           apiClient.get(`market/blog-entries/${currentSlug}/`),
-          apiClient.get('market/blog-entries/')
+          apiClient.get("market/blog-entries/"),
         ]);
 
         const sortedPosts = recentPostsResponse.data
           .sort((a, b) => new Date(b.date) - new Date(a.date))
-          .filter(post => post.blog_slug !== currentSlug)
+          .filter((post) => post.blog_slug !== currentSlug)
           .slice(0, 3);
 
         setBlogData({
@@ -63,7 +66,7 @@ const MainMarket = () => {
           currentTime: blogResponse.data.time,
           highlightBlog: blogResponse.data.intro,
           blogContent: blogResponse.data.additional_content,
-          recentPosts: sortedPosts
+          recentPosts: sortedPosts,
         });
 
         setLoading(false);
@@ -86,28 +89,57 @@ const MainMarket = () => {
         currentDate: recentPost.date,
         currentTime: recentPost.time,
         highlightBlog: recentPost.intro || "No Highlights Available",
-        blogContent: recentPost.additional_content || "No Content Available"
-      }
+        blogContent: recentPost.additional_content || "No Content Available",
+      },
     });
   };
 
-  const cleanBlogContent = (blogData.blogContent || "").replace(/<h6>\s*<br>\s*<\/h6>/g, "");
-  const currentBlogUrl = window.location.href;
+  const cleanBlogContent = (blogData.blogContent || "").replace(
+    /<h6>\s*<br>\s*<\/h6>/g,
+    ""
+  );
 
-  if (loading) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-xl font-semibold"><LottieLoader/></div>
-    </div>
-  );
-  
-  if (error) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-xl font-semibold text-red-600">{error}</div>
-    </div>
-  );
+  const stripHtmlTags = (html) => {
+    return html ? html.replace(/<\/?[^>]+(>|$)/g, "") : "";
+  };
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl font-semibold">
+          <LottieLoader />
+        </div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl font-semibold text-red-600">{error}</div>
+      </div>
+    );
 
   return (
     <>
+      <Helmet>
+        <title>{stripHtmlTags(blogData.blogTitle)} | ALSI Global</title>
+        <meta
+          name="description"
+          content={stripHtmlTags(blogData.description).substring(0, 150)}
+        />
+        <meta property="og:url" content={currentBlogUrl} />
+        <meta
+          property="og:title"
+          content={stripHtmlTags(blogData.blogTitle)}
+        />
+        <meta
+          property="og:description"
+          content={stripHtmlTags(blogData.description).substring(0, 150)}
+        />
+        <meta property="og:image" content={blogData.image || ""} />
+        <meta property="og:type" content="article" />
+        <link rel="canonical" href={currentBlogUrl} />
+      </Helmet>
       <div className="container mb-6 sm:mb-6 md:mb-10 lg:mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         {blogData.image && (
           <Banner
@@ -126,14 +158,14 @@ const MainMarket = () => {
           style={{ backgroundColor: "#efefef", padding: "30px" }}
         >
           {blogData.highlightBlog && (
-            <div 
-              dangerouslySetInnerHTML={{ __html: blogData.highlightBlog }} 
+            <div
+              dangerouslySetInnerHTML={{ __html: blogData.highlightBlog }}
               className="font-extrabold"
             />
           )}
         </div>
-        <div 
-          className="flex flex-col md:flex-row mx-3 sm:mx-3 md:mx-28 lg:mx-28 xl:mx-32 mt-4 sm:mt-4 md:mt-6 lg:mt-6 xl:mt-6" 
+        <div
+          className="flex flex-col md:flex-row mx-3 sm:mx-3 md:mx-28 lg:mx-28 xl:mx-32 mt-4 sm:mt-4 md:mt-6 lg:mt-6 xl:mt-6"
           ref={blogContainerRef}
         >
           <div className="md:w-1/2 pr-6 space-y-6">
@@ -141,30 +173,29 @@ const MainMarket = () => {
               <div dangerouslySetInnerHTML={{ __html: blogData.description }} />
             )}
             {cleanBlogContent && (
-              <div 
-                dangerouslySetInnerHTML={{ __html: cleanBlogContent }} 
-                className="space-y-1 custom-link-color" 
+              <div
+                dangerouslySetInnerHTML={{ __html: cleanBlogContent }}
+                className="space-y-1 custom-link-color"
               />
             )}
           </div>
           <div className="md:w-1/2 mt-6 md:mt-0">
             <div className="sticky top-28 bg-[#EFEFEF] pt-6 px-4 h-auto overflow-hidden">
-              <h2 className="text-lg font-bold text-[#212529] px-4">Recent Posts</h2>
+              <h2 className="text-lg font-bold text-[#212529] px-4">
+                Recent Posts
+              </h2>
               <div className="overflow-y-auto h-full">
                 {blogData.recentPosts.length > 0 ? (
                   blogData.recentPosts.map((recentPost, index) => (
-                    <div
-                      key={index}
-                      className="mt-2 px-4"
-                    >
+                    <div key={index} className="mt-2 px-4">
                       <img src={recentPost.image} alt={recentPost.title} />
-                      <div 
+                      <div
                         className="text-lg font-bold text-[#212529] mb-2 mt-2"
-                        dangerouslySetInnerHTML={{__html: recentPost.blog_title}}
+                        dangerouslySetInnerHTML={{ __html: recentPost.blog_title }}
                       />
-                      <p 
+                      <p
                         className="text-muted-foreground pb-4"
-                        dangerouslySetInnerHTML={{__html: recentPost.description}}
+                        dangerouslySetInnerHTML={{ __html: recentPost.description }}
                       />
                       <button
                         onClick={() => handleReadMore(recentPost)}
@@ -184,7 +215,7 @@ const MainMarket = () => {
         </div>
       </div>
       <div className="mb-6 sm:mb-6 md:mb-10 lg:mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
-        <Form/>
+        <Form />
       </div>
     </>
   );

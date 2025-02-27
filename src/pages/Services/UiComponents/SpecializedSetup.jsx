@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import SecondLayout from "../../../components/CardLR/SecondLayout";
 import FirstLayout from "../../../components/CardLR/FirstLayout";
 import apiClient from "../../../api";
@@ -10,6 +11,8 @@ import Form from "../../../components/UiComponents/Form";
 const SpecializedSetup = () => {
   const [specializedServiceData, setSpecializedServiceData] = useState([]);
   const [bannerData, setBannerData] = useState(null);
+
+  const currentUrl = window.location.href;
 
   useEffect(() => {
     apiClient
@@ -42,14 +45,54 @@ const SpecializedSetup = () => {
     fetchSpecializedServiceData();
   }, []);
 
+  const stripHtmlTags = (html) => {
+    return html ? html.replace(/<\/?[^>]+(>|$)/g, "") : "";
+  };
+
   return (
     <div>
+      <Helmet>
+        <title>
+          {bannerData
+            ? `${stripHtmlTags(bannerData.title)} | ALSI Global`
+            : "Specialized Services | ALSI Global"}
+        </title>
+        <meta
+          name="description"
+          content={
+            bannerData
+              ? `${stripHtmlTags(bannerData.title)} - Explore our specialized services tailored to meet your unique needs.`
+              : "Explore our specialized services tailored to meet your unique needs at ALSI Global."
+          }
+        />
+        <meta property="og:url" content={currentUrl} />
+        <meta
+          property="og:title"
+          content={
+            bannerData
+              ? stripHtmlTags(bannerData.title)
+              : "Specialized Services | ALSI Global"
+          }
+        />
+        <meta
+          property="og:description"
+          content={
+            bannerData
+              ? `${stripHtmlTags(bannerData.title)} - Explore our specialized services tailored to meet your unique needs.`
+              : "Explore our specialized services tailored to meet your unique needs at ALSI Global."
+          }
+        />
+        <meta
+          property="og:image"
+          content={bannerData ? bannerData.image : ""}
+        />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href={currentUrl} />
+      </Helmet>
+
       {bannerData ? (
         <div className="mb-4 sm:mb-4 md:mb-24 lg:mb-24 xl:mb-24">
-          <Banner
-            image={bannerData.image}
-            title={bannerData.title}
-          />
+          <Banner image={bannerData.image} title={bannerData.title} />
         </div>
       ) : (
         <p>Loading banner...</p>
@@ -60,14 +103,14 @@ const SpecializedSetup = () => {
           const LayoutComponent = index % 2 === 1 ? SecondLayout : FirstLayout;
           return (
             <div className="w-auto mx-4 sm:mx-4 md:mx-24 lg:mx-24 xl:mx-24 mb-4 sm:mb-4 lg:mb-8 xl:mb-8">
-            <LayoutComponent
-              key={specialized.id}
-              imageUrl={specialized.image || ""}
-              title={specialized.title.replace(/<\/?p>/g, "")}
-              description={specialized.description.replace(/<\/?p>/g, "")}
-              showLink={true}
-              link_url={specialized.link_url}
-            />
+              <LayoutComponent
+                key={specialized.id}
+                imageUrl={specialized.image || ""}
+                title={specialized.title.replace(/<\/?p>/g, "")}
+                description={specialized.description.replace(/<\/?p>/g, "")}
+                showLink={true}
+                link_url={specialized.link_url}
+              />
             </div>
           );
         })

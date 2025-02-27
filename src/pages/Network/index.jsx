@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import OurNetwork from "./UiComponents/OurNetwork";
 import Banner from "../../components/UiComponents/Banner";
 import apiClient from "../../api";
@@ -30,11 +31,31 @@ const Network = () => {
   }, []);
 
   if (!bannerData) {
-    return <p><LottieLoader/></p>;
+    return <p><LottieLoader /></p>;
   }
 
   return (
     <div>
+      <Helmet>
+        <title>Our Logistics and Shipping Network | ALSI Global</title>
+        <meta
+          name="description"
+          content="Explore the efficiency of our logistics and shipping network for customized solutions to optimize your operations."
+        />
+        <meta
+          property="og:url"
+          content="https://www.alsiglobal.com/our_logistics_and_shipping_network"
+        />
+        <meta
+          property="og:title"
+          content="Our Logistics and Shipping Network | ALSI Global"
+        />
+        <meta
+          property="og:description"
+          content="Explore the efficiency of our logistics and shipping network for customized solutions to optimize your operations."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <div className="overflow-hidden mb-6 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <Banner image={bannerData.image} title={bannerData.title} />
       </div>

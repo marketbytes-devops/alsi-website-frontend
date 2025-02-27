@@ -1,55 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async"; // Add this
 import Layout from "./components/Layout";
-import ErrorPage from "./pages/ErrorPage";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import OurNetwork from "./pages/Network";
-import DedicatedPage from "./pages/Services/DedicatedPage";
-import Industries from "./pages/Industries";
-import MarketUpdates from "./pages/Market";
-import Gallery from "./pages/Gallery";
-import ContactUs from "./pages/Contact";
-import Careers from "./pages/Career";
-import GalleryDedicatedPage from "./pages/Gallery/DedicatedPage";
-import MainMarket from "./pages/Market/UiComponents/MainMarket";
-import SpecializedSetup from "./pages/Services/UiComponents/SpecializedSetup";
-import SpecializedDedicatedPage from "./pages/Services/UiComponents/SpecializedDedicatedPage";
 import LottieLoader from "./components/LottieLoader";
+
+const ErrorPage = lazy(() => import("./pages/ErrorPage"));
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const OurNetwork = lazy(() => import("./pages/Network"));
+const DedicatedPage = lazy(() => import("./pages/Services/DedicatedPage"));
+const Industries = lazy(() => import("./pages/Industries"));
+const MarketUpdates = lazy(() => import("./pages/Market"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const ContactUs = lazy(() => import("./pages/Contact"));
+const Careers = lazy(() => import("./pages/Career"));
+const GalleryDedicatedPage = lazy(() => import("./pages/Gallery/DedicatedPage"));
+const MainMarket = lazy(() => import("./pages/Market/UiComponents/MainMarket"));
+const SpecializedSetup = lazy(() => import("./pages/Services/UiComponents/SpecializedSetup"));
+const SpecializedDedicatedPage = lazy(() => import("./pages/Services/UiComponents/SpecializedDedicatedPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <ErrorPage />,
+    errorElement: <Suspense fallback={<LottieLoader />}><ErrorPage /></Suspense>,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/about-us", element: <About /> },
+      { path: "/", element: <Suspense fallback={<LottieLoader />}><Home /></Suspense> },
+      { path: "/about-us", element: <Suspense fallback={<LottieLoader />}><About /></Suspense> },
       {
         path: "/services",
         children: [
-          { path: ":name", element: <DedicatedPage /> },
-          { path: "specialized-services", element: <SpecializedSetup /> },
-          { path: "specialized-services/:link_url", element: <SpecializedDedicatedPage /> },
+          { path: ":name", element: <Suspense fallback={<LottieLoader />}><DedicatedPage /></Suspense> },
+          { path: "specialized-services", element: <Suspense fallback={<LottieLoader />}><SpecializedSetup /></Suspense> },
+          { path: "specialized-services/:link_url", element: <Suspense fallback={<LottieLoader />}><SpecializedDedicatedPage /></Suspense> },
         ],
       },
-      { path: "/our-network", element: <OurNetwork /> },
-      { path: "/industries", element: <Industries /> },
-      {
-        path: "/market-updates",
-        element: <MarketUpdates />,
-      },
-      {
-        path: "/market-updates/:blogSlug",
-        element: <MainMarket />,
-      },
-      { path: "/gallery", element: <Gallery /> },
-      {
-        path: "/gallery/:name",
-        element: <GalleryDedicatedPage />,
-      },
-      { path: "/contact-us", element: <ContactUs /> },
-      { path: "/careers", element: <Careers /> },
+      { path: "/our-network", element: <Suspense fallback={<LottieLoader />}><OurNetwork /></Suspense> },
+      { path: "/industries", element: <Suspense fallback={<LottieLoader />}><Industries /></Suspense> },
+      { path: "/market-updates", element: <Suspense fallback={<LottieLoader />}><MarketUpdates /></Suspense> },
+      { path: "/market-updates/:blogSlug", element: <Suspense fallback={<LottieLoader />}><MainMarket /></Suspense> },
+      { path: "/gallery", element: <Suspense fallback={<LottieLoader />}><Gallery /></Suspense> },
+      { path: "/gallery/:name", element: <Suspense fallback={<LottieLoader />}><GalleryDedicatedPage /></Suspense> },
+      { path: "/contact-us", element: <Suspense fallback={<LottieLoader />}><ContactUs /></Suspense> },
+      { path: "/careers", element: <Suspense fallback={<LottieLoader />}><Careers /></Suspense> },
     ],
   },
 ]);
@@ -58,21 +51,25 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const handleLoad = () => setLoading(false);
+    if (document.readyState === "complete") {
       setLoading(false);
-    }, 1500);
-
-    return () => clearTimeout(timer);
+    } else {
+      window.addEventListener("load", handleLoad);
+      const timer = setTimeout(() => setLoading(false), 1500);
+      return () => {
+        window.removeEventListener("load", handleLoad);
+        clearTimeout(timer);
+      };
+    }
   }, []);
 
   return (
-    <>
-      {loading ? (
-        <LottieLoader />
-      ) : (
-        <RouterProvider router={router} />
-      )}
-    </>
+    <HelmetProvider>
+      <Suspense fallback={<LottieLoader />}>
+        {loading ? <LottieLoader /> : <RouterProvider router={router} />}
+      </Suspense>
+    </HelmetProvider>
   );
 };
 

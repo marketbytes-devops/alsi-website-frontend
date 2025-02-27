@@ -4,6 +4,7 @@ import ContactUsForm from "../../components/UiComponents/Form/ContactUsForm";
 import Banner from "../../components/UiComponents/Banner";
 import apiClient from "../../api";
 import LottieLoader from "../../components/LottieLoader";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -25,18 +26,42 @@ const Contact = () => {
   }, []);
 
   if (!bannerData) {
-    return <p><LottieLoader/></p>;
+    return <p><LottieLoader /></p>;
   }
 
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Contact Us Today | ALSI Global</title>
+        <meta
+          name="description"
+          content="Get in touch with us today for all your inquiries and assistance need."
+        />
+        <meta
+          property="og:url"
+          content="https://www.alsiglobal.com/contact_us"
+        />
+        <meta
+          property="og:title"
+          content="Contact Us Today | ALSI Global"
+        />
+        <meta
+          property="og:description"
+          content="Get in touch with us today for all your inquiries and assistance needs."
+        />
+        <meta property="og:type" content="website" />
+        <link
+          rel="canonical"
+          href="https://www.alsiglobal.com/contact_us"
+        />
+      </Helmet>
       <div className="overflow-hidden mb-4 sm:mb-4 lg:mb-10 md:mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0">
         <Banner image={bannerData.image} title={bannerData.title} />
       </div>
       <div className="mx-4 md:mx-24 sm:mx-4">
         <ContactUsForm />
       </div>
-    </div>
+    </>
   );
 };
 

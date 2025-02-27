@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async"; 
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import apiClient from "../../../api";
@@ -15,6 +16,8 @@ const SpecializedDedicatedPage = () => {
 
   const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+
+  const currentServiceUrl = window.location.href; 
 
   useEffect(() => {
     const fetchSpecializedService = async () => {
@@ -67,10 +70,42 @@ const SpecializedDedicatedPage = () => {
       : color;
   };
 
+  const stripHtmlTags = (html) => {
+    return html ? html.replace(/<\/?[^>]+(>|$)/g, "") : "";
+  };
+
   return (
     <div>
       {specializedService ? (
         <>
+          <Helmet>
+            <title>{stripHtmlTags(specializedService.dedicated_title)} | ALSI Global</title>
+            <meta
+              name="description"
+              content={stripHtmlTags(specializedService.dedicated_paragraph).substring(0, 150)}
+            />
+            <meta
+              property="og:url"
+              content={currentServiceUrl}
+            />
+            <meta
+              property="og:title"
+              content={stripHtmlTags(specializedService.dedicated_title)}
+            />
+            <meta
+              property="og:description"
+              content={stripHtmlTags(specializedService.dedicated_paragraph).substring(0, 150)}
+            />
+            <meta
+              property="og:image"
+              content={specializedService.dedicated_image}
+            />
+            <meta property="og:type" content="website" />
+            <link
+              rel="canonical"
+              href={currentServiceUrl}
+            />
+          </Helmet>
           <Banner
             title={specializedService.dedicated_title}
             image={specializedService.dedicated_image}
@@ -86,7 +121,7 @@ const SpecializedDedicatedPage = () => {
           </div>
         </>
       ) : (
-        <LottieLoader/>
+        <LottieLoader />
       )}
 
       {subcategories.length > 0 ? (

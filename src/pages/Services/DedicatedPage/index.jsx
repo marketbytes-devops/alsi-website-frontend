@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useLocation, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Banner from "../../../components/UiComponents/Banner";
@@ -113,8 +114,20 @@ const DedicatedPage = () => {
       : color;
   };
 
+  const stripHtmlTags = (html) => {
+    return html.replace(/<\/?[^>]+(>|$)/g, "");
+  };
+
   return (
     <>
+    <Helmet>
+        <title>{stripHtmlTags(serviceDetails.service_title)} | ALSI Global</title>
+        <meta name="description" content={stripHtmlTags(serviceDetails.content_paragraphs).substring(0, 150)} />
+        <meta property="og:title" content={stripHtmlTags(serviceDetails.service_title)} />
+        <meta property="og:description" content={stripHtmlTags(serviceDetails.content_paragraphs).substring(0, 150)} />
+        <meta property="og:url" content={stripHtmlTags(currentServiceUrl)} />
+        <meta property="og:image" content={serviceDetails.banner_image} />
+      </Helmet>
       <div className="flex flex-grow">
         <Banner
           image={serviceDetails.banner_image}
