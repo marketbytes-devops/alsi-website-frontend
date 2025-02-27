@@ -120,7 +120,7 @@ const Differentiators = () => {
                     <img 
                       src={entry.image} 
                       alt={removeHtmlTags(entry.differentiator_title)} 
-                      className='w-10 h-10 object-contain' 
+                      className='w-10 h-10 object-contain scale-100 hover:scale-110 transition-all duration-300' 
                     />
                   </div>
                   <div className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
@@ -154,7 +154,7 @@ const Differentiators = () => {
                   <img 
                     src={entry.image} 
                     alt={removeHtmlTags(entry.differentiator_title)} 
-                    className='w-10 h-10 object-contain' 
+                    className='w-10 h-10 object-contain scale-100 hover:scale-110 transition-all duration-300' 
                   />
                 </div>
                 <div className='mt-4 text-[16px] text-[#212529] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />

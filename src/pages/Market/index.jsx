@@ -96,7 +96,7 @@ const Market = () => {
       }
     }
   
-    navigate(`/market_updates/${blogSlug}/`, {
+    navigate(`/market-updates/${blogSlug}/`, {
       state: {
         image: blogImage,
         description: description || "No Description Available",

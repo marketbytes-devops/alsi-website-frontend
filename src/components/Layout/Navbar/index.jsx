@@ -54,23 +54,23 @@ const Navbar = ({ toggleSidebar }) => {
   const link = {
     items: [
       { title: "Home", path: "/" },
-      { title: "About Us", path: "/about_us" },
+      { title: "About Us", path: "/about-us" },
       {
         title: "Services",
         path: "/services/services",
         subItems: services, 
       },
-      { title: "Our Network", path: "/our_network" },
+      { title: "Our Network", path: "/our-network" },
       { title: "Industries", path: "/industries" },
-      { title: "Market Updates", path: "/market_updates" },
+      { title: "Market Updates", path: "/market-updates" },
       { title: "Gallery", path: "/gallery" },
-      { title: "Contact Us", path: "/contact_us" },
+      { title: "Contact Us", path: "/contact-us" },
       { title: "Careers", path: "/careers" },
     ],
   };
 
   const isMarketActive = () => {
-    const marketRoutes = ["/market_updates", "/market_updates/"];
+    const marketRoutes = ["/market-updates", "/market-updates/"];
     return marketRoutes.some((route) => location.pathname.startsWith(route));
   };
 

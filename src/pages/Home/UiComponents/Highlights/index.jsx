@@ -70,7 +70,7 @@ const Highlights = () => {
       ) : (
         <>
           <div className="md:flex hidden sm:hidden">
-            <div className="relative left-36 top-36 p-4">
+            <div className="relative left-36 top-40 px-3 py-4">
               <div dangerouslySetInnerHTML={{ __html: title }} className="text-white text-4xl font-bold" />
             </div>
             <div className="flex justify-end flex-wrap py-20 pr-20">

@@ -78,7 +78,7 @@ const MainMarket = () => {
   }, [blogSlug, state]);
 
   const handleReadMore = async (recentPost) => {
-    navigate(`/market_updates/${recentPost.blog_slug}/`, {
+    navigate(`/market-updates/${recentPost.blog_slug}/`, {
       state: {
         image: recentPost.image,
         description: recentPost.description,

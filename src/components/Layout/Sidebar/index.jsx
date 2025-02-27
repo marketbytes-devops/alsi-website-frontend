@@ -68,23 +68,23 @@ const Sidebar = ({ closeSidebar }) => {
   const link = {
     items: [
       { title: "Home", path: "/" },
-      { title: "About Us", path: "/about_us" },
+      { title: "About Us", path: "/about-us" },
       {
         title: "Services",
-        path: "/services/customs_clearance",
+        path: "/services/services",
         subItems: services,
       },
-      { title: "Our Network", path: "/our_network" },
+      { title: "Our Network", path: "/our-network" },
       { title: "Industries", path: "/industries" },
-      { title: "Market Updates", path: "/market_updates" },
+      { title: "Market Updates", path: "/market-updates" },
       { title: "Gallery", path: "/gallery" },
-      { title: "Contact Us", path: "/contact_us" },
+      { title: "Contact Us", path: "/contact-us" },
       { title: "Careers", path: "/careers" },
     ],
   };
 
   const isMarketActive = () => {
-    const marketRoutes = ["/market_updates", "/market_updates/"];
+    const marketRoutes = ["/market-updates", "/market-updates/"];
     return marketRoutes.some((route) => location.pathname.startsWith(route));
   };
 
@@ -109,7 +109,7 @@ const Sidebar = ({ closeSidebar }) => {
       <div className="flex flex-col h-full justify-center px-6 sm:px-12 overflow-y-auto">
         {link.items.map((item, index) =>
           item.subItems ? (
-            <div key={item.title} className="w-full overflow-y-auto">
+            <div key={item.title} className="w-full overflow-y-auto no-scrollbar">
               <button
                 className={`block text-sm text-white w-full text-left items-center justify-between px-3 py-3 hover:font-semibold border-b border-white border-opacity-25 ${
                   currentPath === item.path || isMarketActive()

@@ -9,7 +9,30 @@
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 12px; 
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2044a2; 
+  border: 3px solid #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #193377;
+}
+
+.no-scrollbar {
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; 
 }
 
 h1 {
@@ -233,4 +256,8 @@ svg g:focus-visible {
 
 .slick-slider {
   width: 100%;
+}
+
+.recaptcha-checkbox-border {
+  border: #bbbbbb;
 }

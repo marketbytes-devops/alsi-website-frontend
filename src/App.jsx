@@ -24,23 +24,23 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/about_us", element: <About /> },
+      { path: "/about-us", element: <About /> },
       {
         path: "/services",
         children: [
           { path: ":name", element: <DedicatedPage /> },
-          { path: "specialized_services", element: <SpecializedSetup /> },
-          { path: "specialized_services/:link_url", element: <SpecializedDedicatedPage /> },
+          { path: "specialized-services", element: <SpecializedSetup /> },
+          { path: "specialized-services/:link_url", element: <SpecializedDedicatedPage /> },
         ],
       },
-      { path: "/our_network", element: <OurNetwork /> },
+      { path: "/our-network", element: <OurNetwork /> },
       { path: "/industries", element: <Industries /> },
       {
-        path: "/market_updates",
+        path: "/market-updates",
         element: <MarketUpdates />,
       },
       {
-        path: "/market_updates/:blogSlug",
+        path: "/market-updates/:blogSlug",
         element: <MainMarket />,
       },
       { path: "/gallery", element: <Gallery /> },
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         path: "/gallery/:name",
         element: <GalleryDedicatedPage />,
       },
-      { path: "/contact_us", element: <ContactUs /> },
+      { path: "/contact-us", element: <ContactUs /> },
       { path: "/careers", element: <Careers /> },
     ],
   },

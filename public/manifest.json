@@ -1,0 +1,15 @@
+{
+    "name": "ALSI Global LLC",
+    "short_name": "ALSI",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#2044a2",  
+    "theme_color": "#193377",     
+    "icons": [
+      {
+        "src": "/logo.webp",
+        "sizes": "69x96",
+        "type": "image/webp"
+      }
+    ]
+  }
