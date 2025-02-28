@@ -112,9 +112,10 @@ const Differentiators = () => {
               className='my-6'
             >
               {differentiators.map((entry) => (
-                <SwiperSlide key={entry.id} className='flex flex-col items-center'>
+                <SwiperSlide key={entry.id} className='flex flex-col items-center justify-center'>
+                  <div className='flex flex-col items-center justify-center'> 
                   <div 
-                    className='rounded-full p-16 mt-4' 
+                    className='rounded-full w-40 h-40 p-16 mt-4' 
                     style={{background: "radial-gradient(at left, #1d346e, #027eb4)"}}
                   >
                     <img 
@@ -123,7 +124,8 @@ const Differentiators = () => {
                       className='w-10 h-10 object-contain scale-100 hover:scale-110 transition-all duration-300' 
                     />
                   </div>
-                  <div className='mt-4 text-[16px] uppercase font-bold' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
+                  <div className='mt-4 text-[16px] uppercase font-bold px-20 text-center' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
+                  </div>
                 </SwiperSlide>
               ))}
               <div className="flex justify-center mt-4 space-x-4 pt-8">
