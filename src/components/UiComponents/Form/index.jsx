@@ -6,6 +6,7 @@ import apiClient from "../../../api";
 
 const Form = () => {
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,6 +26,7 @@ const Form = () => {
       const response = await apiClient.post('contact/contact-form/', formData);
       console.log('Form submitted successfully:', response.data);
       resetForm();
+      setIsModalOpen(true); 
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -42,7 +44,11 @@ const Form = () => {
       phone: '',
       message: ''
     });
-    setRecaptchaVerified(false); 
+    setRecaptchaVerified(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -137,6 +143,28 @@ const Form = () => {
           </form>
         </div>
       </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="mx-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+              <h2 className="text-xl font-extrabold text-center mb-4">
+                Thank you for your enquiry!
+              </h2>
+              <p className="text-center text-sm font-semibold mb-6">
+                We will get back to you soon.
+              </p>
+              <div className="flex justify-center">
+                <button
+                  onClick={handleCloseModal}
+                  className="bg-[#182d70] text-white px-6 py-2 rounded-md hover:bg-[#0d6efd] transition duration-300"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
