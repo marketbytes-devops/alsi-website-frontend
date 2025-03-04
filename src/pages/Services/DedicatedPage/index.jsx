@@ -120,7 +120,7 @@ const DedicatedPage = () => {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>{stripHtmlTags(serviceDetails.service_title)} | ALSI Global</title>
         <meta name="description" content={stripHtmlTags(serviceDetails.content_paragraphs).substring(0, 150)} />
         <meta property="og:title" content={stripHtmlTags(serviceDetails.service_title)} />
@@ -190,7 +190,8 @@ const DedicatedPage = () => {
             </div>
           ))
         ) : (
-          <div>No subcategories available</div>
+          <div className="text-center d-none">
+          </div>
         )}
       </div>
 

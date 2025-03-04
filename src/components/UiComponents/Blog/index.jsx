@@ -20,7 +20,7 @@ function truncateText(text, limit) {
 const Blog = () => {
   const [title_highlights, setTitle] = useState("Market Updates");
   const [posts, setPosts] = useState([]);
-  const [blogUrl, setBlogUrl] = useState("/market_updates");
+  const [blogUrl, setBlogUrl] = useState("/market-updates");
   const [loadingTitle, setLoadingTitle] = useState(true);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [errorTitle, setErrorTitle] = useState(null);
@@ -37,7 +37,7 @@ const Blog = () => {
         const banners = response.data;
         if (banners.length > 0) {
           setTitle(banners[0].title_highlights);
-          setBlogUrl(banners[0].blog_url || "/market_updates");
+          setBlogUrl(banners[0].blog_url || "/market-updates");
         } else {
           setTitle("No Posts Available");
         }
@@ -98,7 +98,7 @@ const Blog = () => {
       }
     }
   
-    navigate(`/market_updates/${post.blog_slug}/`, {
+    navigate(`/market-updates/${post.blog_slug}/`, {
       state: {
         image: post.image,
         description: post.description || "No Description Available",
