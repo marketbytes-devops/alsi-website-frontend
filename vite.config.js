@@ -2,6 +2,7 @@ import { defineConfig, transformWithEsbuild } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  base: '/', 
   plugins: [
     react(),
     {
@@ -17,7 +18,6 @@ export default defineConfig({
       },
     },
   ],
-  server: { port: 5179 },
   optimizeDeps: {
     exclude: ["recaptcha-v3"],
     esbuildOptions: {
@@ -25,5 +25,9 @@ export default defineConfig({
         ".js": "jsx",
       },
     },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false, 
   },
 });
