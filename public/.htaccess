@@ -3,8 +3,8 @@
   RewriteBase /
 
   # Redirect non-www to www
-  RewriteCond %{HTTP_HOST} ^alsiglobal.com.com [NC]
-  RewriteRule ^(.*)$ http://www.alsiglobal.com/$1 [L,R=301,NC]
+  RewriteCond %{HTTP_HOST} ^app.alsi-group.com [NC]
+  RewriteRule ^(.*)$ http://app.alsi-group.com/$1 [L,R=301,NC]
 
   # Existing rules
   RewriteRule ^index\.html$ - [L]

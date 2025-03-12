@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: "http://alsibackend.com/api/",
+  baseURL: "https://alsibackend.com/api/",
 });
 
 apiClient.interceptors.request.use(
@@ -24,7 +24,7 @@ apiClient.interceptors.response.use(
       const refreshToken = localStorage.getItem("refreshToken");
       try {
         const response = await axios.post(
-          "http://alsibackend.com/api/token/refresh/",
+          "https://alsibackend.com/api/token/refresh/",
           { refresh: refreshToken }
         );
         localStorage.setItem("accessToken", response.data.access);
