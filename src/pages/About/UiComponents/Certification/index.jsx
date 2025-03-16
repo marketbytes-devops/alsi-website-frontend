@@ -14,7 +14,7 @@ const Certification = () => {
   useEffect(() => {
     const fetchTitle = async () => {
       try {
-        const response = await apiClient.get("/about/member/");
+        const response = await apiClient.get("about/member/");
         console.log('Title Response:', response.data); 
         const data = response.data;
         
@@ -32,7 +32,7 @@ const Certification = () => {
 
     const fetchCertifications = async () => {
       try {
-        const response = await apiClient.get("/about/member-entries/");
+        const response = await apiClient.get("about/member-entries/");
         console.log('Certifications Response:', response.data); 
         const data = response.data;
 
