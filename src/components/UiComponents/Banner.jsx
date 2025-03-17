@@ -58,7 +58,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
       }
       {
         showDateTime && (
-          <div className="absolute bottom-6 sm:bottom-6 md:bottom-3 left-[90px] sm:left-[90px] md:left-20 lg:left-20 xl:left-20 p-4 text-white">
+          <div className="hidden md:block absolute bottom-6 sm:bottom-6 md:bottom-3 left-[90px] sm:left-[90px] md:left-20 lg:left-20 xl:left-20 p-4 text-white">
           <p className="flex items-center justify-start">
             <span dangerouslySetInnerHTML={{__html: date}}/>
             <div className="pl-[4px]">
@@ -69,7 +69,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
         )
       }
       {showSocialMedia && (
-        <div className="absolute bottom-0 sm:bottom-0 md:bottom-3 right-[90px] sm:right-[90px] md:right-20 lg:md:right-20 xl:md:right-20 p-4 flex space-x-4">
+        <div className="hidden md:flex absolute bottom-0 sm:bottom-0 md:bottom-3 right-[90px] sm:right-[90px] md:right-20 lg:md:right-20 xl:md:right-20 p-4 space-x-4">
           {socialMedia.map(({ icon, url, onClick, external }, index) => (
             <a
               key={index}
