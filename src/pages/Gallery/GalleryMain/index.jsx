@@ -32,13 +32,15 @@ const GalleryMain = () => {
     return <div className="text-center text-red-500">{error}</div>;
   }
 
-  if (!Array.isArray(galleryItems) || galleryItems.length === 0) {
+  if (!Array.isArray(galleryItems)) {
     return <div className="text-center">No gallery items available.</div>;
   }
 
+  const reversedItems = [...galleryItems].reverse();
+
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 p-4 mb-4">
-      {galleryItems
+      {reversedItems
         .filter((item) => item.slug)  
         .map((item) => (
           <Link to={`/gallery/${item.slug}`} key={item.id} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
