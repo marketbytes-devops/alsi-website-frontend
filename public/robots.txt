@@ -5,5 +5,4 @@ Disallow: /api/
 Disallow: /private/
 Disallow: /*.json$
 Disallow: /*.txt$
-
-Sitemap: https://alsiglobal.com/sitemap.xml
+Sitemap: https://www.alsiglobal.com/sitemap.xml
