@@ -117,7 +117,7 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-saudi-india", element: <India /> },
       { path: "/door-to-door-courier-cargo-services-dubai-bangladesh", element: <Bangladesh /> },
       { path: "/door-to-door-courier-cargo-services-qatar-to-albania", element: <Albania /> },
-      { path: "/door-to-door-courier-cargo-services-qata-colombia", element: <Colombia /> },
+      { path: "/door-to-door-courier-cargo-services-qatar-colombia", element: <Colombia /> },
       { path: "/door-to-door-courier-cargo-services-oman-to-chile", element: <Chile /> },
     ],
   },
