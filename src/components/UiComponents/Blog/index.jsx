@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Title from "../../Title";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,7 +8,6 @@ import { Navigation, A11y, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import apiClient from "../../../api";
-import LottieLoader from "../../LottieLoader";
 
 function truncateText(text, limit) {
   if (typeof text !== "string") {
@@ -23,12 +22,10 @@ const Blog = () => {
   const [blogUrl, setBlogUrl] = useState("/market-updates");
   const [loadingTitle, setLoadingTitle] = useState(true);
   const [loadingPosts, setLoadingPosts] = useState(true);
-  const [errorTitle, setErrorTitle] = useState(null);
-  const [errorPosts, setErrorPosts] = useState(null);
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTitle = async () => {
@@ -42,7 +39,7 @@ const Blog = () => {
           setTitle("No Posts Available");
         }
       } catch (err) {
-        setErrorTitle("Failed to load title. Please try again.");
+        // Silently fail, no error handling
       } finally {
         setLoadingTitle(false);
       }
@@ -53,7 +50,7 @@ const Blog = () => {
         const response = await apiClient.get("market/blog-entries/");
         setPosts(response.data);
       } catch (err) {
-        setErrorPosts("Failed to load posts. Please try again.");
+        // Silently fail, no error handling
       } finally {
         setLoadingPosts(false);
       }
@@ -63,16 +60,10 @@ const Blog = () => {
     fetchPosts();
   }, []);
 
-  if (loadingTitle || loadingPosts) return <div className="text-center"><LottieLoader/></div>;
-  if (errorTitle || errorPosts) return (
-    <div className="text-center text-red-500">
-      {errorTitle && <div>{errorTitle}</div>}
-      {errorPosts && <div>{errorPosts}</div>}
-    </div>
-  );
+  if (loadingTitle || loadingPosts) return <div></div>;
+  if (!posts.length) return <div></div>;
 
   const latestPosts = posts.slice(0, 4);
-
 
   const handleReadMore = (post) => {
     if (!post.blog_slug) {
@@ -107,7 +98,7 @@ const Blog = () => {
         currentTime: post.time || "No Time Available",
         highlightBlog: post.intro || "No Highlights Available",
         blogContent: post.additional_content || "No Content Available",
-        recentPosts: recentPosts.slice(0, 3), 
+        recentPosts: recentPosts.slice(0, 3),
       },
     });
   };
@@ -161,7 +152,7 @@ const Blog = () => {
                   }}/>
                   <button
                     className="text-[#212529] read-more-btn px-2"
-                    onClick={() => handleReadMore(post)} 
+                    onClick={() => handleReadMore(post)}
                   >
                     Read More
                   </button>
@@ -200,7 +191,7 @@ const Blog = () => {
                     __html: truncateText(post.description, 65),
                   }}/>
                 <button
-                  onClick={() => handleReadMore(post)} 
+                  onClick={() => handleReadMore(post)}
                   className="read-more-btn"
                 >
                   Read More

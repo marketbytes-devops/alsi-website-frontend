@@ -3,7 +3,6 @@ import apiClient from "../../../../api";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import LottieLoader from "../../../../components/LottieLoader";
 
 const Banner = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -14,16 +13,11 @@ const Banner = () => {
       .then((response) => {
         setBannerData(response.data[0]);
       })
-      .catch((error) => {
-        console.error(
-          "Error fetching banner data",
-          error.response ? error.response.data : error.message
-        );
-      });
+      .catch();
   }, []);
 
   if (!bannerData) {
-    return <LottieLoader/>
+    return <div></div>
   }
 
   const removeHtmlTags = (str) => {
@@ -62,7 +56,7 @@ const Banner = () => {
         </div>
         <div className="absolute right-4 -top-28 z-20">
           <img
-              src={bannerData.image}
+            src={bannerData.image}
             className="md:w-[100%] h-[625px] object-cover"
             alt={removeHtmlTags(bannerData.title)}
           />
@@ -72,7 +66,7 @@ const Banner = () => {
       <div className="md:hidden relative mt-32 h-screen md:h-auto flex flex-col items-center text-center md:flex-row md:text-left overflow-hidden">
         <div className="relative w-full md:w-[40%] h-96 md:h-auto mb-6 md:mb-0">
           <img
-              src={bannerData.image}
+            src={bannerData.image}
             className="w-full h-full object-cover"
             alt={bannerData.title}
           />

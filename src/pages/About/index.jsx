@@ -8,7 +8,6 @@ import MissionVision from './UiComponents/MissionVision';
 import Certification from './UiComponents/Certification';
 import Banner from '../../components/UiComponents/Banner';
 import Milestones from './UiComponents/Milestones';
-import LottieLoader from '../../components/LottieLoader';
 
 const About = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -21,20 +20,13 @@ const About = () => {
           setBannerData(response.data[0]);
         }
       })
-      .catch((error) => {
-        console.error(
-          "Error fetching banner data",
-          error.response ? error.response.data : error.message
-        );
+      .catch(() => {
+        // Silently fail, no error handling
       });
   }, []);
 
   if (!bannerData) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <LottieLoader />
-      </div>
-    );
+    return <div></div>;
   }
 
   return (
@@ -67,7 +59,6 @@ const About = () => {
       </Helmet>
 
       <main role="main">
-
         <section
           aria-label="About Banner"
           className="overflow-hidden mb-10 mt-4 sm:mt-4 md:mt-0 lg:mt-0"

@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import teamBg from "../../../../assets/images/About/about-team.webp";
 import apiClient from "../../../../api";
 import Title from "../../../../components/Title";
-import LottieLoader from "../../../../components/LottieLoader";
 
 const Team = () => {
   const [title, setTitle] = useState("Our Team");
   const [teamEntries, setTeamEntries] = useState([]);
   const [isLoadingTitle, setIsLoadingTitle] = useState(true);
   const [isLoadingTeam, setIsLoadingTeam] = useState(true);
-  const [errorTitle, setErrorTitle] = useState(null);
-  const [errorTeam, setErrorTeam] = useState(null);
 
   useEffect(() => {
     const fetchTitle = async () => {
@@ -24,7 +21,7 @@ const Team = () => {
           setTitle("Our Team");
         }
       } catch (err) {
-        setErrorTitle("Failed to load title. Please try again.");
+        // Silently fail, no error handling
       } finally {
         setIsLoadingTitle(false);
       }
@@ -39,7 +36,7 @@ const Team = () => {
           setTeamEntries(data);
         }
       } catch (err) {
-        setErrorTeam("Failed to load team members. Please try again.");
+        // Silently fail, no error handling
       } finally {
         setIsLoadingTeam(false);
       }
@@ -48,6 +45,10 @@ const Team = () => {
     fetchTitle();
     fetchTeamMembers();
   }, []);
+
+  if (!teamEntries.length && !isLoadingTeam) {
+    return <div></div>;
+  }
 
   return (
     <div
@@ -61,20 +62,14 @@ const Team = () => {
     >
       <div className="text-center pb-4">
         {isLoadingTitle ? (
-          <div className="text-center text-white"><LottieLoader/></div>
-        ) : errorTitle ? (
-          <div className="text-center text-red-500">{errorTitle}</div>
+          <div></div>
         ) : (
           <Title title={title} color="white" />
         )}
       </div>
 
       {isLoadingTeam ? (
-        <div className="text-center text-white"><LottieLoader/></div>
-      ) : errorTeam ? (
-        <div className="text-center text-red-500">{errorTeam}</div>
-      ) : teamEntries.length === 0 ? (
-        <div className="text-center text-white">No team members available</div>
+        <div></div>
       ) : (
         <div className="flex flex-wrap -mx-4">
           {teamEntries.map((entry) => (

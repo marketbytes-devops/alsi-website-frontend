@@ -21,7 +21,7 @@ const OurNetwork = () => {
         fax: "",
         contact_name: "Justin Varghese",
         position: "Country Manager - UAE",
-        phone: "+971 4 5850934, +971 50 1074170",
+        phone: "+971 4 585 0934, +971 56 858 7717",
         email: "jv@alsiglobal.com",
         offices: [
           { id: 1, office_name: "Deira, Dubai" },

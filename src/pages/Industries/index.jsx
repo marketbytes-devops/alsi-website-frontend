@@ -4,7 +4,6 @@ import Form from '../../components/UiComponents/Form';
 import Banner from '../../components/UiComponents/Banner';
 import MainIndustries from './UiComponents/MainIndustries';
 import apiClient from '../../api';
-import LottieLoader from '../../components/LottieLoader';
 import { Helmet } from 'react-helmet-async';
 
 const Industries = () => {
@@ -17,13 +16,13 @@ const Industries = () => {
           setBannerData(response.data[0]);
         }
       })
-      .catch((error) => {
-        console.error("Error fetching banner data", error.response ? error.response.data : error.message);
+      .catch(() => {
+        
       });
   }, []);
 
   if (!bannerData) {
-    return <p><LottieLoader /></p>;
+    return <div></div>;
   }
 
   return (

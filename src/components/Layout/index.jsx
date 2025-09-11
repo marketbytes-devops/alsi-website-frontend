@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import ScrollToTop from "../ScrollToTop";
+import GTMTracker from "../../GTMTracker";
 
 const Layout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -27,6 +28,7 @@ const Layout = () => {
 
   return (
     <>
+    <GTMTracker />
     <ScrollToTop/>
     <div className="relative">
       <AnimatePresence>

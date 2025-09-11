@@ -2,14 +2,12 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faInstagram, faLinkedin, faPinterest, faThreads, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { useSocialLinks } from '../../hooks/useSocialLinks';
-import LottieLoader from '../LottieLoader';
-
 
 const SocialLink = ({ className }) => {
   const socialLinks = useSocialLinks();
 
   if (!socialLinks || !socialLinks.facebook) {
-    return <div><LottieLoader/></div>; 
+    return <div></div>;
   }
 
   return (

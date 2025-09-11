@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import storyBg from "../../../../assets/images/About/about-story.webp";
 import apiClient from "../../../../api";
-import LottieLoader from "../../../../components/LottieLoader";
 
 const Story = () => {
   const [storyData, setStoryData] = useState(null);
@@ -13,13 +12,13 @@ const Story = () => {
           setStoryData(response.data[0]);
         }
       })
-      .catch((error) => {
-        console.error("Error fetching story data", error.response ? error.response.data : error.message);
+      .catch(() => {
+        // Silently fail, no error handling
       });
   }, []);
 
   if (!storyData) {
-    return <p><LottieLoader/></p>;
+    return <div></div>;
   }
 
   return (

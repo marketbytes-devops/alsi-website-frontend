@@ -1,21 +1,19 @@
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+  RewriteEngine On
 
-    # Redirect non-www to www
-    RewriteCond %{HTTP_HOST} ^alsiglobal\.com [NC]
-    RewriteRule ^(.*)$ https://www.alsiglobal.com/$1 [L,R=301]
+  # Redirect non-www to www
+  RewriteCond %{HTTP_HOST} ^alsiglobal\.com [NC]
+  RewriteRule ^(.*)$ https://www.alsiglobal.com/$1 [L,R=301]
 
-    # Exceptions for robots.txt and sitemap.xml
-    RewriteCond %{REQUEST_FILENAME} !(robots\.txt|sitemap\.xml)
+  # Redirect HTTP to HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # Prerender for crawlers
-    RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yahoo|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator [NC,OR]
-    RewriteCond %{QUERY_STRING} _escaped_fragment_
-    RewriteRule ^(?!.*?(\.js|\.css|\.xml|\.less|\.webp|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.docx|\.xls|\.xlsx|\.ppt|\.pptx|\.tar|\.tgz|\.wav|\.mov|\.avi|\.mpg|\.mpeg|\.3gp|\.3g2|\.m4v|\.mp4|\.flv|\.swf|\.woff|\.woff2|\.ttf|\.eot|\.svg|\.otf|\.ttc|\.sitemap)).* https://service.prerender.io/https://www.alsiglobal.com%{REQUEST_URI} [P,L]
+  # Do not rewrite existing files or folders
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
 
-    RewriteRule ^index\.html$ - [L]
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule . /index.html [L]
+  # Fallback to index.html for SPA routing
+  RewriteRule . /index.html [L]
 </IfModule>

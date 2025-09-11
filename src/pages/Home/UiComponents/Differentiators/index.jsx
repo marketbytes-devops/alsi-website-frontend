@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import apiClient from "../../../../api"; 
 import Title from '../../../../components/Title';
-import LottieLoader from '../../../../components/LottieLoader';
 
 const Differentiators = () => {
   const prevRef = useRef(null);
@@ -16,7 +15,6 @@ const Differentiators = () => {
   const [subtitle, setSubtitle] = useState("");
   const [differentiators, setDifferentiators] = useState([]);
   const [isLoading, setIsLoading] = useState({ title: true, entries: true });
-  const [error, setError] = useState({ title: null, entries: null });
 
   useEffect(() => {
     const fetchTitleAndSubtitle = async () => {
@@ -30,7 +28,7 @@ const Differentiators = () => {
           setTitle("No Differentiators Available");
         }
       } catch (err) {
-        setError(prev => ({ ...prev, title: "Failed to load title and subtitle. Please try again." }));
+        // Silently fail, no error handling
       } finally {
         setIsLoading(prev => ({ ...prev, title: false }));
       }
@@ -45,7 +43,7 @@ const Differentiators = () => {
         const response = await apiClient.get("home/differentiator-entries/");
         setDifferentiators(response.data || []);
       } catch (err) {
-        setError(prev => ({ ...prev, entries: "Failed to load differentiator entries. Please try again." }));
+        // Silently fail, no error handling
       } finally {
         setIsLoading(prev => ({ ...prev, entries: false }));
       }
@@ -69,24 +67,22 @@ const Differentiators = () => {
     return str.replace(/<[^>]*>/g, "");
   };
 
+  if (!differentiators.length && !isLoading.entries) {
+    return <div></div>;
+  }
+
   return (
     <>
       <div className='text-center px-8 md:px-44 sm:px-8'>
         {isLoading.title ? (
-          <div><LottieLoader/></div>
-        ) : error.title ? (
-          <div className="text-red-500">{error.title}</div>
+          <div></div>
         ) : (
           <Title title={title} subtitle={subtitle} />
         )}
       </div>
 
       {isLoading.entries ? (
-        <div className="text-center"><LottieLoader/></div>
-      ) : error.entries ? (
-        <div className="text-center text-red-500">{error.entries}</div>
-      ) : differentiators.length === 0 ? (
-        <div className="text-center">No differentiators available</div>
+        <div></div>
       ) : (
         <>
           <div className='block sm:hidden'>
@@ -114,17 +110,17 @@ const Differentiators = () => {
               {differentiators.map((entry) => (
                 <SwiperSlide key={entry.id} className='flex flex-col items-center justify-center'>
                   <div className='flex flex-col items-center justify-center'> 
-                  <div 
-                    className='rounded-full w-40 h-40 p-16 mt-4' 
-                    style={{background: "radial-gradient(at left, #1d346e, #027eb4)"}}
-                  >
-                    <img 
-                      src={entry.image} 
-                      alt={removeHtmlTags(entry.differentiator_title)} 
-                      className='w-10 h-10 object-contain scale-100 hover:scale-110 transition-all duration-300' 
-                    />
-                  </div>
-                  <div className='mt-4 text-[16px] uppercase font-bold px-20 text-center' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
+                    <div 
+                      className='rounded-full w-40 h-40 p-16 mt-4' 
+                      style={{background: "radial-gradient(at left, #1d346e, #027eb4)"}}
+                    >
+                      <img 
+                        src={entry.image} 
+                        alt={removeHtmlTags(entry.differentiator_title)} 
+                        className='w-10 h-10 object-contain scale-100 hover:scale-110 transition-all duration-300' 
+                      />
+                    </div>
+                    <div className='mt-4 text-[16px] uppercase font-bold px-20 text-center' dangerouslySetInnerHTML={{ __html: entry.differentiator_title }} />
                   </div>
                 </SwiperSlide>
               ))}

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Banner from "../../../components/UiComponents/Banner";
 import apiClient from "../../../api";
-import LottieLoader from "../../../components/LottieLoader";
 
 const GalleryDedicatedPage = () => {
   const { name: eventName } = useParams();
@@ -11,8 +10,6 @@ const GalleryDedicatedPage = () => {
   const [galleryItems, setGalleryItems] = useState(null);
   const [activeTab, setActiveTab] = useState("images");
   const [fullscreenImage, setFullscreenImage] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchGalleryItems = async () => {
@@ -25,22 +22,15 @@ const GalleryDedicatedPage = () => {
         );
         setGalleryItems(response.data);
       } catch (error) {
-        console.error("Error fetching gallery item:", error);
-        setError("Failed to load gallery.");
-      } finally {
-        setLoading(false);
+        setGalleryItems(null);
       }
     };
 
     fetchGalleryItems();
   }, [eventName]);
 
-  if (loading) {
-    return <div><LottieLoader/></div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
+  if (!galleryItems) {
+    return <div></div>;
   }
 
   const handleImageClick = (image) => {
@@ -213,7 +203,7 @@ const GalleryDedicatedPage = () => {
                 className="relative bottom-[75px] sm:bottom-[75px] md:bottom-[195px] lg:bottom-[195px] xl:bottom-[195px] right-10 text-white text-3xl font-semibold"
                 whileHover={{ scale: 1.2 }}
               >
-                &times;
+                ×
               </motion.button>
             </motion.div>
           )}

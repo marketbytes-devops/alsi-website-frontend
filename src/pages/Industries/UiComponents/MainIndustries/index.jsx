@@ -12,7 +12,7 @@ const MainIndustries = () => {
         const response = await apiClient.get('industry/industry-entries/');
         setIndustriesData(response.data); 
       } catch (error) {
-        console.error('Failed to fetch industry data:', error);
+        
       }
     };
 

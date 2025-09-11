@@ -6,7 +6,7 @@ import apiClient from "../../../api";
 
 const Form = () => {
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,17 +16,15 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!recaptchaVerified) {
       alert("Please verify that you are not a robot.");
       return;
     }
-
     try {
       const response = await apiClient.post('contact/contact-form/', formData);
       console.log('Form submitted successfully:', response.data);
       resetForm();
-      setIsModalOpen(true); 
+      setIsModalOpen(true);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -54,7 +52,7 @@ const Form = () => {
   return (
     <div className="flex flex-wrap h-auto">
       <div
-        className="hidden md:block w-full md:w-1/2 h-auto bg-cover bg-center"
+        className="hidden md:block w-full md:w-1/2 aspect-[4/3]" 
         style={{
           backgroundImage: `url(${formBgFirst})`,
           backgroundPosition: "top left",
@@ -63,8 +61,14 @@ const Form = () => {
         }}
       ></div>
       <div
-        className="w-full md:w-1/2 h-auto bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(${formBgSecond})`, padding: "18px 0" }}
+        className="w-full md:w-1/2 aspect-[4/3] flex items-center justify-center" 
+        style={{ 
+          backgroundImage: `url(${formBgSecond})`, 
+          padding: "18px 0",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
       >
         <div className="bg-transparent w-full max-w-md px-8 md:p-0">
           <div className="mb-4">

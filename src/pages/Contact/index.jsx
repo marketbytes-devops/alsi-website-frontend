@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ContactUsForm from "../../components/UiComponents/Form/ContactUsForm";
 import Banner from "../../components/UiComponents/Banner";
 import apiClient from "../../api";
-import LottieLoader from "../../components/LottieLoader";
 import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
@@ -16,16 +15,13 @@ const Contact = () => {
           setBannerData(response.data[0]);
         }
       })
-      .catch((error) => {
-        console.error(
-          "Error fetching banner data",
-          error.response ? error.response.data : error.message
-        );
+      .catch(() => {
+
       });
   }, []);
 
   if (!bannerData) {
-    return <p><LottieLoader /></p>;
+    return <div></div>;
   }
 
   return (

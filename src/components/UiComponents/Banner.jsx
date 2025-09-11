@@ -8,7 +8,20 @@ import link from "../../assets/images/SocialMediaIcons/link.webp";
 import more from "../../assets/images/SocialMediaIcons/more.webp";
 import { useSocialLinks } from "../../hooks/useSocialLinks";
 
-const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMedia, showMainTitle, showDateTime, backgroundPosition, backgroundSize, objectFit }) => {
+const Banner = ({
+  bgImage,
+  image,
+  title,
+  mainTitle,
+  date,
+  time,
+  currentUrl,
+  showSocialMedia = false,
+  showMainTitle = false,
+  showDateTime = false,
+  backgroundPosition = "center",
+  backgroundSize = "cover",
+}) => {
   const socialLinks = useSocialLinks() || {};
 
   const socialMedia = [
@@ -19,62 +32,79 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
     {
       icon: link,
       onClick: (currentUrl) => {
-        navigator.clipboard.writeText(currentUrl)
+        navigator.clipboard
+          .writeText(currentUrl)
           .then(() => alert("URL copied to clipboard!"))
-          .catch(err => console.error("Failed to copy: ", err));
+          .catch((err) => console.error("Failed to copy: ", err));
       },
     },
     {
       icon: more,
       onClick: (currentUrl) => {
         if (navigator.share) {
-          navigator.share({ title: document.title, url: currentUrl })
+          navigator
+            .share({ title: document.title, url: currentUrl })
             .then(() => console.log("Share successful"))
-            .catch(err => console.error("Share failed: ", err));
+            .catch((err) => console.error("Share failed: ", err));
         } else {
           alert("Sharing is not supported on this browser.");
         }
       },
     },
-  ];  
+  ];
+
+  // Construct the background image URL
+  const backgroundImageUrl = image
+    ? image.startsWith("http")
+      ? image
+      : `https://www.alsibackend.com${image}`
+    : bgImage;
 
   return (
     <div className="relative w-full h-[400px] md:h-[450px] overflow-hidden">
       <div
-        className="w-full h-full object-cover bg-cover bg-center"
+        className="w-full h-full bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${image?.startsWith("http") ? image : `https://www.alsibackend.com${image}`})`, backgroundPosition:`${backgroundPosition}`, backgroundSize:`${backgroundSize}`, backgroundRepeat:"no-repeat", objectFit:`${objectFit}`
+          backgroundImage: backgroundImageUrl
+            ? `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${backgroundImageUrl})`
+            : "none",
+          backgroundPosition,
+          backgroundSize,
+          backgroundRepeat: "no-repeat",
         }}
       ></div>
       <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-8">
-        <div dangerouslySetInnerHTML={{ __html: title}} className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"/>
+        <div
+          dangerouslySetInnerHTML={{ __html: title }}
+          className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"
+        />
       </div>
-      {
-        showMainTitle && (
-          <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-10 xl:px-10">
-          <div dangerouslySetInnerHTML={{ __html: mainTitle}} className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"/>
-          </div>
-        )
-      }
-      {
-        showDateTime && (
-          <div className="hidden md:block absolute bottom-6 sm:bottom-6 md:bottom-3 left-[90px] sm:left-[90px] md:left-20 lg:left-20 xl:left-20 p-4 text-white">
+      {showMainTitle && (
+        <div className="absolute top-64 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center w-full mx-auto px-6 sm:px-6 md:px-10 lg:px-10 xl:px-10">
+          <div
+            dangerouslySetInnerHTML={{ __html: mainTitle }}
+            className="text-2xl sm:text-2xl md:text-6xl lg:text-6xl font-bold"
+          />
+        </div>
+      )}
+      {showDateTime && (
+        <div className="hidden md:block absolute bottom-6 sm:bottom-6 md:bottom-3 left-[90px] sm:left-[90px] md:left-20 lg:left-20 xl:left-20 p-4 text-white">
           <p className="flex items-center justify-start">
-            <span dangerouslySetInnerHTML={{__html: date}}/>
+            <span dangerouslySetInnerHTML={{ __html: date }} />
             <div className="pl-[4px]">
-            <span dangerouslySetInnerHTML={{__html: time}}/>
+              <span dangerouslySetInnerHTML={{ __html: time }} />
             </div>
           </p>
         </div>
-        )
-      }
+      )}
       {showSocialMedia && (
-        <div className="hidden md:flex absolute bottom-0 sm:bottom-0 md:bottom-3 right-[90px] sm:right-[90px] md:right-20 lg:md:right-20 xl:md:right-20 p-4 space-x-4">
+        <div className="hidden md:flex absolute bottom-0 sm:bottom-0 md:bottom-3 right-[90px] sm:right-[90px] md:right-20 lg:right-20 xl:right-20 p-4 space-x-4">
           {socialMedia.map(({ icon, url, onClick, external }, index) => (
             <a
               key={index}
               href={external ? url : undefined}
               target="_blank"
+              rel="noopener noreferrer"
               onClick={(e) => {
                 if (!external) {
                   e.preventDefault();
@@ -95,6 +125,7 @@ const Banner = ({ image, title, mainTitle, date, time, currentUrl, showSocialMed
 
 Banner.propTypes = {
   image: PropTypes.string,
+  bgImage: PropTypes.string,
   title: PropTypes.string.isRequired,
   mainTitle: PropTypes.string.isRequired,
   date: PropTypes.string,
@@ -102,6 +133,17 @@ Banner.propTypes = {
   currentUrl: PropTypes.string.isRequired,
   showSocialMedia: PropTypes.bool,
   showMainTitle: PropTypes.bool,
+  showDateTime: PropTypes.bool,
+  backgroundPosition: PropTypes.string,
+  backgroundSize: PropTypes.string,
+};
+
+Banner.defaultProps = {
+  showSocialMedia: false,
+  showMainTitle: false,
+  showDateTime: false,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
 };
 
 export default Banner;

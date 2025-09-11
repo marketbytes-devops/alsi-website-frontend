@@ -4,7 +4,6 @@ import OurNetwork from "./UiComponents/OurNetwork";
 import Banner from "../../components/UiComponents/Banner";
 import apiClient from "../../api";
 import Services from "../../components/UiComponents/Services";
-import LottieLoader from "../../components/LottieLoader";
 
 const Network = () => {
   const [bannerData, setBannerData] = useState(null);
@@ -22,16 +21,13 @@ const Network = () => {
           });
         }
       })
-      .catch((error) => {
-        console.error(
-          "Error fetching banner data",
-          error.response ? error.response.data : error.message
-        );
+      .catch(() => {
+
       });
   }, []);
 
   if (!bannerData) {
-    return <p><LottieLoader /></p>;
+    return <div></div>;
   }
 
   return (

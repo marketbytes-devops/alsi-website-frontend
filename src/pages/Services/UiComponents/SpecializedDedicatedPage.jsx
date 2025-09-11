@@ -5,7 +5,6 @@ import { useMediaQuery } from "react-responsive";
 import apiClient from "../../../api";
 import Banner from "../../../components/UiComponents/Banner";
 import BackgroundRepeat from "../../../components/BackgroundRepeat";
-import LottieLoader from "../../../components/LottieLoader";
 
 const SpecializedDedicatedPage = () => {
   const { link_url } = useParams();
@@ -50,6 +49,8 @@ const SpecializedDedicatedPage = () => {
         }
       } catch (error) {
         console.error("Error fetching specialized service:", error);
+        setSpecializedService(null);
+        setSubcategories([]);
       }
     };
 
@@ -121,7 +122,7 @@ const SpecializedDedicatedPage = () => {
           </div>
         </>
       ) : (
-        <LottieLoader />
+        <div></div>
       )}
 
       {subcategories.length > 0 ? (

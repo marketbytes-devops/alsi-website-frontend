@@ -48,17 +48,23 @@ const Market = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    // Scroll to top when page changes
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      // Scroll to top when moving to previous page
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+      // Scroll to top when moving to next page
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -140,6 +146,23 @@ const Market = () => {
     return text.length > limit ? text.slice(0, limit) + "..." : text;
   }
 
+  // Function to optimize image with srcset and WebP fallback
+  const optimizeImage = (imageUrl) => {
+    // Hypothetical WebP and resized URLs (adjust based on backend capabilities)
+    const baseName = imageUrl.split('.').slice(0, -1).join('.');
+    const ext = imageUrl.split('.').pop();
+    const webpUrl = `${baseName}.webp`;
+    return {
+      src: webpUrl, // Prefer WebP
+      fallback: imageUrl, // Fallback to original format
+      srcset: `
+        ${baseName}_200w.${ext} 200w,
+        ${baseName}_400w.${ext} 400w,
+        ${webpUrl}?w=800 800w
+      `.trim(), // Multiple resolutions
+    };
+  };
+
   return (
     <>
       <Helmet>
@@ -154,7 +177,7 @@ const Market = () => {
         />
         <meta
           property="og:title"
-          content=" Market Updates | ALSI Global"
+          content="Market Updates | ALSI Global"
         />
         <meta
           property="og:description"
@@ -172,35 +195,43 @@ const Market = () => {
       <div className="px-4 py-8 mx-6 mt-4 sm:mx-6 sm:mt-6 md:mx-20 md:mt-16 lg:mx-20 lg:mt-16">
         <div className="flex flex-wrap items-center justify-start">
           <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-4 xl:grid-cols-4 sm:grid-cols-1 gap-8">
-            {currentPosts.map((post) => (
-              <div key={post.id} className="w-auto h-auto bg-white hover:bg-gray-100 rounded-lg shadow-lg shadow-gray-300 hover:shadow-gray-400 hover:shadow-lg transition duration-300 overflow-hidden">
-                <img
-                  src={post.image}
-                  alt={post.blog_title}
-                  className="w-full rounded-[15px] h-48 object-cover p-2"
-                />
-                <div className="p-4">
-                  <h3 className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
-                    __html: truncateText(post.blog_title, 59),
-                  }} />
-                  <div
-                    className="text-[#212529] font-medium text-sm mb-4"
-                    dangerouslySetInnerHTML={{
-                      __html: truncateText(post.description, 58),
-                    }}
-                  />
-                  <button
-                    className="read-more-btn"
-                    onClick={() => handleReadMore(post.blog_slug, post.image, post.main_title, post.date, post.time, post.intro, post.additional_content, post.description)}
-                  >
-                    Read More
-                  </button>
+            {currentPosts.map((post) => {
+              const imageConfig = optimizeImage(post.image);
+              return (
+                <div key={post.id} className="w-auto h-auto bg-white hover:bg-gray-100 rounded-lg shadow-lg shadow-gray-300 hover:shadow-gray-400 hover:shadow-lg transition duration-300 overflow-hidden">
+                  <picture>
+                    <source srcSet={imageConfig.srcset} type="image/webp" />
+                    <img
+                      src={imageConfig.fallback}
+                      alt={post.blog_title}
+                      className="w-full rounded-[15px] h-48 object-cover p-2"
+                      loading="lazy"
+                      sizes="(max-width: 600px) 100vw, 50vw"
+                    />
+                  </picture>
+                  <div className="p-4">
+                    <h3 className="text-[#212529] text-lg font-bold mb-2" dangerouslySetInnerHTML={{
+                      __html: truncateText(post.blog_title, 59),
+                    }} />
+                    <div
+                      className="text-[#212529] font-medium text-sm mb-4"
+                      dangerouslySetInnerHTML={{
+                        __html: truncateText(post.description, 58),
+                      }}
+                    />
+                    <button
+                      className="read-more-btn"
+                      onClick={() => handleReadMore(post.blog_slug, post.image, post.main_title, post.date, post.time, post.intro, post.additional_content, post.description)}
+                    >
+                      Read More
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
-        <div className="flex justify-center items-center mt-4 sm:mt-4 pt-8 md:my-10 lg:my-10">
+        <div className="flex justify-center space-x-2 items-center mt-4 sm:mt-4 pt-8 md:my-10 lg:my-10">
           <button
             onClick={handlePrevious}
             className="bg-[#0134b5] text-white px-4 py-2 text-sm font-semibold rounded-sm hover:bg-[#009adb]"
@@ -228,4 +259,3 @@ const Market = () => {
 };
 
 export default Market;
-

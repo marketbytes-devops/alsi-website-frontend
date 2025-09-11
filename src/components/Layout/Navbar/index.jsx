@@ -85,18 +85,18 @@ const Navbar = ({ toggleSidebar }) => {
         }`}
       >
         <div
-          className={`flex items-center justify-end sm:pr-4 md:pr-16 lg:pr-16 transition-all duration-300 overflow-hidden ${
+          className={`flex items-center justify-end pr-4 sm:pr-4 md:pr-16 lg:pr-28 transition-all duration-300 overflow-hidden ${
             isScrolled ? "max-h-0 opacity-0 py-0" : "max-h-10 opacity-100 py-1"
           }`}
         >
           <SocialLink className="text-gray-500" />
         </div>
-        <div className="flex justify-between items-center pl-16 py-1">
+        <div className="flex justify-between items-center pl-4 sm:pl-4 md:pl-16 lg:pl-28 py-1">
           <Link to="/">
             <img src={logo} alt="Logo" className="h-16 sm:h-16 md:h-20 lg:h-20" />
           </Link>
           <div className="flex items-center">
-            <nav className="flex space-x-4 pr-16">
+            <nav className="flex space-x-4 pr-4 sm:pr-4 md:pr-16 lg:pr-28">
             {link.items.map((item, index) => (
               <div
                 key={index}

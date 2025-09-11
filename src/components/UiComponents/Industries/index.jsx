@@ -7,13 +7,11 @@ import Title from "../../Title";
 import Slider from "react-slick"; 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import LottieLoader from "../../LottieLoader";
 
 const Industries = () => {
   const [title, setTitle] = useState("");
   const [industries, setIndustries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const sliderRef = useRef(null);
 
@@ -38,7 +36,7 @@ const Industries = () => {
           setIndustries([]);
         }
       } catch (err) {
-        setError("Failed to load industries data. Please try again.");
+        // Silently fail, no error handling
       } finally {
         setIsLoading(false);
       }
@@ -46,6 +44,10 @@ const Industries = () => {
 
     fetchTitleAndIndustries();
   }, []);
+
+  if (!industries.length && !isLoading) {
+    return <div></div>;
+  }
 
   const slickSettings = {
     arrows: true, 
@@ -76,11 +78,7 @@ const Industries = () => {
       </div>
 
       {isLoading ? (
-        <div className="text-center"><LottieLoader/></div>
-      ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
-      ) : industries.length === 0 ? (
-        <div className="text-center">No industries available</div>
+        <div></div>
       ) : (
         <div className="relative lg:px-[130px] md:px-[130px] sm:px-4">
           <Slider ref={sliderRef} {...slickSettings}>

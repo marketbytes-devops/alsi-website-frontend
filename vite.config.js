@@ -26,7 +26,6 @@ export default defineConfig({
       },
     },
   },
-  server: 5178,
   build: {
     outDir: 'dist',
     sourcemap: false, 

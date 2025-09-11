@@ -6,8 +6,8 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
 import apiClient from "../../../api";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css"; 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Services = ({ excludeService, forceTitle }) => {
   const [title, setTitle] = useState(forceTitle || "");
@@ -26,7 +26,7 @@ const Services = ({ excludeService, forceTitle }) => {
             setTitle("Our Services");
           }
         } catch (err) {
-          console.error("Failed to load title:", err);
+          // Silently fail, no error handling
         }
       };
       fetchTitle();
@@ -43,17 +43,17 @@ const Services = ({ excludeService, forceTitle }) => {
           image: service.image || "",
           banner_image: service.banner_image || "",
           title: service.title || "",
-          service_title: service.service_title, 
+          service_title: service.service_title,
           subtitle: service.subtitle || "",
           content_paragraphs: service.content_paragraphs || "",
-          link_url: service.link_url, 
+          link_url: service.link_url,
         }));
         const filteredData = formattedData.filter(
-          (service) => service.link_url !== excludeService 
+          (service) => service.link_url !== excludeService
         );
         setServicesData(filteredData);
       } catch (error) {
-        console.error("Failed to fetch services data:", error);
+        // Silently fail, no error handling
       }
     };
 
@@ -81,7 +81,7 @@ const Services = ({ excludeService, forceTitle }) => {
         },
       },
     ],
-  }; 
+  };
 
   return (
     <>
@@ -123,23 +123,25 @@ const Services = ({ excludeService, forceTitle }) => {
               </div>
             ))
           ) : (
-            <p>No services available</p>
+            <div></div>
           )}
         </Slider>
-        <div className="flex justify-center pt-8 space-x-4">
-          <button
-            className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
-            onClick={() => sliderRef.current.slickPrev()}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
-          <button
-            className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
-            onClick={() => sliderRef.current.slickNext()}
-          >
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
-        </div>
+        {servicesData.length > 0 && (
+          <div className="flex justify-center pt-8 space-x-4">
+            <button
+              className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
+              onClick={() => sliderRef.current.slickPrev()}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </button>
+            <button
+              className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
+              onClick={() => sliderRef.current.slickNext()}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

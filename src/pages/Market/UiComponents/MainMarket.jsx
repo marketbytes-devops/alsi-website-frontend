@@ -4,7 +4,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import apiClient from "../../../api";
 import Banner from "../../../components/UiComponents/Banner";
 import Form from "../../../components/UiComponents/Form";
-import LottieLoader from "../../../components/LottieLoader";
 
 const MainMarket = () => {
   const { blogSlug } = useParams();
@@ -24,9 +23,8 @@ const MainMarket = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const currentBlogUrl = window.location.href; 
+  const currentBlogUrl = window.location.href;
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
@@ -71,8 +69,7 @@ const MainMarket = () => {
 
         setLoading(false);
       } catch (err) {
-        console.error("Failed to fetch blog details", err);
-        setError("Unable to load blog details");
+        // Silently fail, no error handling
         setLoading(false);
       }
     };
@@ -103,21 +100,13 @@ const MainMarket = () => {
     return html ? html.replace(/<\/?[^>]+(>|$)/g, "") : "";
   };
 
-  if (loading)
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl font-semibold">
-          <LottieLoader />
-        </div>
-      </div>
-    );
+  if (loading) {
+    return <div></div>;
+  }
 
-  if (error)
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl font-semibold text-red-600">{error}</div>
-      </div>
-    );
+  if (blogData.blogTitle === "No Title Available") {
+    return <div></div>;
+  }
 
   return (
     <>

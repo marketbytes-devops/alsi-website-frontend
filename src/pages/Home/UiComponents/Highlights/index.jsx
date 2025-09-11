@@ -7,14 +7,11 @@ import apiClient from "../../../../api";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import LottieLoader from "../../../../components/LottieLoader";
 
 const Highlights = () => {
   const [title, setTitle] = useState("");
   const [highlights, setHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
 
   const sliderRef = useRef(null);
 
@@ -39,7 +36,7 @@ const Highlights = () => {
           setHighlights([]);
         }
       } catch (err) {
-        setError("Failed to load highlights. Please try again.");
+        // Silently fail, no error handling
       } finally {
         setIsLoading(false);
       }
@@ -47,6 +44,10 @@ const Highlights = () => {
 
     fetchTitleAndHighlights();
   }, []);
+
+  if (!highlights.length && !isLoading) {
+    return <div></div>;
+  }
 
   const slickSettings = {
     dots: false,
@@ -64,9 +65,7 @@ const Highlights = () => {
       style={{ background: "rgb(18, 81, 148)", width: "100%", height: "auto" }}
     >
       {isLoading ? (
-        <div className="text-center text-white"><LottieLoader/></div>
-      ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
+        <div></div>
       ) : (
         <>
           <div className="md:flex hidden sm:hidden">

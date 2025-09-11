@@ -17,14 +17,12 @@ const Network = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: "0%", left: "0%" });
   const [networkData, setNetworkData] = useState([]);
-  const [error, setError] = useState("");
   const [isMouseInsideTooltip, setIsMouseInsideTooltip] = useState(false);
 
   useEffect(() => {
     const fetchNetworkData = async () => {
       try {
         const titleResponse = await apiClient.get("network/our-network-banner/");
-        console.log("Title Response:", titleResponse.data);
         if (titleResponse.data.length > 0) {
           setTitle(titleResponse.data[0].title_highlight);
         } else {
@@ -32,15 +30,13 @@ const Network = () => {
         }
   
         const networkResponse = await apiClient.get("network/our-network/");
-        console.log("Network Response:", networkResponse.data); 
         if (networkResponse.data && networkResponse.data.length > 0) {
           setNetworkData(networkResponse.data);
         } else {
           setNetworkData([]);
         }
       } catch (error) {
-        console.error("Failed to fetch data:", error);
-        setError("Failed to fetch data");
+        // Silently fail, no error handling
       }
     };
   
@@ -70,10 +66,14 @@ const Network = () => {
     }
   };
 
-  const removeHtmlTags = (htmlString) => {
-    const doc = new DOMParser().parseFromString(htmlString, 'text/html');
+  const removeHtmlTags = (str) => {
+    const doc = new DOMParser().parseFromString(str, 'text/html');
     return doc.body.textContent || "";
   };  
+
+  if (!networkData.length) {
+    return <div></div>;
+  }
 
   return (
     <div
@@ -85,17 +85,20 @@ const Network = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        objectFit: "contain",
+        aspectRatio: "16/6",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Title title={title_highlight} color="white" />
-      {error && <p className="text-red-500">{error}</p>}
       <div className="flex items-center justify-center">
         <div className="map-svg-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1166.776 870.253"
-            className="w-[320px] h-auto sm:w-[320px] md:w-[400px] lg:w-[650px]"
+            className="w-[320px] h-auto sm:w-[320px] md:w-[400px] lg:w-[650px] aspect-[1166/870]"
           >
             <g transform="translate(-6088.6 421.048)">
               <g
@@ -155,7 +158,7 @@ const Network = () => {
         </div>
       </div>
 
-      {tooltipVisible && hoveredCountry && (
+      {tooltipVisible && hoveredCountry ? (
         <motion.div
           className="z-30 tooltip bg-white text-[#212529] space-y-2 w-[180px] h-auto sm:w-[180px] md:w-[200px] lg:w-[200px] xl:w-[200px]"
           style={{
@@ -175,7 +178,7 @@ const Network = () => {
           }}
         >
           <div className="text-left text-[24px] font-extrabold">
-            {removeHtmlTags(hoveredCountry)} 
+            {removeHtmlTags(hoveredCountry)}
           </div>
           <p className="text-left text-[12px] font-[600]">
             {networkData.find(data => removeHtmlTags(data.name) === hoveredCountry)?.address ? 
@@ -193,6 +196,16 @@ const Network = () => {
             </Link>
           </div>
         </motion.div>
+      ) : (
+        <div
+          className="z-30 tooltip w-[180px] h-[100px] sm:w-[180px] md:w-[200px] lg:w-[200px] xl:w-[200px]"
+          style={{
+            position: "absolute",
+            top: tooltipPosition.top,
+            left: tooltipPosition.left,
+            visibility: "hidden"
+          }}
+        />
       )}
     </div>
   );
