@@ -1,6 +1,7 @@
 const franceData = {
   header: {
-    title: "Door to Door Courier and </br>Cargo Services from </br>Saudi to France",
+    title:
+      "Door to Door Courier and </br>Cargo Services from </br>Saudi to France",
     description:
       "Door to door courier and cargo services from Saudi to France support structured logistics solutions for individuals, businesses, and institutions managing international freight between the Middle East and Western Europe. Alsi Global simplifies operations by arranging scheduled pickups, professional packing, customs clearance, products shipment, and delivery arrangements to major cities in France, such as Paris, Marseille, and Lyon. These services cover various shipment types, including personal effects, household goods, commercial products, and industrial cargo, aligned with regulatory standards for international shipping from Saudi to France.",
     buttonText: "Let's Connect",
@@ -71,7 +72,8 @@ const franceData = {
           "Ideal for furniture and machinery",
         ],
         buttonText: "Read More",
-        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
+        buttonLink:
+          "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Multimodal Transport Routes",
@@ -149,8 +151,11 @@ const franceData = {
       },
       {
         title: "Why Alsi Global for Saudi to France Shipping",
-        description:
-          "Alsi Global provides organized courier and cargo solutions for shipping from Saudi Arabia to France. Door to door courier and cargo services from Saudi to France are aligned with regulatory, freight, and delivery requirements across the route. With support for multimodal transport, documentation, and delivery coordination, Alsi Global offers structured logistics connections between Saudi and French regions.",
+        description: `
+          Alsi Global provides organized courier and cargo solutions for shipping from Saudi Arabia to France. <a href="/door-to-door-courier-cargo-services-saudi-india" 
+       class="text-[#125194] hover:text-[#0d3a6d] transition">
+       Door to door courier and cargo services
+    </a> from Saudi to France are aligned with regulatory, freight, and delivery requirements across the route. With support for multimodal transport, documentation, and delivery coordination, Alsi Global offers structured logistics connections between Saudi and French regions.`,
       },
     ],
   },
@@ -185,7 +190,8 @@ const franceData = {
     description:
       "Alsi Global Comprehensive door to door courier and cargo services from Saudi to France with multi mode transport, customs handling, and delivery to key cities.",
     slug: "door-to-door-courier-cargo-services-saudi-france",
-    primaryKeyword: "door to door courier and cargo services from Saudi to France",
+    primaryKeyword:
+      "door to door courier and cargo services from Saudi to France",
     secondaryKeywords: [
       "international shipping from Saudi to France",
       "cargo delivery from Saudi to France",

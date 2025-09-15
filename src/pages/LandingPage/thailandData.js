@@ -1,6 +1,7 @@
 const thailandData = {
   header: {
-    title: "Door to Door Courier and </br>Cargo Services from </br>Qatar to Thailand",
+    title:
+      "Door to Door Courier and </br>Cargo Services from </br>Qatar to Thailand",
     description:
       "Are you looking for reliable door to door courier and cargo services from Qatar to Thailand? At Alsi Global, we offer international logistics solutions designed for individuals, businesses, and industries. Our team focuses on providing streamlined freight forwarding services operating between Doha and major cities across Thailand. Whether you're sending personal items, managing supply chain logistics, or handling commercial goods, we support your needs with infrastructure, operational experience, and real time shipment monitoring.",
     buttonText: "Let's Connect",
@@ -83,7 +84,8 @@ const thailandData = {
           "Cost-effective for heavy cargo",
         ],
         buttonText: "Read More",
-        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
+        buttonLink:
+          "https://www.alsiglobal.com/services/project-cargo-services",
       },
     ],
   },
@@ -148,14 +150,19 @@ const thailandData = {
     intro: "",
     blocks: [
       {
-        title: "International Courier from Qatar to Thailand for All Industries",
+        title:
+          "International Courier from Qatar to Thailand for All Industries",
         description:
           "From healthcare and apparel to construction and technology, we provide logistics solutions that match your business model. We’re trusted by retailers, exporters, traders, and project teams for efficient, timely delivery across borders.",
       },
       {
-        title: "Start Shipping with Alsi Global – The Trusted Qatar to Thailand Cargo Partner",
-        description:
-          "Choosing Alsi Global for your door to door courier and cargo services from Qatar to Thailand means partnering with a company that prioritizes reliability, exceptional customer service, and logistical flexibility. Our team coordinates operations across regions and manages time sensitive shipments without unnecessary delays. Our emphasis on efficiency, safety, and transparency enables clients to meet their delivery goals with confidence.",
+        title:
+          "Start Shipping with Alsi Global – The Trusted Qatar to Thailand Cargo Partner",
+        description: `Choosing Alsi Global for your 
+    <a href="/door-to-door-courier-cargo-services-qatar-philippines" 
+       class="text-[#125194] hover:text-[#0d3a6d] transition">
+       door to door courier and cargo services
+    </a> from Qatar to Thailand means partnering with a company that prioritizes reliability, exceptional customer service, and logistical flexibility. Our team coordinates operations across regions and manages time sensitive shipments without unnecessary delays. Our emphasis on efficiency, safety, and transparency enables clients to meet their delivery goals with confidence.`,
       },
     ],
   },
@@ -195,7 +202,8 @@ const thailandData = {
     description:
       "Experience fast, secure, and affordable door to door courier and cargo services from Qatar to Thailand. Alsi Global offers air, sea, and road freight with customs clearance.",
     slug: "door-to-door-courier-and-cargo-services-from-qatar-to-thailand",
-    primaryKeyword: "door to door courier and cargo services from Qatar to Thailand",
+    primaryKeyword:
+      "door to door courier and cargo services from Qatar to Thailand",
     secondaryKeywords: [
       "courier and cargo services from Qatar to Thailand",
       "Qatar to Thailand courier and cargo service",

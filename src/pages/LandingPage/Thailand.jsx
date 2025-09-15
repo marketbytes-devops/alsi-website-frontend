@@ -297,7 +297,7 @@ const Thailand = () => {
                 className="text-xl sm:text-2xl font-semibold text-[#125194] mb-3"
                 dangerouslySetInnerHTML={{ __html: block.title }}
               />
-              <p>{block.description}</p>
+              <p dangerouslySetInnerHTML={{ __html: block.description }} />
             </div>
           ))}
           <button
