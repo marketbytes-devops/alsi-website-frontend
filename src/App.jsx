@@ -43,6 +43,8 @@ import Bangladesh from "./pages/LandingPage/Bangladesh";
 import Albania from "./pages/LandingPage/Albania";
 import Colombia from "./pages/LandingPage/Colombia";
 import Chile from "./pages/LandingPage/Chile";
+import DubaiToAlgeria from "./pages/LandingPage/DubaiToAlgeria";
+import SaudiToBahamas from "./pages/LandingPage/Bahamas";
 
 
 const router = createBrowserRouter([
@@ -119,6 +121,8 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-qatar-to-albania", element: <Albania /> },
       { path: "/door-to-door-courier-cargo-services-qatar-colombia", element: <Colombia /> },
       { path: "/door-to-door-courier-cargo-services-oman-to-chile", element: <Chile /> },
+      { path: "/door-to-door-courier-cargo-services-dubai-algeria", element: <DubaiToAlgeria /> },
+      { path: "/door-to-door-courier-cargo-services-saudi-bahamas", element: <SaudiToBahamas /> },
     ],
   },
 ]);
