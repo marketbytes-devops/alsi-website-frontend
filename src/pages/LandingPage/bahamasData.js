@@ -39,10 +39,6 @@ const saudiToBahamasData = {
         title: "Air Cargo Saudi to Bahamas",
         description: "Air cargo Saudi to Bahamas is the preferred mode for urgent consignments or high value goods. Express courier Saudi to Nassau through air transport supports shipments such as medical supplies, electronics, business parcels, and smaller packages. Departures from Riyadh, Jeddah, and Dammam connect to Bahamian destinations via international transit hubs. Transit timeframes vary depending on routing, customs procedures, and flight connections.",
         features: [
-          "Express courier Saudi to Nassau",
-          "Small package delivery",
-          "High value shipments",
-          "Medical supplies and electronics"
         ],
         buttonText: "Learn More",
         buttonLink: "#air-freight"
@@ -51,10 +47,6 @@ const saudiToBahamasData = {
         title: "Sea Freight Saudi to Bahamas",
         description: "Sea freight Saudi to Bahamas provides a practical solution for large-volume or non-urgent shipments. Container shipping Saudi to Bahamas is available through full container load (FCL) or less-than-container load (LCL) options. Shipping machinery Saudi to Bahamas, household goods, and industrial consignments are typically transported via sea freight, with transit times generally ranging from several weeks depending on routing.",
         features: [
-          "Full container load (FCL)",
-          "Less than container load (LCL)",
-          "Household goods shipping",
-          "Industrial machinery and consignments"
         ],
         buttonText: "Learn More",
         buttonLink: "#sea-freight"
@@ -63,10 +55,6 @@ const saudiToBahamasData = {
         title: "Multimodal Transport Solutions",
         description: "Certain shipments require a combination of transport modes to ensure effective delivery. Road and sea freight Middle East to Caribbean networks are integrated with air or ocean shipping depending on cargo type and urgency. By combining transport modes, freight forwarding Saudi to Bahamas remains adaptable for a variety of cargo categories.",
         features: [
-          "Combined air and sea transport",
-          "Road freight integration",
-          "Flexible cargo delivery",
-          "Wide range of shipment types"
         ],
         buttonText: "Learn More",
         buttonLink: "#multimodal-freight"

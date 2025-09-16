@@ -39,10 +39,6 @@ const dubaiToAlgeriaData = {
         title: "Air Freight for Urgent Deliveries",
         description: "Air cargo Dubai to Algeria is suitable for time sensitive shipments such as business parcels, electronics, and documents. Flights from Dubai International Airport connect to Algerian destinations, including Algiers International Airport. Transit durations depend on routing, cargo category, and customs clearance. Express courier Dubai to Algiers often makes use of air freight options for smaller and urgent consignments. This method is commonly used by businesses requiring quick international parcel delivery or relocation services involving lighter goods.",
         features: [
-          "Express courier Dubai to Algiers",
-          "Small package delivery",
-          "High value shipments",
-          "Business parcels and documents"
         ],
         buttonText: "Learn More",
         buttonLink: "#air-freight"
@@ -51,10 +47,6 @@ const dubaiToAlgeriaData = {
         title: "Sea Freight for High Volume Cargo",
         description: "Sea freight Dubai to Algeria is widely used for bulk consignments and heavy shipments. Container shipping Dubai to Algeria offers both full container load (FCL) and less than container load (LCL) options. Transit typically ranges between twenty and thirty days depending on port schedules. Shipping household goods from Dubai to Algiers, large-scale manufacturing equipment, or industrial raw materials often relies on sea freight due to its suitability for high-volume cargo.",
         features: [
-          "Full container load (FCL)",
-          "Less than container load (LCL)",
-          "Household goods shipping",
-          "Industrial machinery and raw materials"
         ],
         buttonText: "Learn More",
         buttonLink: "#sea-freight"
@@ -63,10 +55,6 @@ const dubaiToAlgeriaData = {
         title: "Road Freight via Regional Hubs",
         description: "Although there is no direct road link between Dubai and Algeria, road freight North Africa from Dubai is integrated as part of multimodal transport. Shipments can first be transported via sea or air to North African ports such as Tunis, Casablanca, or directly into Algerian entry points, followed by inland road transport. This option is effective for moving cargo from coastal terminals to Algerian cities and industrial areas, balancing delivery speed and cost efficiency.",
         features: [
-          "Multimodal transport integration",
-          "Inland road distribution",
-          "Delivery to cities and industrial areas",
-          "Cost-effective logistics"
         ],
         buttonText: "Learn More",
         buttonLink: "#road-freight"
