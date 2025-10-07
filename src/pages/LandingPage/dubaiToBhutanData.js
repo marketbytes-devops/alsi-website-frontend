@@ -59,7 +59,6 @@ export default {
           "Full container load (FCL)",
           "Less than container load (LCL)",
           "Household goods shipping",
-          "Industrial machinery and cargo"
         ],
         buttonText: "Learn More",
         buttonLink: "#sea-freight"
