@@ -47,6 +47,8 @@ import DubaiToAlgeria from "./pages/LandingPage/DubaiToAlgeria";
 import SaudiToBahamas from "./pages/LandingPage/Bahamas";
 import OmanToBelarus from "./pages/LandingPage/OmanToBelarus";
 import QatarToBarbados from "./pages/LandingPage/QatarToBarbados";
+import DubaiToBhutan from "./pages/LandingPage/DubaiToBhutan";
+import SaudiToBolivia from "./pages/LandingPage/SaudiToBolivia";
 
 
 const router = createBrowserRouter([
@@ -126,7 +128,9 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-dubai-algeria", element: <DubaiToAlgeria /> },
       { path: "/door-to-door-courier-cargo-services-saudi-bahamas", element: <SaudiToBahamas /> },
       { path: "/door-to-door-courier-cargo-services-qatar-barbados", element: <QatarToBarbados /> },
-      { path: "/door-to-door-courier-cargo-services-oman-belarus", element: <OmanToBelarus /> }
+      { path: "/door-to-door-courier-cargo-services-oman-belarus", element: <OmanToBelarus /> },
+      { path: "/door-to-door-courier-cargo-services-dubai-bhutan", element: <DubaiToBhutan /> },
+      { path: "/door-to-door-courier-cargo-services-saudi-bolivia", element: <SaudiToBolivia /> }
     ],
   },
 ]);
