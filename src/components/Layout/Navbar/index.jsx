@@ -58,7 +58,7 @@ const Navbar = ({ toggleSidebar }) => {
       {
         title: "Services",
         path: "/services/services",
-        subItems: services, 
+        subItems: services,
       },
       { title: "Our Network", path: "/our-network" },
       { title: "Industries", path: "/industries" },
@@ -80,8 +80,8 @@ const Navbar = ({ toggleSidebar }) => {
         <Nav toggleSidebar={toggleSidebar} />
       </div>
       <nav
-        className={`hidden md:block sticky top-0 w-full transition-colors duration-300 ease-in-out z-40 ${
-          isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        className={`sticky top-0 w-full transition-colors duration-300 ease-in-out z-40 ${
+          isScrolled ? "bg-white shadow-md" : "bg-white md:bg-transparent"
         }`}
       >
         <div
@@ -95,66 +95,66 @@ const Navbar = ({ toggleSidebar }) => {
           <Link to="/">
             <img src={logo} alt="Logo" className="h-16 sm:h-16 md:h-20 lg:h-20" />
           </Link>
-          <div className="flex items-center">
+          <div className="hidden md:flex items-center">
             <nav className="flex space-x-4 pr-4 sm:pr-4 md:pr-16 lg:pr-28">
-            {link.items.map((item, index) => (
-              <div
-                key={index}
-                className="relative"
-                onMouseEnter={() => setDropdownOpen(index)}
-                onMouseLeave={() => setDropdownOpen(null)}
-              >
-                {item.subItems ? (
-                  <span
-                    className={`text-gray-800 text-[15px] ml-5 ${
-                      dropdownOpen === index || location.pathname.startsWith("/services")
-                        ? "font-bold"
-                        : "font-medium"
-                    } hover:font-bold transition duration-300 flex items-center cursor-pointer`}
-                    onClick={(e) => e.preventDefault()} 
-                  >
-                    {item.title}
-                    <FontAwesomeIcon
-                      icon={faSortDown}
-                      className="ml-2 relative bottom-1"
-                      size="1x"
-                    />
-                  </span>
-                ) : (
-                  <Link
-                    to={item.path}
-                    className={`text-gray-800 text-[15px] ml-5 ${
-                      location.pathname === item.path ||
-                      (item.title === "Market Updates" && isMarketActive())
-                        ? "font-bold"
-                        : "font-medium"
-                    } hover:font-bold transition duration-300 flex items-center`}
-                  >
-                    {item.title}
-                  </Link>
-                )}
-                {item.subItems && dropdownOpen === index && (
-                  <div className="absolute left-5 w-[300px] h-auto py-1 bg-white border border-gray-200 shadow-lg rounded-lg">
-                    {item.subItems.map((subItem) => (
-                      <Link
-                        to={subItem.path}
-                        state={{
-                          banner_image: subItem.banner_image,
-                          service_title: subItem.service_title,
-                          content_paragraphs: subItem.content_paragraphs,
-                        }}
-                        key={subItem.path}
-                        className={`block px-5 my-2 text-gray-800 ${
-                          location.pathname === subItem.path ? "font-bold" : "font-medium"
-                        } hover:font-bold transition duration-300`}
-                      >
-                        {subItem.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+              {link.items.map((item, index) => (
+                <div
+                  key={index}
+                  className="relative"
+                  onMouseEnter={() => setDropdownOpen(index)}
+                  onMouseLeave={() => setDropdownOpen(null)}
+                >
+                  {item.subItems ? (
+                    <span
+                      className={`text-gray-800 text-[15px] ml-5 ${
+                        dropdownOpen === index || location.pathname.startsWith("/services")
+                          ? "font-bold"
+                          : "font-medium"
+                      } hover:font-bold transition duration-300 flex items-center cursor-pointer`}
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      {item.title}
+                      <FontAwesomeIcon
+                        icon={faSortDown}
+                        className="ml-2 relative bottom-1"
+                        size="1x"
+                      />
+                    </span>
+                  ) : (
+                    <Link
+                      to={item.path}
+                      className={`text-gray-800 text-[15px] ml-5 ${
+                        location.pathname === item.path ||
+                        (item.title === "Market Updates" && isMarketActive())
+                          ? "font-bold"
+                          : "font-medium"
+                      } hover:font-bold transition duration-300 flex items-center`}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
+                  {item.subItems && dropdownOpen === index && (
+                    <div className="absolute left-5 w-[300px] h-auto py-1 bg-white border border-gray-200 shadow-lg rounded-lg">
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          to={subItem.path}
+                          state={{
+                            banner_image: subItem.banner_image,
+                            service_title: subItem.service_title,
+                            content_paragraphs: subItem.content_paragraphs,
+                          }}
+                          key={subItem.path}
+                          className={`block px-5 my-2 text-gray-800 ${
+                            location.pathname === subItem.path ? "font-bold" : "font-medium"
+                          } hover:font-bold transition duration-300`}
+                        >
+                          {subItem.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </nav>
           </div>
         </div>

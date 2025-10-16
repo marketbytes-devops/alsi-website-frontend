@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import NetworkBg from "../../../../assets/images/Network/our-network-bg.webp";
 import UAE from "../../../../components/UiComponents/Network/Maps/UAE";
 import Oman from "../../../../components/UiComponents/Network/Maps/Oman";
 import KSA from "../../../../components/UiComponents/Network/Maps/KSA";
 import Qatar from "../../../../components/UiComponents/Network/Maps/Qatar";
 import { Tooltip } from "react-tooltip";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const OurNetwork = () => {
   const [activeCountry, setActiveCountry] = useState("Sulatanate of Oman");
   const [activeTooltip, setActiveTooltip] = useState("ksa-tooltip");
   const [countryData, setCountryData] = useState({});
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const data = {
@@ -81,7 +87,7 @@ const OurNetwork = () => {
 
   const handleCountryClick = (country, tooltipId) => {
     setActiveCountry(country);
-    setActiveTooltip(tooltipId); 
+    setActiveTooltip(tooltipId);
   };
 
   const activeCountryData = countryData[activeCountry] || {};
@@ -102,6 +108,34 @@ const OurNetwork = () => {
     : phone
     ? phone.split(",")
     : [];
+
+  // Slick Slider settings
+  const sliderSettings = {
+    dots: true,
+    infinite: offices.length > 4,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <>
@@ -239,23 +273,49 @@ const OurNetwork = () => {
         <h2 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-extrabold mb-8">
           Offices in {location || "Select a Country"}
         </h2>
-        <ul className="list-none list-inside flex items-center justify-center w-full overflow-x-auto no-scrollbar">
-          {offices &&
-            offices.map((office) => (
-              <li
-                key={office.id}
-                className="flex items-center justify-center text-md min-w-64 px-4 py-4 text-center text-[16px] font-normal hover:font-bold border-gray-400 border-r last:border-none transition-all duration-300"
+        <div className="max-w-4xl mx-auto">
+          <Slider ref={sliderRef} {...sliderSettings}>
+            {offices &&
+              offices.map((office) => (
+                <div
+                  key={office.id}
+                  className="px-4 py-4 text-center text-[16px] font-normal hover:font-bold transition-all duration-300"
+                >
+                  <div className="min-w-64 border-gray-400 border-r last:border-none">
+                    {office.office_name || "No office name provided"}
+                  </div>
+                </div>
+              ))}
+          </Slider>
+          {offices.length > 0 && (
+            <div
+              className={`flex justify-center pt-8 space-x-4 ${
+                offices.length <= 4 ? "block sm:hidden" : "block"
+              }`}
+            >
+              <button
+                className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
+                onClick={() => sliderRef.current.slickPrev()}
+                aria-label="Previous slide"
               >
-                {office.office_name || "No office name provided"}
-              </li>
-            ))}
-        </ul>
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </button>
+              <button
+                className="bg-gray-100 hover:bg-[#2044a2] hover:text-white hover:border-none transform transition-transform border-2 border-gray-300 text-gray-800 w-10 h-10 rounded-full"
+                onClick={() => sliderRef.current.slickNext()}
+                aria-label="Next slide"
+              >
+                <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <Tooltip
         id="uae-tooltip"
         delayShow={300}
-        place="bottom" 
+        place="bottom"
         style={{
           backgroundColor: "#fff",
           color: "#000",
@@ -267,7 +327,7 @@ const OurNetwork = () => {
       <Tooltip
         id="oman-tooltip"
         delayShow={300}
-        place="right" 
+        place="right"
         style={{
           backgroundColor: "#fff",
           color: "#000",
@@ -279,7 +339,7 @@ const OurNetwork = () => {
       <Tooltip
         id="ksa-tooltip"
         delayShow={300}
-        place="left" 
+        place="left"
         style={{
           backgroundColor: "#fff",
           color: "#000",
@@ -291,7 +351,7 @@ const OurNetwork = () => {
       <Tooltip
         id="qatar-tooltip"
         delayShow={300}
-        place="top" 
+        place="top"
         style={{
           backgroundColor: "#fff",
           color: "#000",

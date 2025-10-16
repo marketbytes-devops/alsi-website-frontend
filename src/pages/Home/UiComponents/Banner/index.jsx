@@ -71,7 +71,7 @@ const Banner = () => {
             alt={bannerData.title}
           />
         </div>
-        <div className="z-40 w-full md:w-[60%] flex flex-col items-center md:items-start text-center md:text-left px-4 md:px-[4%]">
+        <div className="z-20 w-full md:w-[60%] flex flex-col items-center md:items-start text-center md:text-left px-4 md:px-[4%]">
           <h1
             className="mb-3 text-center md:text-left"
             dangerouslySetInnerHTML={{ __html: bannerData.title }}
