@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react"; 
+import React, { useState, useRef } from "react";
 import ReCaptcha from "../../ReCaptcha";
 import apiClient from "../../../api";
 
 const CareerForm = () => {
   const [recaptchaVerified, setRecaptchaVerified] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState(null); 
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
   const [fileName, setFileName] = useState("No File Chosen");
   const [formData, setFormData] = useState({
     name: "",
@@ -14,16 +14,18 @@ const CareerForm = () => {
     file: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); 
-  const recaptchaRef = useRef(null); 
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state for submission status
+  const recaptchaRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!recaptchaVerified || !recaptchaToken) {
       alert("Please verify that you are not a robot.");
       return;
     }
+
+    setIsSubmitting(true); // Disable the button
 
     const formPayload = new FormData();
     formPayload.append("name", formData.name);
@@ -31,7 +33,7 @@ const CareerForm = () => {
     formPayload.append("phone", formData.phone);
     formPayload.append("message", formData.message);
     formPayload.append("file", formData.file);
-    formPayload.append("captcha", recaptchaToken); 
+    formPayload.append("captcha", recaptchaToken);
 
     try {
       const response = await apiClient.post("careers/careers-form/", formPayload);
@@ -57,6 +59,8 @@ const CareerForm = () => {
         ? "File issue: " + error.response.data.file
         : "An error occurred. Please try again.";
       setErrorMessage(errorMsg);
+    } finally {
+      setIsSubmitting(false); // Re-enable the button
     }
   };
 
@@ -90,6 +94,7 @@ const CareerForm = () => {
         </div>
         <div className="w-full md:w-1/2 p-4">
           <form className="bg-card" onSubmit={handleSubmit}>
+            {/* Name Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -112,6 +117,8 @@ const CareerForm = () => {
                 }
               />
             </div>
+
+            {/* Email Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -134,6 +141,8 @@ const CareerForm = () => {
                 }
               />
             </div>
+
+            {/* Phone Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -156,6 +165,8 @@ const CareerForm = () => {
                 }
               />
             </div>
+
+            {/* Message Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -177,6 +188,8 @@ const CareerForm = () => {
                 }
               ></textarea>
             </div>
+
+            {/* File Upload */}
             <div className="mb-4">
               <label
                 htmlFor="file"
@@ -195,28 +208,40 @@ const CareerForm = () => {
                 required
               />
             </div>
+
+            {/* reCAPTCHA */}
             <div className="flex items-center justify-left mb-4">
               <ReCaptcha
-                ref={recaptchaRef} 
+                ref={recaptchaRef}
                 onChange={(verified, token) => {
                   setRecaptchaVerified(verified);
-                  setRecaptchaToken(token); 
+                  setRecaptchaToken(token);
                 }}
               />
             </div>
+
+            {/* Error Message */}
             {errorMessage && (
               <div className="mb-4 text-red-500">{errorMessage}</div>
             )}
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-[#182d70] text-white text-md font-bold py-3 rounded-md hover:bg-[#0d6efd] transition duration-300"
+              className={`w-full bg-[#182d70] text-white text-md font-bold py-3 rounded-md transition duration-300 ${
+                isSubmitting
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "hover:bg-[#0d6efd]"
+              }`}
+              disabled={isSubmitting}
             >
-              Submit
+              {isSubmitting ? "Submitting" : "Submit"}
             </button>
           </form>
         </div>
       </div>
 
+      {/* Success Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="mx-8">
