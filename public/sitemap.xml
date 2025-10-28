@@ -272,6 +272,38 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- New Landing Page Qatar - Andorra -->
+  <url>
+    <loc>https://www.alsiglobal.com/door-to-door-courier-and-cargo-services-qatar-andorra</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- New Landing Page Oman - Germany -->
+  <url>
+    <loc>https://www.alsiglobal.com/door-to-door-courier-and-cargo-services-oman-germany</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- New Landing Page Chemical Transport UAE -->
+  <url>
+    <loc>https://www.alsiglobal.com/chemical-transport-uae</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- New Landing Page Hazardous Transport UAE -->
+  <url>
+    <loc>https://www.alsiglobal.com//hazardous-goods-transport-uae</loc>
+    <lastmod>2025-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- Core Service Pages -->
   <url>
     <loc>https://www.alsiglobal.com/services/customs-clearance</loc>

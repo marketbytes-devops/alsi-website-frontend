@@ -51,6 +51,8 @@ import DubaiToBhutan from "./pages/LandingPage/DubaiToBhutan";
 import SaudiToBolivia from "./pages/LandingPage/SaudiToBolivia";
 import QatarToAndorra from "./pages/LandingPage/QatarToAndorra";
 import OmanToGermany from "./pages/LandingPage/OmanToGermany";
+import ChemicalTransportUAE from "./pages/LandingPageV1/ChemicalTransportUAE";
+import HazardousTransportUAE from "./pages/LandingPageV1/HazardousTransportUAE";
 
 
 const router = createBrowserRouter([
@@ -134,7 +136,9 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-dubai-bhutan", element: <DubaiToBhutan /> },
       { path: "/door-to-door-courier-cargo-services-saudi-bolivia", element: <SaudiToBolivia /> },
       { path: "/door-to-door-courier-and-cargo-services-qatar-andorra", element: <QatarToAndorra /> },
-      { path: "/door-to-door-courier-and-cargo-services-oman-germany", element: <OmanToGermany /> }
+      { path: "/door-to-door-courier-and-cargo-services-oman-germany", element: <OmanToGermany /> },
+      { path: "/chemical-transport-uae", element: <ChemicalTransportUAE /> },
+      { path: "/hazardous-goods-transport-uae", element: <HazardousTransportUAE /> }
     ],
   },
 ]);

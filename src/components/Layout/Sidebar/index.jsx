@@ -90,7 +90,7 @@ const Sidebar = ({ closeSidebar }) => {
 
   return (
     <motion.div
-      className="fixed top-0 right-0 w-full sm:w-[350px] h-screen sm:h-full z-50 bg-gradient-to-t from-blue-900 to-blue-500 text-white"
+      className="fixed top-0 right-0 w-full sm:w-[350px] h-screen sm:h-full z-[9999] bg-gradient-to-t from-blue-900 to-blue-500 text-white"
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
