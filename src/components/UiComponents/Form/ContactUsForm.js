@@ -11,6 +11,7 @@ const ContactUsForm = () => {
     message: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state for submission
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,12 +20,11 @@ const ContactUsForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!recaptchaVerified) {
       alert("Please verify that you are not a robot.");
       return;
     }
-
+    setIsSubmitting(true); // Disable the button
     try {
       const response = await apiClient.post("contact/contact-form/", formData);
       console.log("Form submitted successfully:", response.data);
@@ -33,6 +33,8 @@ const ContactUsForm = () => {
       setIsModalOpen(true);
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false); // Re-enable the button
     }
   };
 
@@ -48,6 +50,7 @@ const ContactUsForm = () => {
         </div>
         <div className="w-full md:w-1/2 p-4">
           <form className="bg-card" onSubmit={handleSubmit}>
+            {/* Name Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -66,6 +69,8 @@ const ContactUsForm = () => {
                 onChange={handleChange}
               />
             </div>
+
+            {/* Email Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -84,6 +89,8 @@ const ContactUsForm = () => {
                 onChange={handleChange}
               />
             </div>
+
+            {/* Phone Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -102,6 +109,8 @@ const ContactUsForm = () => {
                 onChange={handleChange}
               />
             </div>
+
+            {/* Message Field */}
             <div className="mb-4">
               <label
                 className="block text-md font-extrabold text-foreground"
@@ -119,18 +128,27 @@ const ContactUsForm = () => {
                 onChange={handleChange}
               ></textarea>
             </div>
+
+            {/* reCAPTCHA */}
             <div className="flex items-center justify-left">
               <ReCaptcha onChange={setRecaptchaVerified} />
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-[#182d70] text-white text-md font-bold py-3 rounded-md hover:bg-[#0d6efd] transition duration-300"
+              className={`w-full bg-[#182d70] text-white text-md font-bold py-3 rounded-md transition duration-300 ${
+                isSubmitting ? "bg-gray-400 cursor-not-allowed" : "hover:bg-[#0d6efd]"
+              }`}
+              disabled={isSubmitting}
             >
-              Submit
+              {isSubmitting ? "Submitting" : "Submit"}
             </button>
           </form>
         </div>
       </div>
+
+      {/* Success Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="mx-8">
