@@ -44,9 +44,6 @@ const hazardousTransportUAEData = {
         title: "International / Long Haul Freights",
         description: "International or long-haul hazardous transport connects UAE industrial hubs to destinations across GCC, Europe, and Africa. These freight movements are managed through seaports and airports such as Jebel Ali, Khalifa Port, and Dubai International Airport. Each shipment undergoes documentation verification, safety inspections, and compliance checks before departure to ensure adherence to IATA and IMDG regulations.",
         features: [
-          "Cross-border dangerous goods logistics",
-          "Customs and documentation support",
-          "Global route planning for hazardous cargo"
         ],
         buttonText: "Learn More",
         buttonLink: "#international-freight"
@@ -55,9 +52,6 @@ const hazardousTransportUAEData = {
         title: "Domestic / Short Haul Freights",
         description: "Domestic or short-haul hazardous freight supports intra-UAE deliveries between industrial areas in Abu Dhabi, Dubai, Sharjah, and other Emirates. These routes are primarily managed through road transport using ADR-certified vehicles. The logistics process includes scheduled pickups, safe loading procedures, and GPS-based monitoring for continuous visibility during local transfers.",
         features: [
-          "Intra-UAE hazardous deliveries",
-          "ADR-certified vehicles",
-          "GPS tracking for local routes"
         ],
         buttonText: "Learn More",
         buttonLink: "#domestic-freight"
@@ -66,9 +60,6 @@ const hazardousTransportUAEData = {
         title: "GCC Dangerous Goods Logistics",
         description: "GCC hazardous transport in UAE supports dangerous goods movement with neighboring Gulf states. This network supports import and export activities, ensuring adherence to GCC-compliant transportation guidelines. Movements between countries such as Saudi Arabia, Oman, Qatar, and Kuwait are managed through coordinated customs documentation, certified drivers, and regulatory approval systems for cross-border hazardous cargo.",
         features: [
-          "GCC-compliant hazardous logistics",
-          "Cross-border coordination",
-          "Certified drivers and vehicles"
         ],
         buttonText: "Learn More",
         buttonLink: "#gcc-logistics"

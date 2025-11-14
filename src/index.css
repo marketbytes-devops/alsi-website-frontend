@@ -311,3 +311,7 @@ svg g:focus-visible {
 .slick-slider {
   width: 100%;
 }
+
+/* .grecaptcha-badge { 
+    visibility: hidden !important;
+} */

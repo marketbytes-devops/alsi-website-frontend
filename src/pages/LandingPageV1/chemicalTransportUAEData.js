@@ -44,9 +44,6 @@ const chemicalTransportUAEData = {
         title: "International / Long Haul Freights",
         description: "International or long-haul chemical transport connects UAE industrial hubs to destinations across GCC, Europe, and Africa. These freight movements are managed through seaports and airports such as Jebel Ali, Khalifa Port, and Dubai International Airport. Each shipment undergoes documentation verification and safety inspections before departure to ensure compliance with import and export logistics frameworks.",
         features: [
-          "Cross-border chemical logistics",
-          "Customs and documentation support",
-          "Global route planning"
         ],
         buttonText: "Learn More",
         buttonLink: "#international-freight"
@@ -55,9 +52,6 @@ const chemicalTransportUAEData = {
         title: "Domestic / Short Haul Freights",
         description: "Domestic or short-haul chemical freight supports intra-UAE deliveries between industrial areas in Abu Dhabi, Dubai, Sharjah, and other Emirates. These routes are primarily managed through road transport using certified chemical carriers. The logistics process includes scheduled pickups, safe loading procedures, and GPS-based monitoring for continuous visibility during local transfers.",
         features: [
-          "Intra-UAE chemical deliveries",
-          "Certified chemical carriers",
-          "GPS tracking for local routes"
         ],
         buttonText: "Learn More",
         buttonLink: "#domestic-freight"
@@ -66,9 +60,6 @@ const chemicalTransportUAEData = {
         title: "GCC Chemical Logistics",
         description: "GCC chemical transport in UAE supports chemical movement with neighboring Gulf states. This network supports import and export activities, ensuring adherence to GCC-compliant transportation guidelines. Movements between countries such as Saudi Arabia, Oman, Qatar, and Kuwait are managed through coordinated customs documentation, certified drivers, and regulatory approval systems for cross-border cargo.",
         features: [
-          "GCC-compliant logistics",
-          "Cross-border coordination",
-          "Certified drivers and vehicles"
         ],
         buttonText: "Learn More",
         buttonLink: "#gcc-logistics"

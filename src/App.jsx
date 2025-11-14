@@ -53,6 +53,12 @@ import QatarToAndorra from "./pages/LandingPage/QatarToAndorra";
 import OmanToGermany from "./pages/LandingPage/OmanToGermany";
 import ChemicalTransportUAE from "./pages/LandingPageV1/ChemicalTransportUAE";
 import HazardousTransportUAE from "./pages/LandingPageV1/HazardousTransportUAE";
+import IndustrialChemicalTransportUAE from "./pages/LandingPageV1/IndustrialChemicalTransportUAE";
+import HazardousGoodsTransportOman from "./pages/LandingPageV1/HazardousGoodsTransportOman";
+import DubaiToCameroon from "./pages/LandingPage/DubaiToCameroon";
+import SaudiToFiji from "./pages/LandingPage/SaudiToFiji";
+import QatarToBelize from "./pages/LandingPage/QatarToBelize";
+import OmanToBenin from "./pages/LandingPage/OmanToBenin";
 
 
 const router = createBrowserRouter([
@@ -137,8 +143,16 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-saudi-bolivia", element: <SaudiToBolivia /> },
       { path: "/door-to-door-courier-and-cargo-services-qatar-andorra", element: <QatarToAndorra /> },
       { path: "/door-to-door-courier-and-cargo-services-oman-germany", element: <OmanToGermany /> },
+      { path: "/door-to-door-courier-cargo-services-dubai-cameroon", element: <DubaiToCameroon /> },
+      { path: "/door-to-door-courier-cargo-services-saudi-fiji", element: <SaudiToFiji /> },
+      { path: "/door-to-door-courier-cargo-services-qatar-belize", element: <QatarToBelize /> },
+      { path: "/door-to-door-courier-cargo-services-oman-benin", element: <OmanToBenin /> },
+
+      // Chemical Transport
       { path: "/chemical-transport-uae", element: <ChemicalTransportUAE /> },
-      { path: "/hazardous-goods-transport-uae", element: <HazardousTransportUAE /> }
+      { path: "/hazardous-goods-transport-uae", element: <HazardousTransportUAE /> },
+      { path: "/industrial-chemical-transport-uae", element: <IndustrialChemicalTransportUAE /> },
+      { path: "/hazardous-goods-transport-oman", element: <HazardousGoodsTransportOman /> },
     ],
   },
 ]);

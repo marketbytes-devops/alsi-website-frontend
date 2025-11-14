@@ -20,7 +20,7 @@ const Nav = ({ toggleSidebar }) => {
     <>
       <nav
         className={`fixed w-full top-0 transition-colors duration-300 ease-in-out z-50 ${
-          isScrolled ? "bg-white shadow-md" : "bg-white"
+          isScrolled ? "bg-white shadow-md" : "bg-transparent"
         }`}
       >
         {/* Social Links - Hidden when scrolled */}
