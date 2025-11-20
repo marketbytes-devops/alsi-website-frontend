@@ -59,6 +59,8 @@ import DubaiToCameroon from "./pages/LandingPage/DubaiToCameroon";
 import SaudiToFiji from "./pages/LandingPage/SaudiToFiji";
 import QatarToBelize from "./pages/LandingPage/QatarToBelize";
 import OmanToBenin from "./pages/LandingPage/OmanToBenin";
+import DubaiToGeorgia from "./pages/LandingPage/DubaiToGeorgia";
+import SaudiToIreland from "./pages/LandingPage/SaudiToIreland";
 
 
 const router = createBrowserRouter([
@@ -147,6 +149,8 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-saudi-fiji", element: <SaudiToFiji /> },
       { path: "/door-to-door-courier-cargo-services-qatar-belize", element: <QatarToBelize /> },
       { path: "/door-to-door-courier-cargo-services-oman-benin", element: <OmanToBenin /> },
+      { path: "/door-to-door-courier-and-cargo-services-from-dubai-to-georgia", element: <DubaiToGeorgia /> },
+      { path: "/door-to-door-courier-cargo-services-saudi-ireland", element: <SaudiToIreland /> },
 
       // Chemical Transport
       { path: "/chemical-transport-uae", element: <ChemicalTransportUAE /> },
