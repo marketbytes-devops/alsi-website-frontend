@@ -41,7 +41,7 @@ const saudiToBahamasData = {
         features: [
         ],
         buttonText: "Learn More",
-        buttonLink: "#air-freight"
+        buttonLink: "https://www.alsiglobal.com/services/air-freight"
       },
       {
         title: "Sea Freight Saudi to Bahamas",
@@ -49,7 +49,7 @@ const saudiToBahamasData = {
         features: [
         ],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight"
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services"
       },
       {
         title: "Multimodal Transport Solutions",
@@ -57,7 +57,7 @@ const saudiToBahamasData = {
         features: [
         ],
         buttonText: "Learn More",
-        buttonLink: "#multimodal-freight"
+        buttonLink: "https://www.alsiglobal.com/services/road-freight"
       }
     ]
   },

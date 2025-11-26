@@ -49,7 +49,7 @@ const qatarToAndorraData = {
           "Urgent document shipping",
         ],
         buttonText: "Learn More",
-        buttonLink: "#air-freight"
+        buttonLink: "https://www.alsiglobal.com/services/air-freight"
       },
       {
         title: "Sea Freight",
@@ -60,7 +60,7 @@ const qatarToAndorraData = {
           "Household goods shipping",
         ],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight"
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services"
       },
       {
         title: "Road Freight",
@@ -71,7 +71,7 @@ const qatarToAndorraData = {
           "Business parcels Qatar to Andorra",
         ],
         buttonText: "Learn More",
-        buttonLink: "#road-freight"
+        buttonLink: "https://www.alsiglobal.com/services/road-freight"
       }
     ]
   },

@@ -55,7 +55,7 @@ export default {
           "Air cargo from Dubai to Cameroon is ideal for urgent or lightweight goods. Regular flights connect Dubai International Airport to Douala and Yaoundé. Express courier from Dubai to Cameroon ensures quick delivery of business parcels, electronics, or essential supplies. Air freight services follow strict international packaging and documentation rules, supporting fast customs clearance and efficient door to door delivery from Dubai to Cameroon.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#air-freight",
+        buttonLink: "https://www.alsiglobal.com/services/air-freight",
       },
       {
         title: "Sea Freight",
@@ -63,7 +63,7 @@ export default {
           "Sea cargo from Dubai to Cameroon is suitable for bulk goods, furniture, and industrial shipments. Containers are shipped from Jebel Ali Port to Douala Port under full (FCL) or shared (LCL) container systems. Consolidated cargo to Cameroon helps reduce logistics costs while maintaining shipment safety. This option suits businesses managing regular export cargo from Dubai to Cameroon through reliable ocean freight solutions.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight",
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Road Freight",
@@ -71,7 +71,7 @@ export default {
           "While there is no direct road connection between Dubai and Cameroon, road freight plays a role in regional distribution within Africa. Cargo may reach nearby ports by sea and continue overland to Cameroon. This combination is part of multimodal freight forwarding from Dubai to Cameroon, helping optimize inland delivery for extended destinations and connecting supply chains across regional borders.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#road-freight",
+        buttonLink: "https://www.alsiglobal.com/services/road-freight",
       },
     ],
   },

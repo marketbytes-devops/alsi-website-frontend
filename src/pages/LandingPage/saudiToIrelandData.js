@@ -56,7 +56,7 @@ export default {
           "Air cargo from Saudi to Ireland is suitable for express courier shipments, documents, electronics, and small commercial consignments. Air freight supports time-sensitive cargo movement and provides a structured route for international couriers from Saudi to Ireland. Documentation and export processing are completed before shipment departure to maintain smooth transit.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#air-freight",
+        buttonLink: "https://www.alsiglobal.com/services/air-freight",
       },
       {
         title: "Sea Freight",
@@ -64,7 +64,7 @@ export default {
           "Sea cargo from Saudi to Ireland supports high-volume shipments such as furniture, machinery, consolidated cargo to Dublin, and bulk commercial loads. Full-container-load and less-than-container-load options help businesses manage export cargo from Saudi to Ireland efficiently. This mode is preferred for heavier or non-urgent items.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight",
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Road Freight",
@@ -72,7 +72,7 @@ export default {
           "Road freight is used as part of multimodal freight routes from Saudi Arabia to Ireland. Shipments may move by road within the GCC before connecting to sea or air segments. This mode supports cross-border logistics and freight movement for both commercial and consolidated cargo. Road freight is often used for palletized shipments and bulky items that require structured handling.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#road-freight",
+        buttonLink: "https://www.alsiglobal.com/services/road-freight",
       },
     ],
   },

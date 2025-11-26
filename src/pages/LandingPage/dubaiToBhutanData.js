@@ -50,7 +50,7 @@ export default {
           "Time sensitive deliveries"
         ],
         buttonText: "Learn More",
-        buttonLink: "#air-freight"
+        buttonLink: "https://www.alsiglobal.com/services/air-freight"
       },
       {
         title: "Sea Freight Services",
@@ -61,7 +61,7 @@ export default {
           "Household goods shipping",
         ],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight"
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services"
       },
       {
         title: "Road Cargo Service",
@@ -73,7 +73,7 @@ export default {
           "GPS enabled tracking"
         ],
         buttonText: "Learn More",
-        buttonLink: "#road-freight"
+        buttonLink: "https://www.alsiglobal.com/services/road-freight"
       }
     ]
   },

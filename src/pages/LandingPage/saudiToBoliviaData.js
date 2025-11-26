@@ -50,7 +50,7 @@ export default {
           "Light commercial goods"
         ],
         buttonText: "Learn More",
-        buttonLink: "#air-freight"
+        buttonLink: "https://www.alsiglobal.com/services/air-freight"
       },
       {
         title: "Sea Freight",
@@ -62,7 +62,7 @@ export default {
           "Industrial machinery and bulk cargo"
         ],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight"
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services"
       },
       {
         title: "Road Freight",
@@ -74,7 +74,7 @@ export default {
           "Flexible routing options"
         ],
         buttonText: "Learn More",
-        buttonLink: "#road-freight"
+        buttonLink: "https://www.alsiglobal.com/services/road-freight"
       }
     ]
   },

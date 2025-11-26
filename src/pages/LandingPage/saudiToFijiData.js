@@ -55,7 +55,7 @@ export default {
           "Air cargo from Saudi to Fiji is suitable for time-bound consignments such as documents, electronics, medical items, and business parcels. Cargo typically departs from Riyadh, Jeddah, or Dammam airports and connects to Nadi International Airport or Suva. Transit times depend on routing and customs processing schedules.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#air-freight",
+        buttonLink: "https://www.alsiglobal.com/services/air-freight",
       },
       {
         title: "Sea Cargo",
@@ -63,7 +63,7 @@ export default {
           "Sea cargo from Saudi to Fiji supports bulk or high-volume consignments such as furniture, machinery, or export commodities. Shipments typically depart from Jeddah Islamic Port or Dammam Port and are routed via major transshipment hubs to ports in Fiji. Both full container load (FCL) and less than container load (LCL) options are available, depending on cargo volume.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight",
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Road Freight",
@@ -71,7 +71,7 @@ export default {
           "Direct road transport between Saudi to Fiji is not available due to distance, but road freight plays a role in multimodal shipping. Cargo is routed through transit hubs where road and sea or air services combine to achieve cost effective transport for mid priority shipments. This model supports businesses managing moderate timelines without incurring air freight costs.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#road-freight",
+        buttonLink: "https://www.alsiglobal.com/services/road-freight",
       },
     ],
   },

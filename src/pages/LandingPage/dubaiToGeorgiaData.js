@@ -58,7 +58,7 @@ export default {
           "Air freight is suitable for time-sensitive shipments such as documents, small parcels, electronics, and commercial items. Cargo is moved through scheduled flights after completing export and import documentation. This mode is often used by eCommerce sellers, retail distributors, and individuals sending smaller consignments.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#air-freight",
+        buttonLink: "https://www.alsiglobal.com/services/air-freight",
       },
       {
         title: "Sea Freight",
@@ -66,7 +66,7 @@ export default {
           "Sea freight supports larger shipments, household relocations, and commercial cargo. Containers are loaded from UAE ports and moved via connected maritime routes toward Georgia. This mode is suitable for bulky items, furniture, equipment, and high-volume commercial goods that do not require air transport.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight",
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Road Freight",
@@ -74,7 +74,7 @@ export default {
           "Road freight from Dubai to Georgia moves through Middle Eastern and European corridors. Transit times vary depending on route conditions, border procedures, and cargo weight. Road freight is often chosen for items that can be handled efficiently and require scheduled movement across connected regions.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#road-freight",
+        buttonLink: "https://www.alsiglobal.com/services/road-freight",
       },
     ],
   },

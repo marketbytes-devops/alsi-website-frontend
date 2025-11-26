@@ -41,7 +41,7 @@ const dubaiToAlgeriaData = {
         features: [
         ],
         buttonText: "Learn More",
-        buttonLink: "#air-freight"
+        buttonLink: "https://www.alsiglobal.com/services/air-freight"
       },
       {
         title: "Sea Freight for High Volume Cargo",
@@ -49,7 +49,7 @@ const dubaiToAlgeriaData = {
         features: [
         ],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight"
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services"
       },
       {
         title: "Road Freight via Regional Hubs",
@@ -57,7 +57,7 @@ const dubaiToAlgeriaData = {
         features: [
         ],
         buttonText: "Learn More",
-        buttonLink: "#road-freight"
+        buttonLink: "https://www.alsiglobal.com/services/road-freight"
       }
     ]
   },

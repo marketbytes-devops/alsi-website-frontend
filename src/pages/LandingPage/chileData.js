@@ -45,7 +45,7 @@ const chileData = {
           "Healthcare, retail, and electronics"
         ],
         buttonText: "Learn More",
-        buttonLink: "#air-freight"
+        buttonLink: "https://www.alsiglobal.com/services/air-freight"
       },
       {
         title: "Sea Freight for High Volume Cargo",
@@ -57,7 +57,7 @@ const chileData = {
           "Commercial cargo and industrial machinery"
         ],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight"
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services"
       },
       {
         title: "Road Freight within Multimodal Systems",
@@ -69,7 +69,7 @@ const chileData = {
           "Nationwide logistics coverage"
         ],
         buttonText: "Learn More",
-        buttonLink: "#road-freight"
+        buttonLink: "https://www.alsiglobal.com/services/road-freight"
       }
     ]
   },

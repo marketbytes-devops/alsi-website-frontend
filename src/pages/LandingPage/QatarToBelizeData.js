@@ -53,7 +53,7 @@ export default {
           "The air cargo from Qatar to Belize option is suited for urgent, time-sensitive, and high-value shipments. This mode of international shipping from Qatar to Belize allows for express movement of documents, perishables, and light cargo. Express courier from Qatar to Belize also benefits from the speed and frequency of air freight schedules.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#air-freight",
+        buttonLink: "https://www.alsiglobal.com/services/air-freight",
       },
       {
         title: "Sea Freight",
@@ -61,7 +61,7 @@ export default {
           "For larger volumes and heavy cargo, sea cargo from Qatar to Belize remains a cost-effective solution. With shipping routes connecting Doha Port to Belize City, both FCL and LCL shipments are supported. This freight method accommodates commercial cargo from Qatar to Belize, household goods, and consolidated shipments.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight",
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Road Freight",
@@ -69,7 +69,7 @@ export default {
           "Road freight plays a key role in connecting inland transport links. Once goods arrive at the port of entry, road freight ensures regional distribution within Belize and neighboring zones. This network supports cross-border logistics and freight forwarding, complementing air and sea operations for complete end-to-end shipment management.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#road-freight",
+        buttonLink: "https://www.alsiglobal.com/services/road-freight",
       },
     ],
   },

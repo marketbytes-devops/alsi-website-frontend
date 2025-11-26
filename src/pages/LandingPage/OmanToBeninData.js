@@ -55,7 +55,7 @@ export default {
           "Air cargo from Oman to Benin is ideal for time-sensitive shipments, including electronics, machinery parts, and urgent documents. Flights operate from Muscat International Airport to African and European hubs before reaching Cotonou. This method also supports express courier from Oman to Benin for lightweight and priority consignments that require quick turnaround.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#air-freight",
+        buttonLink: "https://www.alsiglobal.com/services/air-freight",
       },
       {
         title: "Sea Freight",
@@ -63,7 +63,7 @@ export default {
           "For high-volume or heavy shipments, sea cargo from Oman to Benin remains the preferred method. Cargo is dispatched through Sohar Port to Cotonou, offering both Full Container Load (FCL) and Less-than-Container Load (LCL) options. This mode accommodates commercial cargo from Oman to Benin, industrial equipment, furniture, and bulk goods.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#sea-freight",
+        buttonLink: "https://www.alsiglobal.com/services/project-cargo-services",
       },
       {
         title: "Road Freight",
@@ -71,7 +71,7 @@ export default {
           "Road freight plays a vital role in inland transportation once cargo reaches its destination. After arrival at Cotonou port, road freight ensures delivery to inland areas and business zones. This system supports cross border logistics and freight forwarding operations, complementing air and sea transport to complete the final leg of the door to door courier and cargo services from Oman to Benin.",
         features: [],
         buttonText: "Learn More",
-        buttonLink: "#road-freight",
+        buttonLink: "https://www.alsiglobal.com/services/road-freight",
       },
     ],
   },
