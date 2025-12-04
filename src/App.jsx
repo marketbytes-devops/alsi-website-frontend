@@ -63,6 +63,8 @@ import DubaiToGeorgia from "./pages/LandingPage/DubaiToGeorgia";
 import SaudiToIreland from "./pages/LandingPage/SaudiToIreland";
 import QatarToCyprus from "./pages/LandingPage/QatarToCyprus";
 import OmanToDenmark from "./pages/LandingPage/OmanToDenmark";
+import DubaiToEthiopia from "./pages/LandingPage/DubaiToEthiopia";
+import SaudiToIceland from "./pages/LandingPage/SaudiToIceland";
 
 
 const router = createBrowserRouter([
@@ -155,6 +157,8 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-saudi-ireland", element: <SaudiToIreland /> },
       { path: "/door-to-door-courier-cargo-services-qatar-cyprus", element: <QatarToCyprus /> },
       { path: "/door-to-door-courier-cargo-services-oman-denmark", element: <OmanToDenmark /> },
+      { path: "/door-to-door-courier-and-cargo-services-from-dubai-to-ethiopia", element: <DubaiToEthiopia /> },
+      { path: "/door-to-door-courier-and-cargo-services-from-saudi-to-iceland", element: <SaudiToIceland /> },
 
       // Chemical Transport
       { path: "/chemical-transport-uae", element: <ChemicalTransportUAE /> },
