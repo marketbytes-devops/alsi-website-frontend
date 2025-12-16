@@ -65,6 +65,10 @@ import QatarToCyprus from "./pages/LandingPage/QatarToCyprus";
 import OmanToDenmark from "./pages/LandingPage/OmanToDenmark";
 import DubaiToEthiopia from "./pages/LandingPage/DubaiToEthiopia";
 import SaudiToIceland from "./pages/LandingPage/SaudiToIceland";
+import QatarToHungary from "./pages/LandingPage/QatarToHungary";
+import OmanToJapan from "./pages/LandingPage/OmanToJapan";
+import DubaiToNewZealand from "./pages/LandingPage/DubaiToNewZealand";
+import SaudiToNorway from "./pages/LandingPage/SaudiToNorway";
 
 
 const router = createBrowserRouter([
@@ -159,6 +163,10 @@ const router = createBrowserRouter([
       { path: "/door-to-door-courier-cargo-services-oman-denmark", element: <OmanToDenmark /> },
       { path: "/door-to-door-courier-and-cargo-services-from-dubai-to-ethiopia", element: <DubaiToEthiopia /> },
       { path: "/door-to-door-courier-and-cargo-services-from-saudi-to-iceland", element: <SaudiToIceland /> },
+      { path: "/door-to-door-courier-cargo-services-qatar-hungary", element: <QatarToHungary /> },
+      { path: "/door-to-door-courier-cargo-services-oman-japan", element: <OmanToJapan /> },
+      { path: "/door-to-door-courier-cargo-services-dubai-to-new-zealand", element: <DubaiToNewZealand /> },
+      { path: "/door-to-door-courier-cargo-services-saudi-to-norway", element: <SaudiToNorway /> },
 
       // Chemical Transport
       { path: "/chemical-transport-uae", element: <ChemicalTransportUAE /> },
